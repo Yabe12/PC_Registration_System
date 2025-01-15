@@ -43,60 +43,83 @@ struct nonstaff{
 student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
 nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
+
+void add_user(){
+  void add_student(){
+      
+  student *new_student = new student;
+  cout << "Enter student's name: ";
+  cin.ignore();
+  cin.getline(new_student->name, 20);
+  cout << "Enter student's ID: ";
+  cin >> new_student->id;
+  cout << "Enter student's gender (M/F): ";
+  cin >> new_student->gender;
+  cout << "Enter student's department: ";
+  cin >> new_student->department;
+  cout << "Enter student's year: ";
+  cin >> new_student->year;
+  cout << "Enter student's phone number: ";
+  cin >> new_student->phone;
+  cout << "Enter student's computer name: ";
+  cin >> new_student->pcname;
+  cout << "Enter student's computer serial number: ";
+  cin >> new_student->serial;
+
+  };
+  void add_staff(){
+
+  };
+  void add_nonstaff(){
+    
+  };
+  int choice;
+  while(true){
+    cout << "Choose a type of user:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      add_student();
+      break;
+    }else if(choice == 2){
+      add_staff();
+      break;
+    } else if(choice == 3){
+      add_staff();
+      break;
+    }else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
 int main(){
   int choice ;
   while(true){
     cout << "Choose an option:" << endl;
-    cout << "1. Add student" << endl;
-    cout << "2. Add staff" << endl;
-    cout << "3. Add non-staff" << endl;
-    cout << "4. Search student by ID" << endl;
-    cout << "5. Search staff by ID" << endl;
-    cout << "6. Search non-staff by ID" << endl;
-    cout << "7. Delete student by ID" << endl;
-    cout << "8. Delete staff by ID" << endl;
-    cout << "9. Delete non-staff by ID" << endl;
-    cout << "10. Update student information" << endl;
-    cout << "11. Update staff information" << endl;
-    cout << "12. Update non-staff information" << endl;
-    cout << "13. Exit" << endl;
+    cout << "1. Add add_user" << endl;
+    cout << "2. Search " << endl;
+    cout << "3. Delete " << endl;
+    cout << "4. Update" << endl;
+    cout << "5. Exit" << endl;
     cin >> choice;
     switch(choice) {
       case 1:
-        // add_student();
+        // add_user();
         break;
       case 2:
-        // add_staff();
+        // Search();
         break;
       case 3:
         // add_nonstaff();
         break;
       case 4:
-        // search_student_by_id();
-        break;
-      case 5:
-        // search_staff_by_id();
-        break;
-      case 6:
-        // search_nonstaff_by_id();
-        break;
-      case 7:
-        // delete_student_by_id();
-        break;
-      case 8:
-        // delete_staff_by_id();
-        break;
-      case 9:
-        // delete_nonstaff_by_id();
-        break;
-      case 10:
-        // update_student_info();
-        break;
-      case 11:
-        // update_staff_info();
-        break;
-      case 12:
-        // update_nonstaff_info();
+        // Delete();
         break;
       case 13:
       // exit(0);
