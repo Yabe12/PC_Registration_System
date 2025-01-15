@@ -79,7 +79,7 @@ nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
     cout << "Enter nonstaff's gender (M/F): ";
     cin >> new_nonstaff->gender;
     cout << "Enter nonstaff phone: " ;
-    cin << new_nonstaff->phone;
+    cin >> new_nonstaff->phone;
     cout << "Enter nonstaff computer name: ";
     cin >> new_nonstaff->pcname;
     cout << "Enter nonstaff computer serial number: ";
