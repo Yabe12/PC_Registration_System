@@ -3,7 +3,7 @@
 using namespace std;
 struct student{
   char name[20];
-  char id;
+  char id[10];
   char gender;
   char department;
   char year;
@@ -54,16 +54,30 @@ int count (){
   return count;
 };
 
-void sort(student *arr,int n){
-  for (int i=0;i<n-1;i++){
-    int key = arr[i] ;
-    int j =i-1;
-    while(j>=0 && arr[j]>key){
-      arr[j+1] = arr[j];
-      j--;
-    }
-    arr[j+1] = key;
+void sort_student(){
+if(student_head==NULL)return;
+student *current=student_head->next;
+while(current!=NULL){
+student *key = current;
+student *prev = student_head;
+while(prev!= key&&strcmp(prev->id,key->id)<0){
+  prev=prev->next;
+}
+if(prev!=key){
+  key->priv->next=key->next;
+  if(key->next != NULL){
+    key->next->priv=key->priv;
   }
+  key->next =prev->next;
+  if(prev->next != NULL){
+    prev->next->priv=key;
+  
+}
+prev->next =key;
+key->next = prev;
+}
+current = current->next;
+}
 }
 
   void add_student();
@@ -97,7 +111,7 @@ new_student->next =NULL;
   }
   cout << "Enter student's are add: ";
   int n = count();
-  sort(arr,n);
+  sort_student();
   cout <<'the student inter in the proper position' << endl;
   };
   void add_nonstaff(){
