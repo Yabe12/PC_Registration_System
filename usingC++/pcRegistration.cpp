@@ -1,5 +1,5 @@
-#include <iostream>
-#include <cstring>
+#include<iostream>
+#include<cstring>
 using namespace std;
 struct student{
   char name[20];
@@ -118,7 +118,8 @@ void add_user(){
   
   int choice;
   while(true){
-    cout << "Choose a type of user:" << endl;
+    cout << "choss a type of users" << endl;
+    
     cout << "1. student" << endl;
     cout << "2. staff" << endl;
     cout << "3. nonstaff" << endl;
@@ -144,7 +145,7 @@ void add_user(){
 int main(){
   int choice ;
   while(true){
-    cout << "Choose an option:" << endl;
+    cout << "choss what to do" << endl;
     cout << "1. Add add_user" << endl;
     cout << "2. Search " << endl;
     cout << "3. Delete " << endl;
