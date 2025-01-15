@@ -6,8 +6,8 @@ struct student{
   char id;
   char gender;
   char department;
-  int year;
-  int phone;
+  char year;
+  char phone;
   char pcname;
   char serial;
   char model;
@@ -43,6 +43,29 @@ struct nonstaff{
 student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
 nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
+
+int count (){
+  int count=0;
+  student *temp = student_head;
+  while(temp!=NULL){
+    count++;
+    temp=temp->next;
+  }
+  return count;
+};
+
+void sort(student *arr,int n){
+  for (int i=0;i<n-1;i++){
+    int key = arr[i] ;
+    int j =i-1;
+    while(j>=0 && arr[j]>key){
+      arr[j+1] = arr[j];
+      j--;
+    }
+    arr[j+1] = key;
+  }
+}
+
   void add_student();
   void add_staff();
   void add_nonstaff();
@@ -67,7 +90,15 @@ nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
   cin >> new_student->pcname;
   cout << "Enter student's computer serial number: ";
   cin >> new_student->serial;
-
+new_student->next =NULL;
+  new_student->priv = student_tall;
+  if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
+  if(student_head == NULL){student_head=student_tall; 
+  }
+  cout << "Enter student's are add: ";
+  int n = count();
+  sort(arr,n);
+  cout <<'the student inter in the proper position' << endl;
   };
   void add_nonstaff(){
     nonstaff *new_nonstaff = new nonstaff;
