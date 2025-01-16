@@ -12,7 +12,7 @@ struct student {
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50];
+    char model[50]; //to be removed
     student *next;
     student *prev;
 };
@@ -21,12 +21,12 @@ struct staff {
     char name[50];
     char id[20];
     char gender;
-    char role[50];
-    char typeofpc[50];
+    char role[50]; //change to job
+    char typeofpc[50]; //to be removed
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50];
+    char model[50]; //to be removed
     staff *next;
     staff *prev;
 };
@@ -38,7 +38,7 @@ struct nonstaff {
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50];
+    char model[50]; //to be removed
     nonstaff *next;
     nonstaff *prev;
 };
@@ -98,6 +98,8 @@ void search_user(int type) {
             temp = temp->next;
         }
     }
+    // Implement Student search by name 
+
     // Implement similar logic for staff & nonstaff using name
 }
 
@@ -120,6 +122,8 @@ void update_user(int type) {
             temp = temp->next;
         }
     }
+    // Implement Student search and update by name 
+
     // Implement similar logic for staff & nonstaff
 }
 
@@ -144,6 +148,8 @@ void delete_user(int type) {
             temp = temp->next;
         }
     }
+    // Implement Student search and delete by name 
+
     // Implement similar logic for staff & nonstaff
 }
 
@@ -156,6 +162,7 @@ int main() {
         cout << "2. Search User\n";
         cout << "3. Update User\n";
         cout << "4. Delete User\n";
+        //add display all users menu
         cout << "5. Exit\n";
         cin >> choice;
 
@@ -175,3 +182,13 @@ int main() {
         }
     }
 }
+
+/*
+
+- First create (just put in the code) SuperAdmin password and username and that SuperAdmin can create other Admins with username and password,
+- and those admins can create,update,search but can't delete user(student, staff, non-staff) data, only the super admin can do that,
+- and we our system will have only one superAdmin and as much as Admin and user ,
+- and the admin or superAdmin have to login (Authenticated) first befor the can use the system
+- super admin can do view(by search and all at once),create,update,delete for both user and Admin 
+
+*/
