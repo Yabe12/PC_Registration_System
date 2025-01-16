@@ -28,6 +28,7 @@ struct staff {
     char gender;
     char job[50];
     long long phone;
+    char typeofpc[20];
     char pcname[50];
     char serial[50];
     staff *next;
@@ -46,10 +47,10 @@ struct nonstaff {
 };
 
 // Global linked list heads
-student *student_head = nullptr;
-staff *staff_head = nullptr;
-nonstaff *nonstaff_head = nullptr;
-Admin *admin_head = nullptr;
+student *student_head = NULL, *student_tall =NULL;
+staff *staff_head = NULL, *staff_tall = NULL;
+nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
+Admin *admin_head = NULL, *admin_tall =NULL;
 
 const char superAdminUsername[] = "superadmin";
 const char superAdminPassword[] = "admin123";
@@ -211,6 +212,166 @@ void menu_admin() {
         }
     }
 }
+
+
+void sort_student(){
+if(student_head==NULL)return;
+student *current=student_head->next;
+while(current!=NULL){
+student *key = current;
+student *prev = student_head;
+while(prev!= key&&strcmp(prev->id,key->id)<0){
+  prev=prev->next;
+}
+if(prev!=key){
+  key->prev->next=key->next;
+  if(key->next != NULL){
+    key->next->prev=key->prev;
+  }
+  key->next =prev->next;
+  if(prev->next != NULL){
+    prev->next->prev=key;
+  
+}
+prev->next =key;
+key->next = prev;
+}
+current = current->next;
+}
+};
+void sort_staff(){
+  if(staff_head==NULL)return;
+  staff *current=staff_head->next;
+  while(current != NULL){
+    staff *key = current;
+    staff *prev = staff_head;
+    while(prev!= key&&strcmp(prev->name,key->name)<0){
+      prev=prev->next;
+    }
+    if(prev!=key){
+      key->prev->next=key->next;
+      if(key->next != NULL){
+        key->next->prev=key->prev;
+      }
+      key->next =prev->next;
+      if(prev->next != NULL){
+        prev->next->prev=key;
+      }
+      prev->next =key;
+      key->next = prev;
+    }
+    current = current->next;
+  }
+  };
+
+void sort_nonstaff(){
+  if(nonstaff_head==NULL)return;
+  nonstaff *current=nonstaff_head->next;
+  while(current != NULL){
+    nonstaff *key = current;
+    nonstaff *prev = nonstaff_head;
+    while(prev!= key&&strcmp(prev->name,key->name)<0){
+      prev=prev->next;
+    }
+    if(prev!=key){
+      key->prev->next=key->next;
+      if(key->next != NULL){
+        key->next->prev=key->prev;
+      }
+      key->next =prev->next;
+      if(prev->next != NULL){
+        prev->next->prev=key;
+      }
+      prev->next =key;
+      key->next = prev;
+    }
+    current = current->next;
+  }
+}
+void add_student(){
+      
+  student *new_student = new student;
+  cout << "Enter student's name: ";
+  cin.ignore();
+  cin.getline(new_student->name, 20);
+  cout << "Enter student's ID: ";
+  cin >> new_student->id;
+  cout << "Enter student's gender (M/F): ";
+  cin >> new_student->gender;
+  cout << "Enter student's department: ";
+  cin >> new_student->department;
+  cout << "Enter student's year: ";
+  cin >> new_student->year;
+  cout << "Enter student's phone number: ";
+  cin >> new_student->phone;
+  cout << "Enter student's computer name: ";
+  cin >> new_student->pcname;
+  cout << "Enter student's computer serial number: ";
+  cin >> new_student->serial;
+new_student->next =NULL;
+  new_student->prev = student_tall;
+  if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
+  if(student_head == NULL){student_head=student_tall; 
+  }
+  cout << "the student is  added"<<endl;
+  sort_nonstaff();
+  cout <<"the member list sorted sucessfully"<<endl;
+  };
+  void add_nonstaff(){
+    nonstaff *new_nonstaff = new nonstaff;
+    cout << "Enter nonstaff's name: ";
+    cin.ignore();
+    cin.getline(new_nonstaff->name, 20);
+    cout << "Enter nonstaff's ID: ";
+    cin >> new_nonstaff->id;
+    cout << "Enter nonstaff's gender (M/F): ";
+    cin >> new_nonstaff->gender;
+    cout << "Enter nonstaff phone: " ;
+    cin >> new_nonstaff->phone;
+    cout << "Enter nonstaff computer name: ";
+    cin >> new_nonstaff->pcname;
+    cout << "Enter nonstaff computer serial number: ";
+    cin >> new_nonstaff->serial;
+  new_nonstaff->next =NULL;
+  new_nonstaff->prev = nonstaff_tall;
+  if(nonstaff_tall != NULL){nonstaff_tall->next =new_nonstaff;} nonstaff_tall=new_nonstaff;
+  if(nonstaff_head == NULL){nonstaff_head=nonstaff_tall; 
+  }
+  cout << "student added"<<endl;
+  sort_nonstaff();
+  cout <<"the student list sorted sucessfully"<<endl;
+
+
+  };
+void add_staff(){
+    staff *new_staff=new staff();
+    cout << "Enter staff's name: ";
+  cin.ignore();
+  cin.getline(new_staff->name, 20);
+  cout << "Enter staff's ID: ";
+  cin >> new_staff->id;
+  cout << "Enter staff's gender (M/F): ";
+  cin >> new_staff->gender;
+  cout << "Enter staff's role: ";
+  cin >> new_staff->job;
+ cout << "Enter staff's type of PC (personal laptop/office laptop): ";
+  cin >> new_staff->typeofpc;
+  cout << "Enter staff's phone number: ";
+  cin >> new_staff->phone;
+  cout << "Enter staff's computer name: ";
+  cin >> new_staff->pcname;
+  cout << "Enter staff's computer serial number: ";
+  cin >> new_staff->serial;
+  new_staff->next =NULL;
+  new_staff->prev = staff_tall;
+  if(staff_tall != NULL){staff_tall->next =new_staff;} staff_tall=new_staff;
+  if(staff_head == NULL){staff_head=staff_tall; 
+  }
+  cout << "student added"<<endl;
+  sort_staff();
+  cout <<"the student list sorted sucessfully"<<endl;
+
+  };
 void add_user(){
   int choice;
   while(true){
