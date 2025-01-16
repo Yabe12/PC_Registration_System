@@ -144,19 +144,12 @@ void menu_work_on_users() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n";
-                add_user();
-                break; 
-            case 2: 
-               Update();
-               break;
-            case 3:
-               search();
-               break;
-            case 4: 
-               display();
-               break;
-            case 5: 
+            case 1: cout << "Adding user...\n"; add_user(); break; 
+            case 2: Update(); break;
+            case 3: Delete(); break;
+            case 4: search(); break;
+            case 5: display(); break;
+            case 6:
             return;
             default: cout << "Invalid choice, try again.\n";
         }
@@ -181,7 +174,8 @@ void menu_work_on_admins() {
             case 3: cout << "Deleting admin...\n"; break;
             case 4: cout << "Searching admin...\n"; break;
             case 5: cout << "Displaying all admins...\n"; break;
-            case 6: return;
+            case 6: 
+            return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
@@ -212,7 +206,7 @@ void menu_admin() {
                display();
                break;
             case 5: 
-            return;
+               return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
