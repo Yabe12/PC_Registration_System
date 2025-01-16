@@ -73,7 +73,7 @@ key->next = prev;
 current = current->next;
 }
 };
-void sort_add_staff(){
+void sort_staff(){
   if(staff_head==NULL)return;
   staff *current=staff_head->next;
   while(current != NULL){
@@ -98,7 +98,7 @@ void sort_add_staff(){
   }
   };
 
-void sort_add_nonstaff(){
+void sort_nonstaff(){
   if(nonstaff_head==NULL)return;
   nonstaff *current=nonstaff_head->next;
   while(current != NULL){
@@ -148,7 +148,7 @@ new_student->next =NULL;
   if(student_head == NULL){student_head=student_tall; 
   }
   cout << "non staff member is  added"<<endl;
-  sort_add_nonstaff();
+  sort_nonstaff();
   cout <<"the  staff member list sorted sucessfully"<<endl;
   };
   void add_nonstaff(){
@@ -206,7 +206,7 @@ void add_staff(){
   if(staff_head == NULL){staff_head=staff_tall; 
   }
   cout << "student added"<<endl;
-  sort_add_staff();
+  sort_staff();
   cout <<"the student list sorted sucessfully"<<endl;
 
   };
