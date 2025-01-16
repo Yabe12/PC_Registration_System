@@ -300,3 +300,30 @@ void Update(){
     }
   }
 };
+// function for delete functionally
+void Delete(){
+    int choice;
+  while(true){
+    cout << "Choose a type of user to delete :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // display_student();
+      break;
+    } else if(choice == 2){
+      // display_staff();
+      break;
+    } else if(choice == 3){
+      // display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
