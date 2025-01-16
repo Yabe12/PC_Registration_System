@@ -244,7 +244,7 @@ new_student->next =NULL;
   if(student_head == NULL){student_head=student_tall; 
   }
   cout << "the student is  added"<<endl;
-  // sort_nonstaff();
+  sort_nonstaff();
   cout <<"the member list sorted sucessfully"<<endl;
   };
   void add_nonstaff(){
