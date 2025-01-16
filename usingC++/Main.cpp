@@ -44,15 +44,6 @@ student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
 nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
 
-int count (){
-  int count=0;
-  student *temp = student_head;
-  while(temp!=NULL){
-    count++;
-    temp=temp->next;
-  }
-  return count;
-};
 
 void sort_student(){
 if(student_head==NULL)return;
@@ -78,7 +69,7 @@ key->next = prev;
 }
 current = current->next;
 }
-}
+};
 
   void add_student();
   void add_staff();
@@ -110,7 +101,6 @@ new_student->next =NULL;
   if(student_head == NULL){student_head=student_tall; 
   }
   cout << "Enter student's are add: ";
-  int n = count();
   sort_student();
   cout <<'the student inter in the proper position' << endl;
   };
