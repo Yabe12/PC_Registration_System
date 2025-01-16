@@ -190,7 +190,7 @@ void add_staff(){
   cin >> new_staff->gender;
   cout << "Enter staff's role: ";
   cin >> new_staff->role;
-  cout << "Enter staff's type of PC (laptop/desktop): ";
+  cout << "Enter staff's type of PC (personal laptop/office laptop): ";
   cin >> new_staff->typeofpc;
   cout << "Enter staff's phone number: ";
   cin >> new_staff->phone;
@@ -315,13 +315,13 @@ void search(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-      // search_student();
+      search_student();
       break;
     } else if(choice == 2){
-      // search_staff();
+      search_staff();
       break;
     } else if(choice == 3){
-      // search_nonstaff();
+      search_nonstaff();
       break;
     } else if(choice == 4){
       return;
@@ -346,7 +346,7 @@ int main(){
         add_user();
         break;
       case 2:
-        // search();
+        search();
         break;
       case 3:
         // add_nonstaff();
