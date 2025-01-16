@@ -3,40 +3,40 @@
 using namespace std;
 struct student{
   char name[20];
-  char id;
+  char id[10];
   char gender;
-  char department;
+  char department[15];
   char year;
-  char phone;
-  char pcname;
-  char serial;
-  char model;
+  char phone[10];
+  char pcname[20];
+  char serial[10];
+  char model[20];
   struct student *next;
   struct student *priv;
 };
 
 struct staff{
   char name[20];
-  char id;
+  char id[10];
   char gender;
-  char role;
-  char typeofpc;
-  int phone;
-  char pcname;
-  char serial;
-  char model;
+  char role[20];
+  char typeofpc[20];
+   char phone[10];
+  char pcname[20];
+  char serial[10];
+  char model[20];
   struct staff *next;
   struct staff *priv;
 };
 
 struct nonstaff{
   char name[20];
-  char id;
+  char id[10];
   char gender;
-  int phone;
-  char pcname;
-  char serial;
-  char model;
+  char phone[10];
+  char pcname[20];
+  char serial[10];
+  char model[20];
   struct nonstaff *next;
   struct nonstaff *priv;
 };
@@ -44,27 +44,32 @@ student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
 nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
 
-int count (){
-  int count=0;
-  student *temp = student_head;
-  while(temp!=NULL){
-    count++;
-    temp=temp->next;
-  }
-  return count;
-};
 
-void sort(student *arr,int n){
-  for (int i=0;i<n-1;i++){
-    int key = arr[i] ;
-    int j =i-1;
-    while(j>=0 && arr[j]>key){
-      arr[j+1] = arr[j];
-      j--;
-    }
-    arr[j+1] = key;
-  }
+void sort_student(){
+if(student_head==NULL)return;
+student *current=student_head->next;
+while(current!=NULL){
+student *key = current;
+student *prev = student_head;
+while(prev!= key&&strcmp(prev->id,key->id)<0){
+  prev=prev->next;
 }
+if(prev!=key){
+  key->priv->next=key->next;
+  if(key->next != NULL){
+    key->next->priv=key->priv;
+  }
+  key->next =prev->next;
+  if(prev->next != NULL){
+    prev->next->priv=key;
+  
+}
+prev->next =key;
+key->next = prev;
+}
+current = current->next;
+}
+};
 
   void add_student();
   void add_staff();
@@ -95,10 +100,9 @@ new_student->next =NULL;
   if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
   if(student_head == NULL){student_head=student_tall; 
   }
-  cout << "Enter student's are add: ";
-  int n = count();
-  sort(arr,n);
-  cout <<'the student inter in the proper position' << endl;
+  cout << "student added"<<endl;
+  sort_student();
+  cout <<"the student list sorted sucessfully"<<endl;
   };
   void add_nonstaff(){
     nonstaff *new_nonstaff = new nonstaff;
@@ -162,7 +166,7 @@ void add_user(){
       add_staff();
       break;
     } else if(choice == 3){
-      add_staff();
+      add_nonstaff();
       break;
     }else if(choice == 4){
       return;
@@ -184,7 +188,7 @@ int main(){
     cin >> choice;
     switch(choice) {
       case 1:
-        // add_user();
+        add_user();
         break;
       case 2:
         // Search();
