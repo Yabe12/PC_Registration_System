@@ -332,39 +332,14 @@ void search(){
     }
   }
 }
-int main(){
-  int choice ;
-  while(true){
-    cout << "Choose an option:" << endl;
-    cout << "1. Add add_user" << endl;
-    cout << "2. Search " << endl;
-    cout<< "3.display " << endl;
-    cout << "4. Delete " << endl;
-    cout << "5. Update" << endl;
-    cout << "6. Exit" << endl;
-    cin >> choice;
-    switch(choice) {
-      case 1:
-        add_user();
-        break;
-      case 2:
-        // search();
-        break;
-      case 3:
-        // add_nonstaff();
-        break;
-      case 4:
-        // add_nonstaff();
-        break;
-      case 5:
-        // Delete();
-        break;
-      case 6:
-      // exit(0);
-      default:
-      cout << "Invalid choice" << endl;
-  
-  }
-}
-return 0;
-}
+
+/*
+
+- First create (just put in the code) SuperAdmin password and username and that SuperAdmin can create other Admins with username and password,
+- and those admins can create,update,search but can't delete user(student, staff, non-staff) data, only the super admin can do that,
+- and we our system will have only one superAdmin and as much as Admin and user ,
+- and the admin or superAdmin have to login (Authenticated) first befor the can use the system
+- super admin can do view(by search and all at once),create,update,delete for both user and Admin 
+
+
+*/  
