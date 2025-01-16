@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-
 using namespace std;
 
 struct student {
@@ -16,19 +15,6 @@ struct student {
     char model[50]; //to be removed
     student *next;
     student *prev;
-
-struct student {
-    char name[50];
-    char id[20];
-    char gender;
-    char department[50];
-    int year;
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
-    student *next;
-    student *prev;
 };
 
 struct staff {
@@ -43,30 +29,8 @@ struct staff {
     char model[50]; //to be removed
     staff *next;
     staff *prev;
-struct staff {
-    char name[50];
-    char id[20];
-    char gender;
-    char role[50]; //change to job
-    char typeofpc[50]; //to be removed
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
-    staff *next;
-    staff *prev;
 };
 
-struct nonstaff {
-    char name[50];
-    char id[20];
-    char gender;
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
-    nonstaff *next;
-    nonstaff *prev;
 struct nonstaff {
     char name[50];
     char id[20];
@@ -226,5 +190,7 @@ int main() {
 - and we our system will have only one superAdmin and as much as Admin and user ,
 - and the admin or superAdmin have to login (Authenticated) first befor the can use the system
 - super admin can do view(by search and all at once),create,update,delete for both user and Admin 
+- show the the searched result and let the SuperAdmin to confirm (go forward or search again ) befor he proceed to delete during deletion of user or admin
 
-*/
+
+*/  
