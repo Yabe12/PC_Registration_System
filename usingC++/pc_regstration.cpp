@@ -330,6 +330,126 @@ void search(){
     }
   }
 }
+void display_student(){
+  student *current = student_head;
+  cout << "Student List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Department: " << current->department << endl;
+    cout << "Year: " << current->year << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    current = current->next;
+    cout << endl;
+  }
+}
+void display_nonstaff(){
+  nonstaff *current = nonstaff_head;
+  cout << "Nonstaff List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    cout << "Computer Model: " << current->model << endl;
+    current = current->next;
+    cout << endl;
+  }
+}
+void display_staff(){
+  staff *current = staff_head;
+  cout << "Staff List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Role: " << current->role << endl;
+    cout << "Type of PC: " << current->typeofpc << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    cout << "Computer Model: " << current->model << endl;
+    current = current->next;
+    cout << endl;
+  }
+}
+void display(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      display_student();
+      break;
+    } else if(choice == 2){
+      display_staff();
+      break;
+    } else if(choice == 3){
+      display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
+void delete_student(){
+  char id[10];
+  cout << "Enter student's ID to delete: ";
+  cin >> id;
+  student *current = student_head, *prev = NULL;
+  while(current!= NULL && current->id!= id){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Student not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    student_head = current->next;
+  } else{
+    prev->next = current->next;
+  }
+  delete current;
+  cout << "Student deleted successfully." << endl;
+}
+void Delete(){
+    int choice;
+  while(true){
+    cout << "Choose a type of user to delete :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      display_student();
+      break;
+    } else if(choice == 2){
+      display_staff();
+      break;
+    } else if(choice == 3){
+      display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
 int main(){
   int choice ;
   while(true){
@@ -349,7 +469,7 @@ int main(){
         search();
         break;
       case 3:
-        // add_nonstaff();
+        // display();
         break;
       case 4:
         // add_nonstaff();
