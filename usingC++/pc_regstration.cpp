@@ -473,7 +473,7 @@ void Delete(){
     cout << "1. student" << endl;
     cout << "2. staff" << endl;
     cout << "3. nonstaff" << endl;
-    cout << "4 Exit" << endl;
+    cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
       display_student();
