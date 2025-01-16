@@ -228,15 +228,3 @@ int main() {
 - super admin can do view(by search and all at once),create,update,delete for both user and Admin 
 
 */
-
-/*
-
-- First create (just put in the code) SuperAdmin password and username and that SuperAdmin can create other Admins with username and password,
-- and those admins can create,update,search but can't delete user(student, staff, non-staff) data, only the super admin can do that,
-- and we our system will have only one superAdmin and as much as Admin and user ,
-- and the admin or superAdmin have to login (Authenticated) first befor the can use the system
-- super admin can do view(by search and all at once),create,update,delete for both user and Admin 
-- show the the searched result and let the SuperAdmin to confirm (go forward or search again ) befor he proceed to delete during deletion of user or admin
-
-
-*/  
