@@ -140,12 +140,20 @@ void menu_work_on_users() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n"; break;
-            case 2: cout << "Updating user...\n"; break;
-            case 3: cout << "Deleting user...\n"; break;
-            case 4: cout << "Searching user...\n"; break;
-            case 5: cout << "Displaying all users...\n"; break;
-            case 6: return;
+            case 1: cout << "Adding user...\n";
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+            return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
