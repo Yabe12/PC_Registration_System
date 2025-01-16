@@ -336,9 +336,10 @@ int main(){
     cout << "Choose an option:" << endl;
     cout << "1. Add add_user" << endl;
     cout << "2. Search " << endl;
-    cout << "3. Delete " << endl;
-    cout << "4. Update" << endl;
-    cout << "5. Exit" << endl;
+    cout<< "3.display " << endl;
+    cout << "4. Delete " << endl;
+    cout << "5. Update" << endl;
+    cout << "6. Exit" << endl;
     cin >> choice;
     switch(choice) {
       case 1:
@@ -351,9 +352,12 @@ int main(){
         // add_nonstaff();
         break;
       case 4:
+        // add_nonstaff();
+        break;
+      case 5:
         // Delete();
         break;
-      case 13:
+      case 6:
       // exit(0);
       default:
       cout << "Invalid choice" << endl;
