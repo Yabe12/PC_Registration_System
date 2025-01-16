@@ -90,7 +90,11 @@ void menu_superadmin();
 void menu_admin();
 void menu_work_on_users();
 void menu_work_on_admins();
-
+void add_user();
+void search();
+void display();
+void Update();
+void Delete();
 int main() {
     char roleChoice;
     cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
@@ -195,7 +199,7 @@ void menu_admin() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n";
+            case 1:
                 add_user();
                 break; 
             case 2: 
