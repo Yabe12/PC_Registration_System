@@ -1,21 +1,13 @@
 #include <iostream>
 #include <cstring>
 
-
 using namespace std;
 
-struct student {
-    char name[50];
-    char id[20];
-    char gender;
-    char department[50];
-    int year;
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
-    student *next;
-    student *prev;
+struct Admin {
+    char username[50];
+    char password[50];
+    Admin *next;
+};
 
 struct student {
     char name[50];
@@ -26,7 +18,6 @@ struct student {
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50]; //to be removed
     student *next;
     student *prev;
 };
@@ -35,24 +26,10 @@ struct staff {
     char name[50];
     char id[20];
     char gender;
-    char role[50]; //change to job
-    char typeofpc[50]; //to be removed
+    char job[50];
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50]; //to be removed
-    staff *next;
-    staff *prev;
-struct staff {
-    char name[50];
-    char id[20];
-    char gender;
-    char role[50]; //change to job
-    char typeofpc[50]; //to be removed
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
     staff *next;
     staff *prev;
 };
@@ -64,17 +41,6 @@ struct nonstaff {
     long long phone;
     char pcname[50];
     char serial[50];
-    char model[50]; //to be removed
-    nonstaff *next;
-    nonstaff *prev;
-struct nonstaff {
-    char name[50];
-    char id[20];
-    char gender;
-    long long phone;
-    char pcname[50];
-    char serial[50];
-    char model[50]; //to be removed
     nonstaff *next;
     nonstaff *prev;
 };
@@ -83,148 +49,302 @@ struct nonstaff {
 student *student_head = nullptr;
 staff *staff_head = nullptr;
 nonstaff *nonstaff_head = nullptr;
+Admin *admin_head = nullptr;
 
-// 🔹 Add User
-void add_user(int type) {
-    if (type == 1) {  // Student
-        student *new_student = new student;
-        cout << "Enter student's name: ";
-        cin.ignore();
-        cin.getline(new_student->name, 50);
-        cout << "Enter student's ID: ";
-        cin.getline(new_student->id, 20);
-        cout << "Enter student's gender (M/F): ";
-        cin >> new_student->gender;
-        cin.ignore();
-        cout << "Enter student's department: ";
-        cin.getline(new_student->department, 50);
-        cout << "Enter student's year: ";
-        cin >> new_student->year;
-        cout << "Enter student's phone number: ";
-        cin >> new_student->phone;
-        cin.ignore();
-        cout << "Enter student's computer name: ";
-        cin.getline(new_student->pcname, 50);
-        cout << "Enter student's computer serial number: ";
-        cin.getline(new_student->serial, 50);
-        cout << "Enter student's computer model: ";
-        cin.getline(new_student->model, 50);
+const char superAdminUsername[] = "superadmin";
+const char superAdminPassword[] = "admin123";
+bool isSuperAdmin = false;
+bool isAuthenticated = false;
 
-        new_student->next = student_head;
-        if (student_head) student_head->prev = new_student;
-        student_head = new_student;
+// Authentication Function
+bool login(bool isSuper) {
+    char username[50], password[50];
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+
+    if (isSuper && strcmp(username, superAdminUsername) == 0 && strcmp(password, superAdminPassword) == 0) {
+        isSuperAdmin = true;
+        isAuthenticated = true;
+        return true;
     }
-    // Similar implementations for staff & nonstaff (Use same pattern)
-}
 
-// 🔹 Search User
-void search_user(int type) {
-    char query[50];
-    cout << "Enter search keyword (ID for student, Name for others): ";
-    cin.ignore();
-    cin.getline(query, 50);
-
-    if (type == 1) {  // Student search by ID
-        student *temp = student_head;
+    if (!isSuper) {
+        Admin *temp = admin_head;
         while (temp) {
-            if (strcmp(temp->id, query) == 0) {
-                cout << "Student Found: " << temp->name << " | ID: " << temp->id << endl;
-                return;
+            if (strcmp(temp->username, username) == 0 && strcmp(temp->password, password) == 0) {
+                isSuperAdmin = false;
+                isAuthenticated = true;
+                return true;
             }
             temp = temp->next;
         }
     }
-    // Implement Student search by name 
 
-    // Implement similar logic for staff & nonstaff using name
+    cout << "Invalid credentials!\n";
+    return false;
 }
 
-// 🔹 Update User
-void update_user(int type) {
-    char query[50];
-    cout << "Enter the ID or Name of the user to update: ";
-    cin.ignore();
-    cin.getline(query, 50);
-
-    if (type == 1) {  // Student update by ID
-        student *temp = student_head;
-        while (temp) {
-            if (strcmp(temp->id, query) == 0) {
-                cout << "Enter new name: ";
-                cin.getline(temp->name, 50);
-                cout << "Update successful!\n";
-                return;
-            }
-            temp = temp->next;
-        }
-    }
-    // Implement Student search and update by name 
-
-    // Implement similar logic for staff & nonstaff
-}
-
-// 🔹 Delete User
-void delete_user(int type) {
-    char query[50];
-    cout << "Enter the ID or Name of the user to delete: ";
-    cin.ignore();
-    cin.getline(query, 50);
-
-    if (type == 1) {  // Student delete by ID
-        student *temp = student_head, *prev = nullptr;
-        while (temp) {
-            if (strcmp(temp->id, query) == 0) {
-                if (temp->prev) temp->prev->next = temp->next;
-                if (temp->next) temp->next->prev = temp->prev;
-                if (temp == student_head) student_head = temp->next;
-                delete temp;
-                cout << "Student deleted successfully!\n";
-                return;
-            }
-            temp = temp->next;
-        }
-    }
-    // Implement Student search and delete by name 
-
-    // Implement similar logic for staff & nonstaff
-}
-
-// 🔹 Main Menu
+void menu_superadmin();
+void menu_admin();
+void menu_work_on_users();
+void menu_work_on_admins();
+void add_user();
+void search();
+void display();
+void Update();
+void Delete();
 int main() {
+    char roleChoice;
+    cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
+    cin >> roleChoice;
+
+    if (roleChoice == 'A' || roleChoice == 'a') {
+        if (!login(true)) return 0;
+        menu_superadmin();
+    } else if (roleChoice == 'B' || roleChoice == 'b') {
+        if (!login(false)) return 0;
+        menu_admin();
+    } else {
+        cout << "Invalid choice!\n";
+    }
+
+    return 0;
+}
+
+void menu_superadmin() {
     int choice;
     while (true) {
-        cout << "\nChoose an option:\n";
-        cout << "1. Add User\n";
-        cout << "2. Search User\n";
-        cout << "3. Update User\n";
-        cout << "4. Delete User\n";
-        //add display all users menu
-        cout << "5. Exit\n";
+        cout << "\nSuperAdmin Menu:\n";
+        cout << "1. Work on User\n";
+        cout << "2. Work on Admin\n";
+        cout << "3. Exit\n";
         cin >> choice;
 
-        int userType;
-        if (choice != 5) {
-            cout << "Select user type:\n1. Student\n2. Staff\n3. Nonstaff\n";
-            cin >> userType;
-        }
-
         switch (choice) {
-            case 1: add_user(userType); break;
-            case 2: search_user(userType); break;
-            case 3: update_user(userType); break;
-            case 4: delete_user(userType); break;
-            case 5: return 0;
+            case 1: menu_work_on_users(); break;
+            case 2: menu_work_on_admins(); break;
+            case 3: return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
 }
 
-/*
+void menu_work_on_users() {
+    int choice;
+    while (true) {
+        cout << "\nWork on Users:\n";
+        cout << "1. Add User\n";
+        cout << "2. Update User\n";
+        cout << "3. Delete User\n";
+        cout << "4. Search and Display\n";
+        cout << "5. Display All\n";
+        cout << "6. Back\n";
+        cin >> choice;
 
-- First create (just put in the code) SuperAdmin password and username and that SuperAdmin can create other Admins with username and password,
-- and those admins can create,update,search but can't delete user(student, staff, non-staff) data, only the super admin can do that,
-- and we our system will have only one superAdmin and as much as Admin and user ,
-- and the admin or superAdmin have to login (Authenticated) first befor the can use the system
-- super admin can do view(by search and all at once),create,update,delete for both user and Admin 
+        switch (choice) {
+            case 1: cout << "Adding user...\n";
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+            return;
+            default: cout << "Invalid choice, try again.\n";
+        }
+    }
+}
 
-*/
+void menu_work_on_admins() {
+    int choice;
+    while (true) {
+        cout << "\nWork on Admins:\n";
+        cout << "1. Create Admin\n";
+        cout << "2. Update Admin\n";
+        cout << "3. Delete Admin\n";
+        cout << "4. Search and Display\n";
+        cout << "5. Display All Admins\n";
+        cout << "6. Back\n";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: cout << "Creating admin...\n"; break;
+            case 2: cout << "Updating admin...\n"; break;
+            case 3: cout << "Deleting admin...\n"; break;
+            case 4: cout << "Searching admin...\n"; break;
+            case 5: cout << "Displaying all admins...\n"; break;
+            case 6: return;
+            default: cout << "Invalid choice, try again.\n";
+        }
+    }
+}
+
+void menu_admin() {
+    int choice;
+    while (true) {
+        cout << "\nAdmin Menu:\n";
+        cout << "1. Add User\n";
+        cout << "2. Update User\n";
+        cout << "3. Search and Display\n";
+        cout << "4. Display All\n";
+        cout << "5. Exit\n";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+            return;
+            default: cout << "Invalid choice, try again.\n";
+        }
+    }
+}
+void add_user(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+    //   add_student();
+      break;
+    }else if(choice == 2){
+    //   add_staff();
+      break;
+    } else if(choice == 3){
+    //   add_nonstaff();
+      break;
+    }else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
+// function for search functionaily
+void search(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+    //   search_student();
+      break;
+    } else if(choice == 2){
+    //   search_staff();
+      break;
+    } else if(choice == 3){
+    //   search_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
+// function for display functinally
+void display(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // display_student();
+      break;
+    } else if(choice == 2){
+      // display_staff();
+      break;
+    } else if(choice == 3){
+      // display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
+// function for update functionally
+void Update(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to update :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // update_student();
+      break;
+    } else if(choice == 2){
+      // update_staff();
+      break;
+    } else if(choice == 3){
+      // update_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+};
+// function for delete functionally
+void Delete(){
+    int choice;
+  while(true){
+    cout << "Choose a type of user to delete :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // display_student();
+      break;
+    } else if(choice == 2){
+      // display_staff();
+      break;
+    } else if(choice == 3){
+      // display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
