@@ -70,6 +70,31 @@ key->next = prev;
 current = current->next;
 }
 };
+void sort_add_staff(){
+  if(staff_head==NULL)return;
+  staff *current=staff_head->next;
+  while(current != NULL){
+    staff *key = current;
+    staff *prev = staff_head;
+    while(prev!= key&&strcmp(prev->name,key->name)<0){
+      prev=prev->next;
+    }
+    if(prev!=key){
+      key->priv->next=key->next;
+      if(key->next != NULL){
+        key->next->priv=key->priv;
+      }
+      key->next =prev->next;
+      if(prev->next != NULL){
+        prev->next->priv=key;
+      }
+      prev->next =key;
+      key->next = prev;
+    }
+    current = current->next;
+  }
+  };
+
 
   void add_student();
   void add_staff();
@@ -145,6 +170,14 @@ new_student->next =NULL;
   cin >> new_staff->serial;
   cout << "Enter staff's computer model: ";
   cin >> new_staff->model;
+  new_staff->next =NULL;
+  new_staff->priv = staff_tall;
+  if(staff_tall != NULL){staff_tall->next =new_staff;} staff_tall=new_staff;
+  if(staff_head == NULL){staff_head=staff_tall; 
+  }
+  cout << "student added"<<endl;
+  sort_add_staff();
+  cout <<"the student list sorted sucessfully"<<endl;
 
   };
 void add_user(){
