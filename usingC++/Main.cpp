@@ -145,7 +145,7 @@ void menu_work_on_users() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n";
+            case 1:
                 add_user();
                 break; 
             case 2: 
