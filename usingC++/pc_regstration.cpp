@@ -514,7 +514,7 @@ int main(){
         display();
         break;
       case 4:
-        // add_nonstaff();
+        Delete();
         break;
       case 5:
         // Delete();
