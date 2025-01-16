@@ -236,7 +236,7 @@ void add_user(){
   }
 
 }
-// search_student
+
 void search_student(){
   char id[10];
   cout << "Enter student's ID to search: ";
@@ -259,7 +259,7 @@ void search_student(){
   }
   cout << "Student not found." << endl;
 }
-// search_nonstaff
+
 void search_nonstaff(){
   char name[100];
   cout << "Enter nonstaff's ID to search: ";
@@ -282,7 +282,7 @@ void search_nonstaff(){
   cout << "Nonstaff not found." << endl;
 }
 
-// search_staff
+
 void search_staff(){
   char name[10];
   cout << "Enter staff's name to search: ";
