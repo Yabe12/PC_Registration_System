@@ -147,9 +147,9 @@ new_student->next =NULL;
   if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
   if(student_head == NULL){student_head=student_tall; 
   }
-  cout << "non staff member is  added"<<endl;
+  cout << "the student is  added"<<endl;
   sort_nonstaff();
-  cout <<"the  staff member list sorted sucessfully"<<endl;
+  cout <<"the member list sorted sucessfully"<<endl;
   };
   void add_nonstaff(){
     nonstaff *new_nonstaff = new nonstaff;
@@ -174,7 +174,7 @@ new_student->next =NULL;
   if(nonstaff_head == NULL){nonstaff_head=nonstaff_tall; 
   }
   cout << "student added"<<endl;
-  sort_add_staff();
+  sort_nonstaff();
   cout <<"the student list sorted sucessfully"<<endl;
 
 
