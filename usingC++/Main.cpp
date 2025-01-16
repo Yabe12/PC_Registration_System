@@ -90,7 +90,11 @@ void menu_superadmin();
 void menu_admin();
 void menu_work_on_users();
 void menu_work_on_admins();
-
+void add_user();
+void search();
+void display();
+void Update();
+void Delete();
 int main() {
     char roleChoice;
     cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
@@ -140,12 +144,20 @@ void menu_work_on_users() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n"; break;
-            case 2: cout << "Updating user...\n"; break;
-            case 3: cout << "Deleting user...\n"; break;
-            case 4: cout << "Searching user...\n"; break;
-            case 5: cout << "Displaying all users...\n"; break;
-            case 6: return;
+            case 1: cout << "Adding user...\n";
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+            return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
@@ -187,12 +199,152 @@ void menu_admin() {
         cin >> choice;
 
         switch (choice) {
-            case 1: cout << "Adding user...\n"; break;
-            case 2: cout << "Updating user...\n"; break;
-            case 3: cout << "Searching user...\n"; break;
-            case 4: cout << "Displaying all users...\n"; break;
-            case 5: return;
+            case 1:
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+            return;
             default: cout << "Invalid choice, try again.\n";
         }
     }
+}
+void add_user(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+    //   add_student();
+      break;
+    }else if(choice == 2){
+    //   add_staff();
+      break;
+    } else if(choice == 3){
+    //   add_nonstaff();
+      break;
+    }else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
+}
+// function for search functionaily
+void search(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+    //   search_student();
+      break;
+    } else if(choice == 2){
+    //   search_staff();
+      break;
+    } else if(choice == 3){
+    //   search_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
+// function for display functinally
+void display(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // display_student();
+      break;
+    } else if(choice == 2){
+      // display_staff();
+      break;
+    } else if(choice == 3){
+      // display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
+// function for update functionally
+void Update(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to update :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // update_student();
+      break;
+    } else if(choice == 2){
+      // update_staff();
+      break;
+    } else if(choice == 3){
+      // update_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+};
+// function for delete functionally
+void Delete(){
+    int choice;
+  while(true){
+    cout << "Choose a type of user to delete :" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // display_student();
+      break;
+    } else if(choice == 2){
+      // display_staff();
+      break;
+    } else if(choice == 3){
+      // display_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+
 }
