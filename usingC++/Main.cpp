@@ -1,44 +1,46 @@
 #include <iostream>
 #include <cstring>
+
 using namespace std;
-struct student{
-  char name[20];
-  char id[10];
-  char gender;
-  char department[15];
-  char year;
-  char phone[10];
-  char pcname[20];
-  char serial[10];
-  char model[20];
-  struct student *next;
-  struct student *priv;
+
+struct student {
+    char name[50];
+    char id[20];
+    char gender;
+    char department[50];
+    int year;
+    long long phone;
+    char pcname[50];
+    char serial[50];
+    char model[50]; //to be removed
+    student *next;
+    student *prev;
 };
 
-struct staff{
-  char name[20];
-  char id[10];
-  char gender;
-  char role[20];
-  char typeofpc[20];
-   char phone[10];
-  char pcname[20];
-  char serial[10];
-  char model[20];
-  struct staff *next;
-  struct staff *priv;
+struct staff {
+    char name[50];
+    char id[20];
+    char gender;
+    char role[50]; //change to job
+    char typeofpc[50]; //to be removed
+    long long phone;
+    char pcname[50];
+    char serial[50];
+    char model[50]; //to be removed
+    staff *next;
+    staff *prev;
 };
 
-struct nonstaff{
-  char name[20];
-  char id[10];
-  char gender;
-  char phone[10];
-  char pcname[20];
-  char serial[10];
-  char model[20];
-  struct nonstaff *next;
-  struct nonstaff *priv;
+struct nonstaff {
+    char name[50];
+    char id[20];
+    char gender;
+    long long phone;
+    char pcname[50];
+    char serial[50];
+    char model[50]; //to be removed
+    nonstaff *next;
+    nonstaff *prev;
 };
 student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
