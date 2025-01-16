@@ -424,6 +424,48 @@ void delete_student(){
   delete current;
   cout << "Student deleted successfully." << endl;
 }
+void delete_staff(){
+  char name[10];
+  cout << "Enter staff's name to delete: ";
+  cin >> name;
+  staff *current = staff_head, *prev = NULL;
+  while(current!= NULL && current->name!= name){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Staff not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    staff_head = current->next;
+  } else{
+    prev->next = current->next;
+  }
+  delete current;
+  cout << "Staff deleted successfully." << endl;
+}
+void delete_nonstaff(){
+  char name[10];
+  cout << "Enter nonstaff's name to delete: ";
+  cin >> name;
+  nonstaff *current = nonstaff_head, *prev = NULL;
+  while(current!= NULL && current->name!= name){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Nonstaff not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    nonstaff_head = current->next;
+  } else{
+    prev->next = current->next;
+  }
+  delete current;
+  cout << "Nonstaff deleted successfully." << endl;
+}
 void Delete(){
     int choice;
   while(true){
@@ -469,7 +511,7 @@ int main(){
         search();
         break;
       case 3:
-        // display();
+        display();
         break;
       case 4:
         // add_nonstaff();
