@@ -43,7 +43,10 @@ struct nonstaff{
 student *student_head = NULL, *student_tall =NULL;
 staff *staff_head = NULL, *staff_tall = NULL;
 nonstaff *nonstaff_head = NULL, *nonstaff_tall = NULL;
-
+void add_student();
+void add_staff();
+void add_nonstaff();
+void add_user();
 
 void sort_student(){
 if(student_head==NULL)return;
@@ -95,12 +98,31 @@ void sort_add_staff(){
   }
   };
 
-
-  void add_student();
-  void add_staff();
-  void add_nonstaff();
-  void add_user();
-  void add_student(){
+void sort_add_nonstaff(){
+  if(nonstaff_head==NULL)return;
+  nonstaff *current=nonstaff_head->next;
+  while(current != NULL){
+    nonstaff *key = current;
+    nonstaff *prev = nonstaff_head;
+    while(prev!= key&&strcmp(prev->name,key->name)<0){
+      prev=prev->next;
+    }
+    if(prev!=key){
+      key->priv->next=key->next;
+      if(key->next != NULL){
+        key->next->priv=key->priv;
+      }
+      key->next =prev->next;
+      if(prev->next != NULL){
+        prev->next->priv=key;
+      }
+      prev->next =key;
+      key->next = prev;
+    }
+    current = current->next;
+  }
+}
+void add_student(){
       
   student *new_student = new student;
   cout << "Enter student's name: ";
@@ -125,9 +147,9 @@ new_student->next =NULL;
   if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
   if(student_head == NULL){student_head=student_tall; 
   }
-  cout << "student added"<<endl;
-  sort_student();
-  cout <<"the student list sorted sucessfully"<<endl;
+  cout << "non staff member is  added"<<endl;
+  sort_add_nonstaff();
+  cout <<"the  staff member list sorted sucessfully"<<endl;
   };
   void add_nonstaff(){
     nonstaff *new_nonstaff = new nonstaff;
@@ -146,10 +168,18 @@ new_student->next =NULL;
     cin >> new_nonstaff->serial;
     cout << "Enter nonstaff computer model: ";
     cin >> new_nonstaff->model;
+  new_nonstaff->next =NULL;
+  new_nonstaff->priv = nonstaff_tall;
+  if(nonstaff_tall != NULL){nonstaff_tall->next =new_nonstaff;} nonstaff_tall=new_nonstaff;
+  if(nonstaff_head == NULL){nonstaff_head=nonstaff_tall; 
+  }
+  cout << "student added"<<endl;
+  sort_add_staff();
+  cout <<"the student list sorted sucessfully"<<endl;
 
 
   };
-   void add_staff(){
+void add_staff(){
     staff *new_staff=new staff();
     cout << "Enter staff's name: ";
   cin.ignore();
@@ -181,9 +211,6 @@ new_student->next =NULL;
 
   };
 void add_user(){
-
- 
-  
   int choice;
   while(true){
     cout << "Choose a type of user:" << endl;
@@ -209,6 +236,100 @@ void add_user(){
   }
 
 }
+// search_student
+void search_student(){
+  char id[10];
+  cout << "Enter student's ID to search: ";
+  cin >> id;
+  student *current = student_head;
+  while(current != NULL){
+    if(current->id == id){
+      cout << "Student found:" << endl;
+      cout << "Name: " << current->name << endl;
+      cout << "ID: " << current->id << endl;
+      cout << "Gender: " << current->gender << endl;
+      cout << "Department: " << current->department << endl;
+      cout << "Year: " << current->year << endl;
+      cout << "Phone: " << current->phone << endl;
+      cout << "Computer Name: " << current->pcname << endl;
+      cout << "Computer Serial Number: " << current->serial << endl;
+      return;
+    }
+    current = current->next;
+  }
+  cout << "Student not found." << endl;
+}
+// search_nonstaff
+void search_nonstaff(){
+  char name[100];
+  cout << "Enter nonstaff's ID to search: ";
+  cin >> name;
+  nonstaff *current = nonstaff_head;
+  while(current != NULL){
+    if(current->name == name){
+      cout << "Nonstaff found:" << endl;
+      cout << "Name: " << current->name << endl;
+      cout << "ID: " << current->id << endl;
+      cout << "Gender: " << current->gender << endl;
+      cout << "Phone: " << current->phone << endl;
+      cout << "Computer Name: " << current->pcname << endl;
+      cout << "Computer Serial Number: " << current->serial << endl;
+      cout << "Computer Model: " << current->model << endl;
+      return;
+    }
+    current = current->next;
+  }
+  cout << "Nonstaff not found." << endl;
+}
+
+// search_staff
+void search_staff(){
+  char name[10];
+  cout << "Enter staff's name to search: ";
+  cin >> name;
+  staff *current = staff_head;
+  while(current != NULL){
+    if(current->name == name){
+      cout << "Staff found:" << endl;
+      cout << "Name: " << current->name << endl;
+      cout << "ID: " << current->id << endl;
+      cout << "Gender: " << current->gender << endl;
+      cout << "Role: " << current->role << endl;
+      cout << "Type of PC: " << current->typeofpc << endl;
+      cout << "Phone: " << current->phone << endl;
+      cout << "Computer Name: " << current->pcname << endl;
+      cout << "Computer Serial Number: " << current->serial << endl;
+      cout << "Computer Model: " << current->model << endl;
+      return;
+    }
+    current = current->next;
+  }
+}
+void search(){
+  int choice;
+  while(true){
+    cout << "Choose a type of user to search and display:" << endl;
+    cout << "1. student" << endl;
+    cout << "2. staff" << endl;
+    cout << "3. nonstaff" << endl;
+    cout << "4. Exit" << endl;
+    cin >> choice;
+    if(choice == 1){
+      // search_student();
+      break;
+    } else if(choice == 2){
+      // search_staff();
+      break;
+    } else if(choice == 3){
+      // search_nonstaff();
+      break;
+    } else if(choice == 4){
+      return;
+    } else{
+      cout << "Invalid choice. Please try again." << endl;
+    }
+  }
+}
 int main(){
   int choice ;
   while(true){
@@ -224,7 +345,7 @@ int main(){
         add_user();
         break;
       case 2:
-        // Search();
+        // search();
         break;
       case 3:
         // add_nonstaff();
