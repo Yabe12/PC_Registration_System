@@ -146,10 +146,10 @@ void menu_work_on_users() {
 
         switch (choice) {
             case 1: cout << "Adding user...\n"; add_user(); break; 
-            case 2: Update(); break;
-            case 3: Delete(); break;
-            case 4: search(); break;
-            case 5: display(); break;
+            case 2: cout << "Update user...\n"; Update(); break;
+            case 3: cout << "Delete user...\n"; Delete(); break;
+            case 4:  cout << "search user...\n";search(); break;
+            case 5: cout << "display user...\n"; display(); break;
             case 6:
             return;
             default: cout << "Invalid choice, try again.\n";
@@ -382,13 +382,13 @@ void add_user(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-    //   add_student();
+      add_student();
       break;
     }else if(choice == 2){
-    //   add_staff();
+      add_staff();
       break;
     } else if(choice == 3){
-    //   add_nonstaff();
+      add_nonstaff();
       break;
     }else if(choice == 4){
       return;
@@ -593,13 +593,13 @@ void display(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-      // display_student();
+      display_student();
       break;
     } else if(choice == 2){
-      // display_staff();
+      display_staff();
       break;
     } else if(choice == 3){
-      // display_nonstaff();
+      display_nonstaff();
       break;
     } else if(choice == 4){
       return;
@@ -711,13 +711,13 @@ void Delete(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-      // display_student();
+      display_student();
       break;
     } else if(choice == 2){
-      // display_staff();
+      display_staff();
       break;
     } else if(choice == 3){
-      // display_nonstaff();
+      display_nonstaff();
       break;
     } else if(choice == 4){
       return;
