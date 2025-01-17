@@ -630,28 +630,29 @@ void update_student() {
             
             int choice;
             cin >> choice;
+            cin.ignore(); // Clear the newline character left in the input buffer
 
             switch (choice) {
                 case 1:
                     cout << "Enter new name: ";
-                    cin.ignore();
                     cin.getline(current->name, 50);
 
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
+                    cin.ignore(); // Clear the buffer
 
                     cout << "Enter new department: ";
-                    cin.ignore();
                     cin.getline(current->department, 50);
 
                     cout << "Enter new year: ";
                     cin >> current->year;
+                    cin.ignore(); // Clear the buffer
 
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
+                    cin.ignore(); // Clear the buffer
 
                     cout << "Enter new computer name: ";
-                    cin.ignore();
                     cin.getline(current->pcname, 50);
 
                     cout << "Enter new computer serial number: ";
@@ -660,40 +661,39 @@ void update_student() {
 
                 case 2:
                     cout << "Enter new name: ";
-                    cin.ignore();
                     cin.getline(current->name, 50);
                     break;
 
                 case 3:
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
+                    cin.ignore(); // Clear the buffer
                     break;
 
                 case 4:
                     cout << "Enter new department: ";
-                    cin.ignore();
                     cin.getline(current->department, 50);
                     break;
 
                 case 5:
                     cout << "Enter new year: ";
                     cin >> current->year;
+                    cin.ignore(); // Clear the buffer
                     break;
 
                 case 6:
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
+                    cin.ignore(); // Clear the buffer
                     break;
 
                 case 7:
                     cout << "Enter new computer name: ";
-                    cin.ignore();
                     cin.getline(current->pcname, 50);
                     break;
 
                 case 8:
                     cout << "Enter new computer serial number: ";
-                    cin.ignore();
                     cin.getline(current->serial, 50);
                     break;
 
@@ -710,6 +710,7 @@ void update_student() {
 
     cout << "Student not found." << endl;
 }
+
 void update_staff() {
     char id[20];
     cout << "Enter staff's ID to update: ";
