@@ -905,13 +905,13 @@ void Update(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-      // update_student();
+      update_student();
       break;
     } else if(choice == 2){
-      // update_staff();
+      update_staff();
       break;
     } else if(choice == 3){
-      // update_nonstaff();
+      update_nonstaff();
       break;
     } else if(choice == 4){
       return;
