@@ -516,13 +516,13 @@ void search(){
     cout << "4. Exit" << endl;
     cin >> choice;
     if(choice == 1){
-    //   search_student();
+      search_student();
       break;
     } else if(choice == 2){
-    //   search_staff();
+      search_staff();
       break;
     } else if(choice == 3){
-    //   search_nonstaff();
+      search_nonstaff();
       break;
     } else if(choice == 4){
       return;
@@ -616,7 +616,7 @@ void update_student() {
 
     student *current = student_head;
     while (current != NULL) {
-        if (strcmp(current->id, id) == 0) { // Compare IDs
+        if (strcmp(current->id, id) == 0) {
             cout << "Student found. What would you like to update?" << endl;
             cout << "1. All details" << endl;
             cout << "2. Name" << endl;
