@@ -531,7 +531,58 @@ void search(){
     }
   }
 }
+
 // function for display functinally
+
+void display_student(){
+  student *current = student_head;
+  cout << "Student List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Department: " << current->department << endl;
+    cout << "Year: " << current->year << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    current = current->next;
+    cout << endl;
+  }
+}
+void display_nonstaff(){
+  nonstaff *current = nonstaff_head;
+  cout << "Nonstaff List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    
+    current = current->next;
+    cout << endl;
+  }
+}
+void display_staff(){
+  staff *current = staff_head;
+  cout << "Staff List:" << endl;
+  while(current!= NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Role: " << current->job << endl;
+    cout << "Type of PC: " << current->typeofpc << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+  
+    current = current->next;
+    cout << endl;
+  }
+}
+
 void display(){
   int choice;
   while(true){
