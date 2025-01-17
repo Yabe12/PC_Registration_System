@@ -609,6 +609,292 @@ void display(){
   }
 }
 // function for update functionally
+void update_student() {
+    char id[20];
+    cout << "Enter student's ID to update: ";
+    cin >> id;
+
+    student *current = student_head;
+    while (current != NULL) {
+        if (strcmp(current->id, id) == 0) { // Compare IDs
+            cout << "Student found. What would you like to update?" << endl;
+            cout << "1. All details" << endl;
+            cout << "2. Name" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Department" << endl;
+            cout << "5. Year" << endl;
+            cout << "6. Phone number" << endl;
+            cout << "7. Computer name" << endl;
+            cout << "8. Computer serial number" << endl;
+            cout << "Enter your choice: ";
+            
+            int choice;
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin.ignore();
+                    cin.getline(current->name, 50);
+
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+
+                    cout << "Enter new department: ";
+                    cin.ignore();
+                    cin.getline(current->department, 50);
+
+                    cout << "Enter new year: ";
+                    cin >> current->year;
+
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+
+                    cout << "Enter new computer name: ";
+                    cin.ignore();
+                    cin.getline(current->pcname, 50);
+
+                    cout << "Enter new computer serial number: ";
+                    cin.getline(current->serial, 50);
+                    break;
+
+                case 2:
+                    cout << "Enter new name: ";
+                    cin.ignore();
+                    cin.getline(current->name, 50);
+                    break;
+
+                case 3:
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+                    break;
+
+                case 4:
+                    cout << "Enter new department: ";
+                    cin.ignore();
+                    cin.getline(current->department, 50);
+                    break;
+
+                case 5:
+                    cout << "Enter new year: ";
+                    cin >> current->year;
+                    break;
+
+                case 6:
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    break;
+
+                case 7:
+                    cout << "Enter new computer name: ";
+                    cin.ignore();
+                    cin.getline(current->pcname, 50);
+                    break;
+
+                case 8:
+                    cout << "Enter new computer serial number: ";
+                    cin.ignore();
+                    cin.getline(current->serial, 50);
+                    break;
+
+                default:
+                    cout << "Invalid choice. No updates were made." << endl;
+                    return;
+            }
+
+            cout << "Student details updated successfully!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+
+    cout << "Student not found." << endl;
+}
+void update_staff() {
+    char id[20];
+    cout << "Enter staff's ID to update: ";
+    cin >> id;
+
+    staff *current = staff_head;
+    while (current != NULL) {
+        if (strcmp(current->id, id) == 0) { 
+            cout << "Staff found. What would you like to update?" << endl;
+            cout << "1. All details" << endl;
+            cout << "2. Name" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Role" << endl;
+            cout << "5. Type of PC" << endl;
+            cout << "6. Phone number" << endl;
+            cout << "7. Computer name" << endl;
+            cout << "8. Computer serial number" << endl;
+            cout << "Enter your choice: ";
+
+            int choice;
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin.ignore(); 
+                    cin.getline(current->name, 50);
+
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+
+                    cout << "Enter new role: ";
+                    cin.ignore();
+                    cin.getline(current->job, 50);
+
+                    cout << "Enter new type of PC: ";
+                    cin.getline(current->typeofpc, 50);
+
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+
+                    cout << "Enter new computer name: ";
+                    cin.ignore(); 
+                    cin.getline(current->pcname, 50);
+
+                    cout << "Enter new computer serial number: ";
+                    cin.getline(current->serial, 50);
+                    break;
+
+                case 2: 
+                    cout << "Enter new name: ";
+                    cin.ignore(); 
+                    cin.getline(current->name, 50);
+                    break;
+
+                case 3: 
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+                    break;
+
+                case 4: 
+                    cout << "Enter new role: ";
+                    cin.ignore(); 
+                    cin.getline(current->job, 50);
+                    break;
+
+                case 5: 
+                    cout << "Enter new type of PC: ";
+                    cin.ignore(); 
+                    cin.getline(current->typeofpc, 50);
+                    break;
+
+                case 6: 
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    break;
+
+                case 7: 
+                    cout << "Enter new computer name: ";
+                    cin.ignore(); 
+                    cin.getline(current->pcname, 50);
+                    break;
+
+                case 8:
+                    cout << "Enter new computer serial number: ";
+                    cin.ignore(); 
+                    cin.getline(current->serial, 50);
+                    break;
+
+                default:
+                    cout << "Invalid choice. No updates were made." << endl;
+                    return;
+            }
+
+            cout << "Staff details updated successfully!" << endl;
+            return; 
+        }
+        current = current->next;
+    }
+
+    cout << "Staff not found." << endl;
+}
+void update_nonstaff() {
+    char id[20];
+    cout << "Enter ID to update: ";
+    cin >> id;
+
+    nonstaff *current = nonstaff_head; 
+    while (current != NULL) {
+        if (strcmp(current->id, id) == 0) { 
+            cout << "Non-staff entity found. What would you like to update?" << endl;
+            cout << "1. All details" << endl;
+            cout << "2. Name" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Phone number" << endl;
+            cout << "5. Computer name" << endl;
+            cout << "6. Computer serial number" << endl;
+            cout << "Enter your choice: ";
+
+            int choice;
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin.ignore(); 
+                    cin.getline(current->name, 50);
+
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+
+                    cout << "Enter new computer name: ";
+                    cin.ignore();
+                    cin.getline(current->pcname, 50);
+
+                    cout << "Enter new computer serial number: ";
+                    cin.getline(current->serial, 50);
+                    break;
+
+                case 2: 
+                    cout << "Enter new name: ";
+                    cin.ignore(); 
+                    cin.getline(current->name, 50);
+                    break;
+
+                case 3:
+                    cout << "Enter new gender (M/F): ";
+                    cin >> current->gender;
+                    break;
+
+                case 4: 
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    break;
+
+                case 5: 
+                    cout << "Enter new computer name: ";
+                    cin.ignore(); 
+                    cin.getline(current->pcname, 50);
+                    break;
+
+                case 6:
+                    cout << "Enter new computer serial number: ";
+                    cin.ignore();
+                    cin.getline(current->serial, 50);
+                    break;
+
+                default:
+                    cout << "Invalid choice. No updates were made." << endl;
+                    return;
+            }
+
+            cout << "Non-staff details updated successfully!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+
+    cout << "Non-staff entity not found." << endl;
+}
+
+
 void Update(){
   int choice;
   while(true){
