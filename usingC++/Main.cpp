@@ -635,6 +635,72 @@ void Update(){
   }
 };
 // function for delete functionally
+
+
+void delete_student(){
+  char id[10];
+  cout << "Enter student's ID to delete: ";
+  cin >> id;
+  student *current = student_head, *prev = NULL;
+  while(current!= NULL && current->id!= id){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Student not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    student_head = current->next;
+  } else{
+
+prev->next = current->next;
+  }
+  delete current;
+  cout << "Student deleted successfully." << endl;
+}
+void delete_staff(){
+  char name[10];
+  cout << "Enter staff's name to delete: ";
+  cin >> name;
+  staff *current = staff_head, *prev = NULL;
+  while(current!= NULL && current->name!= name){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Staff not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    staff_head = current->next;
+  } else{
+    prev->next = current->next;
+  }
+  delete current;
+  cout << "Staff deleted successfully." << endl;
+}
+void delete_nonstaff(){
+  char name[10];
+  cout << "Enter nonstaff's name to delete: ";
+  cin >> name;
+  nonstaff *current = nonstaff_head, *prev = NULL;
+  while(current!= NULL && current->name!= name){
+    prev = current;
+    current = current->next;
+  }
+  if(current == NULL){
+    cout << "Nonstaff not found." << endl;
+    return;
+  }
+  if(prev == NULL){
+    nonstaff_head = current->next;
+  } else{
+    prev->next = current->next;
+  }
+  delete current;
+  cout << "Nonstaff deleted successfully." << endl;
+}
 void Delete(){
     int choice;
   while(true){
