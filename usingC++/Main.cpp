@@ -399,6 +399,113 @@ void add_user(){
 
 }
 // function for search functionaily
+
+
+void search_student() {
+    char choice;
+    char id[10];
+    char name[50];
+    
+    cout << "Search by: " << endl;
+    cout << "1. ID" << endl;
+    cout << "2. Name" << endl;
+    cout << "Enter your choice (1 or 2): ";
+    cin >> choice;
+
+    student *current = student_head;
+
+    if (choice == '1') {
+        cout << "Enter student's ID to search: ";
+        cin >> id;
+        
+        while (current != NULL) {
+            if (strcmp(current->id, id) == 0) {
+                cout << "Student found:" << endl;
+                cout << "Name: " << current->name << endl;
+                cout << "ID: " << current->id << endl;
+                cout << "Gender: " << current->gender << endl;
+                cout << "Department: " << current->department << endl;
+                cout << "Year: " << current->year << endl;
+                cout << "Phone: " << current->phone << endl;
+                cout << "Computer Name: " << current->pcname << endl;
+                cout << "Computer Serial Number: " << current->serial << endl;
+                return;
+            }
+            current = current->next;
+        }
+        cout << "Student not found." << endl;
+
+    } else if (choice == '2') {
+        
+        cout << "Enter student's Name to search: ";
+        cin.ignore(); 
+        cin.getline(name, 50); 
+        
+        while (current != NULL) {
+            if (strcmp(current->name, name) == 0) { 
+                cout << "Student found:" << endl;
+                cout << "Name: " << current->name << endl;
+                cout << "ID: " << current->id << endl;
+                cout << "Gender: " << current->gender << endl;
+                cout << "Department: " << current->department << endl;
+                cout << "Year: " << current->year << endl;
+                cout << "Phone: " << current->phone << endl;
+                cout << "Computer Name: " << current->pcname << endl;
+                cout << "Computer Serial Number: " << current->serial << endl;
+                return;
+            }
+            current = current->next;
+        }
+        cout << "Student not found." << endl;
+
+    } else {
+        cout << "Invalid choice. Please enter 1 or 2." << endl;
+    }
+}
+
+void search_nonstaff(){
+  char name[100];
+  cout << "Enter nonstaff's name to search: ";
+  cin >> name;
+  nonstaff *current = nonstaff_head;
+  while(current != NULL){
+    if(current->name == name){
+      cout << "Nonstaff found:" << endl;
+      cout << "Name: " << current->name << endl;
+      cout << "ID: " << current->id << endl;
+      cout << "Gender: " << current->gender << endl;
+      cout << "Phone: " << current->phone << endl;
+      cout << "Computer Name: " << current->pcname << endl;
+      cout << "Computer Serial Number: " << current->serial << endl;
+    
+      return;
+    }
+    current = current->next;
+  }
+  cout << "Nonstaff not found." << endl;
+}
+void search_staff(){
+  char name[10];
+  cout << "Enter staff's name to search: ";
+  cin >> name;
+  staff *current = staff_head;
+  while(current != NULL){
+    if(current->name == name){
+      cout << "Staff found:" << endl;
+      cout << "Name: " << current->name << endl;
+      cout << "ID: " << current->id << endl;
+      cout << "Gender: " << current->gender << endl;
+      cout << "Role: " << current->job << endl;
+      cout << "Type of PC: " << current->typeofpc << endl;
+      cout << "Phone: " << current->phone << endl;
+      cout << "Computer Name: " << current->pcname << endl;
+      cout << "Computer Serial Number: " << current->serial << endl;
+    
+      return;
+    }
+    current = current->next;
+  }
+}
 void search(){
   int choice;
   while(true){
