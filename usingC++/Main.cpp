@@ -214,80 +214,81 @@ void menu_admin() {
 }
 
 
-void sort_student(){
-if(student_head==NULL)return;
-student *current=student_head->next;
-while(current!=NULL){
-student *key = current;
-student *prev = student_head;
-while(prev!= key&&strcmp(prev->id,key->id)<0){
-  prev=prev->next;
-}
-if(prev!=key){
-  key->prev->next=key->next;
-  if(key->next != NULL){
-    key->next->prev=key->prev;
-  }
-  key->next =prev->next;
-  if(prev->next != NULL){
-    prev->next->prev=key;
-  
-}
-prev->next =key;
-key->next = prev;
-}
-current = current->next;
-}
-};
-void sort_staff(){
-  if(staff_head==NULL)return;
-  staff *current=staff_head->next;
-  while(current != NULL){
-    staff *key = current;
-    staff *prev = staff_head;
-    while(prev!= key&&strcmp(prev->name,key->name)<0){
-      prev=prev->next;
+void sort_student() {
+    if (student_head == NULL) return;
+    student *current = student_head->next;
+    while (current != NULL) {
+        student *key = current;
+        student *prev = student_head;
+        while (prev != key && strcmp(prev->id, key->id) < 0) {
+            prev = prev->next;
+        }
+        if (prev != key) {
+            key->prev->next = key->next;
+            if (key->next != NULL) {
+                key->next->prev = key->prev;
+            }
+            key->next = prev->next;
+            if (prev->next != NULL) {
+                prev->next->prev = key;
+            }
+            prev->next = key;
+            key->prev = prev;
+        }
+        current = current->next;
     }
-    if(prev!=key){
-      key->prev->next=key->next;
-      if(key->next != NULL){
-        key->next->prev=key->prev;
-      }
-      key->next =prev->next;
-      if(prev->next != NULL){
-        prev->next->prev=key;
-      }
-      prev->next =key;
-      key->next = prev;
-    }
-    current = current->next;
-  }
-  };
+}
 
-void sort_nonstaff(){
-  if(nonstaff_head==NULL)return;
-  nonstaff *current=nonstaff_head->next;
-  while(current != NULL){
-    nonstaff *key = current;
-    nonstaff *prev = nonstaff_head;
-    while(prev!= key&&strcmp(prev->name,key->name)<0){
-      prev=prev->next;
+void sort_staff() {
+    if (staff_head == NULL) return;
+    staff *current = staff_head->next;
+    while (current != NULL) {
+        staff *key = current;
+        staff *prev = staff_head;
+        while (prev != key && strcmp(prev->name, key->name) < 0) {
+            prev = prev->next;
+        }
+        if (prev != key) {
+            key->prev->next = key->next;
+            if (key->next != NULL) {
+                key->next->prev = key->prev;
+            }
+            key->next = prev->next;
+            if (prev->next != NULL) {
+                prev->next->prev = key;
+            }
+            prev->next = key;
+            key->prev = prev;
+        }
+        current = current->next;
     }
-    if(prev!=key){
-      key->prev->next=key->next;
-      if(key->next != NULL){
-        key->next->prev=key->prev;
-      }
-      key->next =prev->next;
-      if(prev->next != NULL){
-        prev->next->prev=key;
-      }
-      prev->next =key;
-      key->next = prev;
-    }
-    current = current->next;
-  }
 }
+
+void sort_nonstaff() {
+    if (nonstaff_head == NULL) return;
+    nonstaff *current = nonstaff_head->next;
+    while (current != NULL) {
+        nonstaff *key = current;
+        nonstaff *prev = nonstaff_head;
+        while (prev != key && strcmp(prev->name, key->name) < 0) {
+            prev = prev->next;
+        }
+        if (prev != key) {
+            key->prev->next = key->next;
+            if (key->next != NULL) {
+                key->next->prev = key->prev;
+            }
+            key->next = prev->next;
+            if (prev->next != NULL) {
+                prev->next->prev = key;
+            }
+            prev->next = key;
+            key->prev = prev;
+        }
+        current = current->next;
+    }
+}
+
 void add_student(){
       
   student *new_student = new student;
@@ -630,7 +631,7 @@ void update_student() {
             
             int choice;
             cin >> choice;
-            cin.ignore(); // Clear the newline character left in the input buffer
+            cin.ignore();
 
             switch (choice) {
                 case 1:
@@ -639,18 +640,18 @@ void update_student() {
 
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore(); 
 
                     cout << "Enter new department: ";
                     cin.getline(current->department, 50);
 
                     cout << "Enter new year: ";
                     cin >> current->year;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore(); 
 
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore();
 
                     cout << "Enter new computer name: ";
                     cin.getline(current->pcname, 50);
@@ -667,7 +668,7 @@ void update_student() {
                 case 3:
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore(); 
                     break;
 
                 case 4:
@@ -678,13 +679,13 @@ void update_student() {
                 case 5:
                     cout << "Enter new year: ";
                     cin >> current->year;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore(); 
                     break;
 
                 case 6:
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
-                    cin.ignore(); // Clear the buffer
+                    cin.ignore(); 
                     break;
 
                 case 7:
@@ -924,93 +925,100 @@ void Update(){
 // function for delete functionally
 
 
-void delete_student(){
-  char id[10];
-  cout << "Enter student's ID to delete: ";
-  cin >> id;
-  student *current = student_head, *prev = NULL;
-  while(current!= NULL && current->id!= id){
-    prev = current;
-    current = current->next;
-  }
-  if(current == NULL){
-    cout << "Student not found." << endl;
-    return;
-  }
-  if(prev == NULL){
-    student_head = current->next;
-  } else{
-
-prev->next = current->next;
-  }
-  delete current;
-  cout << "Student deleted successfully." << endl;
-}
-void delete_staff(){
-  char name[10];
-  cout << "Enter staff's name to delete: ";
-  cin >> name;
-  staff *current = staff_head, *prev = NULL;
-  while(current!= NULL && current->name!= name){
-    prev = current;
-    current = current->next;
-  }
-  if(current == NULL){
-    cout << "Staff not found." << endl;
-    return;
-  }
-  if(prev == NULL){
-    staff_head = current->next;
-  } else{
-    prev->next = current->next;
-  }
-  delete current;
-  cout << "Staff deleted successfully." << endl;
-}
-void delete_nonstaff(){
-  char name[10];
-  cout << "Enter nonstaff's name to delete: ";
-  cin >> name;
-  nonstaff *current = nonstaff_head, *prev = NULL;
-  while(current!= NULL && current->name!= name){
-    prev = current;
-    current = current->next;
-  }
-  if(current == NULL){
-    cout << "Nonstaff not found." << endl;
-    return;
-  }
-  if(prev == NULL){
-    nonstaff_head = current->next;
-  } else{
-    prev->next = current->next;
-  }
-  delete current;
-  cout << "Nonstaff deleted successfully." << endl;
-}
-void Delete(){
-    int choice;
-  while(true){
-    cout << "Choose a type of user to delete :" << endl;
-    cout << "1. student" << endl;
-    cout << "2. staff" << endl;
-    cout << "3. nonstaff" << endl;
-    cout << "4. Exit" << endl;
-    cin >> choice;
-    if(choice == 1){
-      display_student();
-      break;
-    } else if(choice == 2){
-      display_staff();
-      break;
-    } else if(choice == 3){
-      display_nonstaff();
-      break;
-    } else if(choice == 4){
-      return;
-    } else{
-      cout << "Invalid choice. Please try again." << endl;
+void delete_student() {
+    char id[20];
+    cout << "Enter student's ID to delete: ";
+    cin >> id;
+    student *current = student_head;
+    while (current != NULL && strcmp(current->id, id) != 0) {
+        current = current->next;
     }
-  }
+    if (current == NULL) {
+        cout << "Student not found." << endl;
+        return;
+    }
+    if (current->prev != NULL) {
+        current->prev->next = current->next;
+    } else {
+        student_head = current->next;
+    }
+    if (current->next != NULL) {
+        current->next->prev = current->prev;
+    }
+    delete current;
+    cout << "Student deleted successfully." << endl;
+}
 
+void delete_staff() {
+    char id[20];
+    cout << "Enter staff's ID to delete: ";
+    cin >> id;
+    staff *current = staff_head;
+    while (current != NULL && strcmp(current->id, id) != 0) {
+        current = current->next;
+    }
+    if (current == NULL) {
+        cout << "Staff not found." << endl;
+        return;
+    }
+    if (current->prev != NULL) {
+        current->prev->next = current->next;
+    } else {
+        staff_head = current->next;
+    }
+    if (current->next != NULL) {
+        current->next->prev = current->prev;
+    }
+    delete current;
+    cout << "Staff deleted successfully." << endl;
+}
+
+void delete_nonstaff() {
+    char id[20];
+    cout << "Enter nonstaff's ID to delete: ";
+    cin >> id;
+    nonstaff *current = nonstaff_head;
+    while (current != NULL && strcmp(current->id, id) != 0) {
+        current = current->next;
+    }
+    if (current == NULL) {
+        cout << "Nonstaff not found." << endl;
+        return;
+    }
+    if (current->prev != NULL) {
+        current->prev->next = current->next;
+    } else {
+        nonstaff_head = current->next;
+    }
+    if (current->next != NULL) {
+        current->next->prev = current->prev;
+    }
+    delete current;
+    cout << "Nonstaff deleted successfully." << endl;
+}
+
+void Delete() {
+    int choice;
+    while (true) {
+        cout << "Choose a type of user to delete:" << endl;
+        cout << "1. student" << endl;
+        cout << "2. staff" << endl;
+        cout << "3. nonstaff" << endl;
+        cout << "4. Exit" << endl;
+        cin >> choice;
+        if (choice == 1) {
+            delete_student();
+            break;
+        } else if (choice == 2) {
+            delete_staff();
+            break;
+        } else if (choice == 3) {
+            delete_nonstaff();
+            break;
+        } else if (choice == 4) {
+            return;
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
 }
