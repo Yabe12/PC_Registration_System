@@ -269,15 +269,23 @@ void sort_nonstaff() {
     nonstaff *current = nonstaff_head->next;
     while (current != NULL) {
         nonstaff *key = current;
-        nonstaff *prev = nonstaff_head;
-        while (prev != key && strcmp(prev->name, key->name) < 0) {
-            prev = prev->next;
+        nonstaff *prev = current->prev;
+        while (prev != NULL && strcmp(prev->name, key->name) > 0) {
+            prev = prev->prev;
         }
-        if (prev != key) {
+        current = current->next;
+        if (key->prev != NULL) {
             key->prev->next = key->next;
-            if (key->next != NULL) {
-                key->next->prev = key->prev;
-            }
+        }
+        if (key->next != NULL) {
+            key->next->prev = key->prev;
+        }
+        if (prev == NULL) {
+            key->next = nonstaff_head;
+            nonstaff_head->prev = key;
+            nonstaff_head = key;
+            key->prev = NULL;
+        } else {
             key->next = prev->next;
             if (prev->next != NULL) {
                 prev->next->prev = key;
@@ -285,7 +293,6 @@ void sort_nonstaff() {
             prev->next = key;
             key->prev = prev;
         }
-        current = current->next;
     }
 }
 
