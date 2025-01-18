@@ -87,6 +87,38 @@ bool login(bool isSuper) {
     return false;
 }
 
+bool validateInput(const char* str, int maxLength) {
+    if (strlen(str) >= maxLength) {
+        cout << "Input too long. Maximum length is " << maxLength-1 << " characters." << endl;
+        return false;
+    }
+    return true;
+}
+
+bool validateGender(char gender) {
+    gender = toupper(gender);
+    if (gender != 'M' && gender != 'F') {
+        cout << "Invalid gender. Please enter M or F." << endl;
+        return false;
+    }
+    return true;
+}
+
+bool validatePhoneNumber(long long phone) {
+    // Assuming phone numbers should be between 8 and 15 digits
+    int digits = 0;
+    long long temp = phone;
+    while (temp != 0) {
+        temp /= 10;
+        digits++;
+    }
+    if (digits < 8 || digits > 15) {
+        cout << "Invalid phone number length." << endl;
+        return false;
+    }
+    return true;
+}
+
 void menu_superadmin();
 void menu_admin();
 void menu_work_on_users();
@@ -96,19 +128,26 @@ void search();
 void display();
 void Update();
 void Delete();
+void add_admin();
+void update_admin();
+void search_admin();
+void delete_admin();
+void display_admin();
 int main() {
-    char roleChoice;
-    cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
-    cin >> roleChoice;
+    while (true) {
+        char roleChoice;
+        cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
+        cin >> roleChoice;
 
-    if (roleChoice == 'A' || roleChoice == 'a') {
-        if (!login(true)) return 0;
-        menu_superadmin();
-    } else if (roleChoice == 'B' || roleChoice == 'b') {
-        if (!login(false)) return 0;
-        menu_admin();
-    } else {
-        cout << "Invalid choice!\n";
+        if (roleChoice == 'A' || roleChoice == 'a') {
+            if (!login(true)) return 0;
+            menu_superadmin();
+        } else if (roleChoice == 'B' || roleChoice == 'b') {
+            if (!login(false)) return 0;
+            menu_admin();
+        } else {
+            cout << "Invalid choice!\n";
+        }
     }
 
     return 0;
@@ -120,13 +159,15 @@ void menu_superadmin() {
         cout << "\nSuperAdmin Menu:\n";
         cout << "1. Work on User\n";
         cout << "2. Work on Admin\n";
-        cout << "3. Exit\n";
+        cout << "3. Back\n";
+        cout << "4. Exit\n";
         cin >> choice;
 
         switch (choice) {
             case 1: menu_work_on_users(); break;
             case 2: menu_work_on_admins(); break;
-            case 3: return;
+            case 3: return; // Return to main menu
+            case 4: exit(0);
             default: cout << "Invalid choice, try again.\n";
         }
     }
@@ -453,8 +494,8 @@ new_student->next =NULL;
   if(student_tall != NULL){student_tall->next =new_student;} student_tall=new_student;
   if(student_head == NULL){student_head=student_tall; 
   }
-  cout << "the student is  added"<<endl;
-  sort_nonstaff();
+  cout << "The student is added"<<endl;
+  sort_student();
  
   };
   void add_nonstaff(){
@@ -609,7 +650,7 @@ void search_nonstaff(){
   cin >> name;
   nonstaff *current = nonstaff_head;
   while(current != NULL){
-    if(current->name == name){
+    if(strcmp(current->name, name) == 0){
       cout << "Nonstaff found:" << endl;
       cout << "Name: " << current->name << endl;
       cout << "ID: " << current->id << endl;
@@ -630,7 +671,7 @@ void search_staff(){
   cin >> name;
   staff *current = staff_head;
   while(current != NULL){
-    if(current->name == name){
+    if(strcmp(current->name, name) == 0){
       cout << "Staff found:" << endl;
       cout << "Name: " << current->name << endl;
       cout << "ID: " << current->id << endl;
