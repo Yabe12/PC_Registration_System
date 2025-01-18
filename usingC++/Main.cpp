@@ -237,6 +237,7 @@ void sort_student() {
         }
         current = current->next;
     }
+    cout << "Student list sorted successfully." << endl;
 }
 
 void sort_staff() {
@@ -262,6 +263,7 @@ void sort_staff() {
         }
         current = current->next;
     }
+    cout << "Staff list sorted successfully." << endl;
 }
 
 void sort_nonstaff() {
@@ -294,6 +296,7 @@ void sort_nonstaff() {
             key->prev = prev;
         }
     }
+    cout << "Non-staff list sorted successfully." << endl;
 }
 
 void add_student(){
@@ -323,7 +326,7 @@ new_student->next =NULL;
   }
   cout << "the student is  added"<<endl;
   sort_nonstaff();
-  cout <<"the member list sorted sucessfully"<<endl;
+ 
   };
   void add_nonstaff(){
     nonstaff *new_nonstaff = new nonstaff;
@@ -347,7 +350,7 @@ new_student->next =NULL;
   }
   cout << "student added"<<endl;
   sort_nonstaff();
-  cout <<"the student list sorted sucessfully"<<endl;
+ 
 
 
   };
@@ -377,7 +380,7 @@ void add_staff(){
   }
   cout << "student added"<<endl;
   sort_staff();
-  cout <<"the student list sorted sucessfully"<<endl;
+
 
   };
 void add_user(){
