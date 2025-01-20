@@ -3,44 +3,40 @@
 
 #include <cstring>
 #include <iostream>
-#include "../services/AdminService.h"
+
 using namespace std;
 
-class AdminMenu {
-public:
-    static void showAdminManagementMenu() {
-        while (true) {
-            cout << "\nAdmin Management Menu:\n"
-                 << "1. Add New Admin\n"
-                 << "2. Display All Admins\n"
-                 << "3. Update Admin\n"
-                 << "4. Delete Admin\n"
-                 << "5. Back\n"
-                 << "Enter choice: ";
 
-            int choice;
-            cin >> choice;
+int menu_admin() {
+    int choice;
+    while (true) {
+        cout << "\nAdmin Menu:\n";
+        cout << "1. Add User\n";
+        cout << "2. Update User\n";
+        cout << "3. Search and Display\n";
+        cout << "4. Display All\n";
+        cout << "5. Exit\n";
+        cin >> choice;
 
-            switch (choice) {
-                case 1:
-                    AdminService::addAdmin();
-                    break;
-                case 2:
-                    AdminService::displayAdmins();
-                    break;
-                case 3:
-                    AdminService::updateAdmin();
-                    break;
-                case 4:
-                    AdminService::deleteAdmin();
-                    break;
-                case 5:
-                    return;
-                default:
-                    cout << "Invalid choice!\n";
-            }
+        switch (choice) {
+            case 1:
+                add_user();
+                break; 
+            case 2: 
+               Update();
+               break;
+            case 3:
+               search();
+               break;
+            case 4: 
+               display();
+               break;
+            case 5: 
+               return;
+            default: cout << "Invalid choice, try again.\n";
         }
     }
-};
+}
+
 
 #endif // ADMIN_MENU_H
