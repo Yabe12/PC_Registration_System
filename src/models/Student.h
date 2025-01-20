@@ -1,6 +1,8 @@
 #ifndef STUDENT_H
 #define STUDENT_H
-
+#include <cstring>
+#include <string>
+using namespace std;
 struct Student {
     char name[50];
     char id[20];

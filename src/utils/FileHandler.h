@@ -7,6 +7,8 @@
 #include "../models/Staff.h"
 #include "../models/NonStaff.h"
 #include "../models/Admin.h"
+#include <cstring>
+using namespace std;
 
 class FileHandler {
 public:

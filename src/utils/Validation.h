@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include <iostream>
+using namespace std;
 
 class Validation {
 public:

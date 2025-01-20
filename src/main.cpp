@@ -1,11 +1,13 @@
 #include <iostream>
+
 #include "models/Admin.h"
 #include "models/Student.h"
 #include "models/Staff.h"
 #include "models/NonStaff.h"
 #include "services/AuthService.h"
 #include "menus/MainMenu.h"
-
+#include <cstring>
+using namespace std;
 // Initialize global pointers
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
