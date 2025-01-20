@@ -3,9 +3,6 @@
 
 #include <iostream>
 #include "../services/AdminService.h"
-#include "../services/StudentService.h"
-#include "../services/NonstaffService.h"
-#include "../services/StaffService.h"
 #include "./AddMenu.h"
 #include "./UpdateMenu.h"
 #include "./SearchMenu.h"

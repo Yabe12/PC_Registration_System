@@ -1,15 +1,15 @@
 #ifndef ADMIN_MENU_H
 #define ADMIN_MENU_H
 
-#include <cstring>
 #include <iostream>
+#include <limits> 
 #include "./DeleteMenu.h"
 #include "./AddMenu.h"
 #include "./UpdateMenu.h"
 #include "./SearchMenu.h"
 #include "./displayMenu.h"
-using namespace std;
 
+using namespace std;
 void menu_admin() {
     int choice;
     while (true) {

@@ -1,4 +1,3 @@
-
 #ifndef SEARCH_MENU_H
 #define SEARCH_MENU_H
 
@@ -10,8 +9,10 @@
 #include "AdminMenu.h"
 #include <cstring>
 using namespace std;
-int search(){
-  int choice;
+
+// Function to search user information
+void search_menu() {
+    int choice;
   while(true){
     cout << "Choose a type of user to search and display:" << endl;
     cout << "1. student" << endl;
@@ -34,7 +35,7 @@ int search(){
       cout << "Invalid choice. Please try again." << endl;
     }
   }
-  return 0;
+
 }
 
 #endif

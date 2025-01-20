@@ -1,4 +1,3 @@
-
 #ifndef UPDATE_MENU_H
 #define UPDATE_MENU_H
 
@@ -11,8 +10,9 @@
 #include <cstring>
 using namespace std;
 
-int main Update(){
-  int choice;
+// Function to update user information
+void Update() {
+    int choice;
   while(true){
     cout << "Choose a type of user to update :" << endl;
     cout << "1. student" << endl;
@@ -35,7 +35,7 @@ int main Update(){
       cout << "Invalid choice. Please try again." << endl;
     }
   }
-  return 0;
+
 };
 
 #endif // SUPER_ADMIN_MENU_H

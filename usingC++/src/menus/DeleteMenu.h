@@ -1,4 +1,3 @@
-
 #ifndef DELETE_MENU_H
 #define DELETE_MENU_H
 
@@ -10,7 +9,9 @@
 #include "AdminMenu.h"
 #include <cstring>
 using namespace std;
-int main Delete() {
+
+// Function to delete users based on type
+void Delete() {
     int choice;
     while (true) {
         cout << "Choose a type of user to delete:" << endl;
@@ -34,7 +35,7 @@ int main Delete() {
             cout << "Invalid choice. Please try again." << endl;
         }
     }
-    return 0;
+  
 }
 
 #endif // SUPER_ADMIN_MENU_H

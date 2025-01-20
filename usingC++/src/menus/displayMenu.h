@@ -1,6 +1,5 @@
-
-#ifndef DESPLAY_MENU_H
-#define DESPLAY_MENU_H
+#ifndef DISPLAY_MENU_H
+#define DISPLAY_MENU_H
 
 #include <iostream>
 #include "../services/AdminService.h"
@@ -10,8 +9,10 @@
 #include "AdminMenu.h"
 #include <cstring>
 using namespace std;
-int main display(){
-  int choice;
+
+// Function to search and display user information
+void display() {
+    int choice;
   while(true){
     cout << "Choose a type of user to search and display:" << endl;
     cout << "1. student" << endl;
@@ -34,7 +35,7 @@ int main display(){
       cout << "Invalid choice. Please try again." << endl;
     }
   }
-  return 0;
+ 
 }
 
 #endif
