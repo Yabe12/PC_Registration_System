@@ -1,23 +1,25 @@
 #ifndef ADMIN_MENU_H
 #define ADMIN_MENU_H
 
+#include <cstring>
 #include <iostream>
 #include "../services/AdminService.h"
+using namespace std;
 
 class AdminMenu {
 public:
     static void showAdminManagementMenu() {
         while (true) {
-            std::cout << "\nAdmin Management Menu:\n"
-                     << "1. Add New Admin\n"
-                     << "2. Display All Admins\n"
-                     << "3. Update Admin\n"
-                     << "4. Delete Admin\n"
-                     << "5. Back\n"
-                     << "Enter choice: ";
-            
+            cout << "\nAdmin Management Menu:\n"
+                 << "1. Add New Admin\n"
+                 << "2. Display All Admins\n"
+                 << "3. Update Admin\n"
+                 << "4. Delete Admin\n"
+                 << "5. Back\n"
+                 << "Enter choice: ";
+
             int choice;
-            std::cin >> choice;
+            cin >> choice;
 
             switch (choice) {
                 case 1:
@@ -35,10 +37,10 @@ public:
                 case 5:
                     return;
                 default:
-                    std::cout << "Invalid choice!\n";
+                    cout << "Invalid choice!\n";
             }
         }
     }
 };
 
-#endif 
+#endif // ADMIN_MENU_H

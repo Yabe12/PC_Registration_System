@@ -5,6 +5,7 @@
 #include "../models/Staff.h"
 #include "../models/NonStaff.h"
 #include <cstring>
+using namespace std;
 
 class Sorting {
 public:

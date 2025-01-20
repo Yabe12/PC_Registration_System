@@ -4,20 +4,22 @@
 #include <iostream>
 #include "../services/AdminService.h"
 #include "AdminMenu.h"
+#include <cstring>
+using namespace std;
 
 class SuperAdminMenu {
 public:
     static void showSystemSettings() {
         while (true) {
-            std::cout << "\nSystem Settings:\n"
-                     << "1. Backup Database\n"
-                     << "2. Restore Database\n"
-                     << "3. System Statistics\n"
-                     << "4. Back\n"
-                     << "Enter choice: ";
-            
+            cout << "\nSystem Settings:\n"
+                 << "1. Backup Database\n"
+                 << "2. Restore Database\n"
+                 << "3. System Statistics\n"
+                 << "4. Back\n"
+                 << "Enter choice: ";
+
             int choice;
-            std::cin >> choice;
+            cin >> choice;
 
             switch (choice) {
                 case 1:
@@ -32,7 +34,7 @@ public:
                 case 4:
                     return;
                 default:
-                    std::cout << "Invalid choice!\n";
+                    cout << "Invalid choice!\n";
             }
         }
     }
@@ -40,17 +42,17 @@ public:
 private:
     static void backupDatabase() {
         // Implementation for database backup
-        std::cout << "Database backup initiated...\n";
+        cout << "Database backup initiated...\n";
     }
 
     static void restoreDatabase() {
         // Implementation for database restore
-        std::cout << "Database restore initiated...\n";
+        cout << "Database restore initiated...\n";
     }
 
     static void showStatistics() {
         // Show system statistics
-        std::cout << "System Statistics:\n";
+        cout << "System Statistics:\n";
         // Add implementation
     }
 };

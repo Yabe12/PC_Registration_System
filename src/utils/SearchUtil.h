@@ -5,6 +5,7 @@
 #include "../models/Staff.h"
 #include "../models/NonStaff.h"
 #include <cstring>
+using namespace std;
 
 class SearchUtil {
 public:
@@ -67,4 +68,4 @@ public:
     }
 };
 
-#endif 
+#endif cu
