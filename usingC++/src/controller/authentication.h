@@ -3,55 +3,67 @@
 
 #include <cstring>
 #include <iostream>
+#include <string>
+#include <cstdlib>
 #include "../models/Admin.h"
+#include "../utils/Hasher.h" // Utility for hashing passwords
+
 using namespace std;
 
 class AuthService {
 private:
-    static const char superAdminUsername[];
-    static const char superAdminPassword[];
     static bool isSuperAdmin;
-    static bool isAuthenticated;
 
 public:
-    static bool login(bool isSuper) {
+    static bool loginSuperAdmin() {
         char username[50], password[50];
-        cout << "Enter username: ";
+        cout << "Enter superadmin username: ";
         cin >> username;
-        cout << "Enter password: ";
+        cout << "Enter superadmin password: ";
         cin >> password;
 
-        if (isSuper && strcmp(username, superAdminUsername) == 0 && 
-            strcmp(password, superAdminPassword) == 0) {
+        const char* superAdminUsername = getenv("SUPER_ADMIN_USERNAME");
+        const char* superAdminPassword = getenv("SUPER_ADMIN_PASSWORD");
+
+        if (!superAdminUsername || !superAdminPassword) {
+            cout << "Error: Superadmin credentials not configured.\n";
+            return false;
+        }
+
+        if (strcmp(username, superAdminUsername) == 0 && 
+            strcmp(Hasher::hash(password).c_str(), superAdminPassword) == 0) {
             isSuperAdmin = true;
-            isAuthenticated = true;
             return true;
         }
 
-        if (!isSuper) {
-            Admin* temp = admin_head;
-            while (temp) {
-                if (strcmp(temp->username, username) == 0 && 
-                    strcmp(temp->password, password) == 0) {
-                    isSuperAdmin = false;
-                    isAuthenticated = true;
-                    return true;
-                }
-                temp = temp->next;
+        cout << "Authentication failed.\n";
+        return false;
+    }
+
+    static bool loginAdmin() {
+        char username[50], password[50];
+        cout << "Enter admin username: ";
+        cin >> username;
+        cout << "Enter admin password: ";
+        cin >> password;
+
+        Admin* temp = admin_head;
+        while (temp) {
+            if (strcmp(temp->username, username) == 0 &&
+                strcmp(Hasher::hash(password).c_str(), temp->password) == 0) {
+                isSuperAdmin = false;
+                return true;
             }
+            temp = temp->next;
         }
 
-        cout << "Invalid credentials!\n";
+        cout << "Authentication failed.\n";
         return false;
     }
 
     static bool isUserSuperAdmin() { return isSuperAdmin; }
-    static bool isUserAuthenticated() { return isAuthenticated; }
 };
 
-const char AuthService::superAdminUsername[] = "superadmin";
-const char AuthService::superAdminPassword[] = "admin123";
 bool AuthService::isSuperAdmin = false;
-bool AuthService::isAuthenticated = false;
 
 #endif // AUTH_SERVICE_H
