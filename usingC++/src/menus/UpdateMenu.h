@@ -1,6 +1,6 @@
 
-#ifndef SUPER_ADMIN_MENU_H
-#define SUPER_ADMIN_MENU_H
+#ifndef UPDATE_MENU_H
+#define UPDATE_MENU_H
 
 #include <iostream>
 #include "../services/AdminService.h"
