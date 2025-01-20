@@ -1,85 +1,99 @@
-# PC Registration System
+# PC Registration System Backend Code Structure
 
-## Overview
-The **PC Registration System** is a console-based application designed to manage the registration of computers used by students, staff, and non-staff members. It allows users to add, search, delete, and update records efficiently using a **doubly linked list** data structure. The system is implemented in both **C++ and Java**.
+This document outlines the folder structure and components of the backend code for a PC Registration System. The system is designed to connect to a database and can be expanded to include a GUI in the future. The focus is on the backend logic, ensuring scalability, maintainability, and clarity.
 
-## Features
-- **Register PCs**: Supports adding students, staff, and non-staff along with their PC details.
-- **Search Records** (Feature to be implemented)
-- **Delete Records** (Feature to be implemented)
-- **Update Records** (Feature to be implemented)
-- **Console-Based Menu**: Provides an interactive menu for user operations.
+---
 
-## Data Structures Used
-The system uses **doubly linked lists** to manage user data:
-- `student`: Stores student details along with their PC information.
-- `staff`: Stores staff details along with their PC information.
-- `nonstaff`: Stores non-staff details along with their PC information.
+## **Folder Structure Overview**
 
-Each class (Java) or struct (C++) contains:
-- **Personal Information**: Name, ID, gender, and phone number.
-- **PC Information**: Computer name, serial number, and model.
-- **Linked List Pointers**: `next` and `prev` for navigation.
-
-## Getting Started
-### Prerequisites
-- A C++ compiler (e.g., g++ for GCC, MSVC for Visual Studio, or Clang)
-- A Java Development Kit (JDK)
-
-### Compilation and Execution
-#### C++
-To compile the C++ version of the project, use:
-```sh
-g++ pc_registration.cpp -o pc_registration
 ```
-To run the compiled program:
-```sh
-./pc_registration
-```
-
-#### Java
-To compile the Java version of the project, use:
-```sh
-javac PcRegistration.java
-```
-To run the compiled program:
-```sh
-java PcRegistration
+project-root/
+├── menu/
+│   ├── admin_menu/
+│   ├── super_admin_menu/
+│   └── main_menu/
+├── model/
+│   ├── users/
+│   │   ├── student/
+│   │   ├── non_staff/
+│   │   └── staff/
+├── service/
+│   ├── admin/
+│   ├── users/
+│   │   ├── student/
+│   │   ├── non_staff/
+│   │   └── staff/
+├── utils/
+│   ├── algorithms/
+│   │   ├── sorting.cpp
+│   │   └── searching.cpp
+│   ├── display/
+│   ├── logs/
+│   ├── backups/
+│   └── reports/
+├── middleware/
+│   └── input_validation/
+├── controller/
+│   └── authentication/
+├── .env
+└── README.md
 ```
 
-## Usage
-1. **Choose an option from the menu**
-   - Register a PC (students, staff, or non-staff)
-   - Search for a record (to be implemented)
-   - Delete a record (to be implemented)
-   - Update record details (to be implemented)
-   - Exit the program
+---
 
-2. **Enter user and PC details** as prompted.
-3. **The system stores the information** using a doubly linked list in memory.
+## **Folder Details**
 
-## Known Issues & Bugs
-- `add_user` mistakenly calls `add_staff` instead of `add_nonstaff`.
-- Some variables like `char id`, `char department`, and `char model` should be `char arrays` or `strings` for proper data handling in C++.
-- No functions for searching, deleting, and updating users yet.
-- Missing proper linked list implementation to store multiple entries.
-- Java version needs to fully replicate C++ features.
+### 1. **menu/**
+Contains modules for managing different menu types within the system.
+- **admin_menu/**: Code for displaying and handling admin-specific options.
+- **super_admin_menu/**: Code for managing super admin operations.
+- **main_menu/**: Entry point for the user, displaying the main menu options.
 
-## Future Improvements
-- Implement linked list traversal for storing and retrieving multiple records.
-- Add search, update, and delete functionalities.
-- Improve input validation and error handling.
-- Enhance data persistence with file storage.
-- Improve Java version to match C++ functionality.
+### 2. **model/**
+Holds the structural representation of entities in the system. These are plain C++ classes that define attributes and relationships.
+- **admin/**: Structure for the admin entity, including attributes like `id`, `name`, `role`, etc.
+- **users/**: Structures for user-related entities:
+  - **student/**: Attributes specific to students, such as `studentID`, `department`, etc.
+  - **non_staff/**: Details about non-staff users, like `name`, `purpose`, etc.
+  - **staff/**: Attributes related to staff, such as `employeeID`, `position`, etc.
 
-## Contributions
-Contributions are welcome! Feel free to fork this project, report issues, or suggest improvements.
+### 3. **service/**
+Contains the core implementation of the system’s functionality.
+- **admin/**: Admin-specific operations, such as adding or removing PCs, managing permissions, etc.
+- **users/**: User-specific operations categorized into:
+  - **student/**: Services like registering a student, updating details, etc.
+  - **non_staff/**: Non-staff-related services, such as creating or updating records.
+  - **staff/**: Staff-related operations, like assigning or revoking PC access.
 
-## License
-This project is open-source and free to use under the MIT License.
+### 4. **utils/**
+Utility functions and modules to support core functionalities.
+- **algorithms/**:
+  - **sorting.cpp**: Sorting algorithms for arranging data.
+  - **searching.cpp**: Searching algorithms for retrieving data efficiently.
+- **display/**: Functions for formatting and presenting data.
+- **logs/**: Logging mechanisms for tracking system activities.
+- **backups/**: Code for managing backups of the database or critical files.
+- **reports/**: Functions to generate reports for administrators or users.
 
+### 5. **middleware/**
+Contains logic for handling input validation and pre-processing.
+- **input_validation/**: Ensures inputs adhere to expected formats (e.g., validating phone numbers, email addresses, etc.).
 
-## Author
-Developed by [**Fitsum helina**](https://github.com/Fitsumhelina) , [**Yeabsira Behailu**](https://www.linkedin.com/in/yeabsira-behailu-19504b285/) , [**Kisanet Hailemariam**](https://www.linkedin.com/in/kisanet-hailemariam-2118642a9/) .
+### 6. **controller/**
+Handles high-level application logic and orchestrates between models, services, and utilities.
+- **authentication/**: Verifies credentials for admins and super admins, ensuring secure access to sensitive functionalities.
 
+### 7. **.env**
+Stores sensitive configuration data such as database credentials, API keys, and environment-specific variables. This file should never be committed to version control.
+
+---
+
+## **Development Notes**
+
+- **Scalability**: The modular design ensures ease of scalability and facilitates the addition of new features without disrupting the existing codebase.
+- **Maintainability**: Separation of concerns through distinct folders for models, services, and utilities makes the system easy to maintain and debug.
+- **Security**: Sensitive information is stored securely in the `.env` file, and middleware ensures data validation and sanitization.
+- **Future Expansion**: While the current focus is backend development, the system can easily integrate a GUI in the future, leveraging the existing service layer.
+
+---
 
