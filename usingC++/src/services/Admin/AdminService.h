@@ -1,110 +1,137 @@
 #ifndef ADMIN_SERVICE_H
 #define ADMIN_SERVICE_H
 
-#include <cstring>
 #include <iostream>
+#include <cstring>
 #include "../models/Admin.h"
-#include "../utils/Validation.h"
-
-using std::cin;
-using std::cout;
-using std::endl;
+#include "./../controller/authentication.h"
+using namespace std;
 
 class AdminService {
 public:
-    static void addAdmin() {
+    static void createAdmin() {
+        if (!AuthService::isUserSuperAdmin()) {
+            cout << "Access Denied! Only the superadmin can perform this action.\n";
+            return;
+        }
+
         Admin* newAdmin = new Admin();
-        
-        cout << "Enter admin username: ";
+        cout << "Enter username for new admin: ";
         cin >> newAdmin->username;
-        
-        cout << "Enter admin password: ";
+        cout << "Enter password for new admin: ";
         cin >> newAdmin->password;
 
         newAdmin->next = nullptr;
 
-        if (!admin_head) {
-            admin_head = admin_tall = newAdmin;
+        if (admin_head == nullptr) {
+            admin_head = newAdmin;
+            admin_tall = newAdmin;
         } else {
             admin_tall->next = newAdmin;
             admin_tall = newAdmin;
         }
 
-        cout << "Admin added successfully!\n";
-    }
-
-    static void displayAdmins() {
-        if (!admin_head) {
-            cout << "No admins registered.\n";
-            return;
-        }
-
-        Admin* current = admin_head;
-        int count = 1;
-        while (current) {
-            cout << "\nAdmin #" << count++ << ":"
-                 << "\nUsername: " << current->username << "\n";
-            current = current->next;
-        }
+        cout << "Admin account created successfully.\n";
     }
 
     static void updateAdmin() {
-        if (!admin_head) {
-            cout << "No admins to update.\n";
+        if (!AuthService::isUserSuperAdmin()) {
+            cout << "Access Denied! Only the superadmin can perform this action.\n";
             return;
         }
 
         char username[50];
-        cout << "Enter username to update: ";
+        cout << "Enter the username of the admin to update: ";
         cin >> username;
 
-        Admin* current = admin_head;
-        while (current) {
-            if (strcmp(current->username, username) == 0) {
-                cout << "Enter new password: ";
-                cin >> current->password;
-                cout << "Admin updated successfully!\n";
+        Admin* temp = admin_head;
+        while (temp) {
+            if (strcmp(temp->username, username) == 0) {
+                cout << "Admin found. Enter new password: ";
+                cin >> temp->password;
+                cout << "Password updated successfully.\n";
                 return;
             }
-            current = current->next;
+            temp = temp->next;
         }
 
-        cout << "Admin not found!\n";
+        cout << "Admin with username " << username << " not found.\n";
     }
 
     static void deleteAdmin() {
-        if (!admin_head) {
-            cout << "No admins to delete.\n";
+        if (!AuthService::isUserSuperAdmin()) {
+            cout << "Access Denied! Only the superadmin can perform this action.\n";
             return;
         }
 
         char username[50];
-        cout << "Enter username to delete: ";
+        cout << "Enter the username of the admin to delete: ";
         cin >> username;
 
-        if (strcmp(admin_head->username, username) == 0) {
-            Admin* temp = admin_head;
-            admin_head = admin_head->next;
-            if (admin_head == nullptr) admin_tall = nullptr;
-            delete temp;
-            cout << "Admin deleted successfully!\n";
+        Admin *temp = admin_head, *prev = nullptr;
+        while (temp) {
+            if (strcmp(temp->username, username) == 0) {
+                if (prev == nullptr) { // Deleting the head
+                    admin_head = temp->next;
+                } else {
+                    prev->next = temp->next;
+                }
+
+                if (temp == admin_tall) { // Deleting the last node
+                    admin_tall = prev;
+                }
+
+                delete temp;
+                cout << "Admin deleted successfully.\n";
+                return;
+            }
+            prev = temp;
+            temp = temp->next;
+        }
+
+        cout << "Admin with username " << username << " not found.\n";
+    }
+
+    static void searchAdmin() {
+        if (!AuthService::isUserSuperAdmin()) {
+            cout << "Access Denied! Only the superadmin can perform this action.\n";
             return;
         }
 
-        Admin* current = admin_head;
-        while (current->next) {
-            if (strcmp(current->next->username, username) == 0) {
-                Admin* temp = current->next;
-                current->next = current->next->next;
-                if (current->next == nullptr) admin_tall = current;
-                delete temp;
-                cout << "Admin deleted successfully!\n";
+        char username[50];
+        cout << "Enter the username of the admin to search: ";
+        cin >> username;
+
+        Admin* temp = admin_head;
+        while (temp) {
+            if (strcmp(temp->username, username) == 0) {
+                cout << "Admin found: \n";
+                cout << "Username: " << temp->username << endl;
                 return;
             }
-            current = current->next;
+            temp = temp->next;
         }
 
-        cout << "Admin not found!\n";
+        cout << "Admin with username " << username << " not found.\n";
+    }
+
+    static void displayAdmins() {
+        if (!AuthService::isUserSuperAdmin()) {
+            cout << "Access Denied! Only the superadmin can perform this action.\n";
+            return;
+        }
+
+        if (admin_head == nullptr) {
+            cout << "No admins available.\n";
+            return;
+        }
+
+        Admin* temp = admin_head;
+        cout << "List of Admins:\n";
+        while (temp) {
+            cout << "Username: " << temp->username << endl;
+            temp = temp->next;
+        }
     }
 };
 
