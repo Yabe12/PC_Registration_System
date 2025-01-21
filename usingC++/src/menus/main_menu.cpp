@@ -1,19 +1,24 @@
+// --- menus/main_menu.cpp ---
 #include <iostream>
-#include "superadmin_menu.cpp"
-#include "admin_menu.cpp"
+#include "../controllers/authentication_controller.cpp"
 
-using namespace std;
+void superAdminMenu();
+void adminMenu();
 
 void mainMenu() {
     char roleChoice;
-    cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
-    cin >> roleChoice;
+    std::cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
+    std::cin >> roleChoice;
 
     if (roleChoice == 'A' || roleChoice == 'a') {
-        superAdminMenu();
+        if (AuthenticationController::login(true)) {
+            superAdminMenu();
+        }
     } else if (roleChoice == 'B' || roleChoice == 'b') {
-        adminMenu();
+        if (AuthenticationController::login(false)) {
+            adminMenu();
+        }
     } else {
-        cout << "Invalid choice!\n";
+        std::cout << "Invalid choice!\n";
     }
 }
