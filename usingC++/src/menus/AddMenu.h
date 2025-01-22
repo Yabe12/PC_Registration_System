@@ -2,11 +2,11 @@
 #define ADD_MENU_H
 
 #include <iostream>
-#include "../services/AdminService.h"
-#include "../services/StudentService.h"
-#include "../services/NonstaffService.h"
-#include "../services/StaffService.h"
-#include "AdminMenu.h"
+#include "../services/Admin/AdminService.h"
+// #include "../services/User/StudentService.h"
+#include "../services/User/StaffService.h"
+#include "../services/User/NonStaffService.h"
+// #include "./AdminMenu.h"
 #include <cstring>
 using namespace std;
 
