@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "../../services/User/student_service.cpp"
-
+#include "../../services/User/student_service.h"
 using namespace std;
 
 // Function declarations
@@ -54,25 +53,25 @@ int main() {
 // Function definitions
 void add_student() {
     // Call the function from student_service.cpp
-    StudentService::addStudent();
+    student_service::addStudent();
 }
 
 void display_students() {
     // Call the function from student_service.cpp
-    StudentService::displayStudents();
+    student_service::displayStudents();
 }
 
 void search_student() {
     // Call the function from student_service.cpp
-    StudentService::searchStudent();
+    student_service::searchStudent();
 }
 
 void update_student() {
     // Call the function from student_service.cpp
-    StudentService::updateStudent();
+    student_service::updateStudent();
 }
 
 void delete_student() {
     // Call the function from student_service.cpp
-    StudentService::deleteStudent();
+    student_service::deleteStudent();
 }

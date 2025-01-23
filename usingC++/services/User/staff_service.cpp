@@ -1,56 +1,8 @@
-#include <iostream>
-#include <cstring> // For strcmp
+#include "staff_service.h"
 
-#include "../../models/users/staff.h"
-using namespace std;
-
-// Function declarations
-void sort_staff();
-void add_staff();
-void search_staff();
-void display_staff();
-void update_staff();
-void delete_staff();
-
-int main() {
-    int choice;
-    do {
-        cout << "\nStaff Management System\n";
-        cout << "1. Add Staff\n";
-        cout << "2. Display Staff\n";
-        cout << "3. Search Staff\n";
-        cout << "4. Update Staff\n";
-        cout << "5. Delete Staff\n";
-        cout << "6. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                add_staff();
-                break;
-            case 2:
-                display_staff();
-                break;
-            case 3:
-                search_staff();
-                break;
-            case 4:
-                update_staff();
-                break;
-            case 5:
-                delete_staff();
-                break;
-            case 6:
-                cout << "Exiting program.\n";
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
-        }
-    } while (choice != 6);
-
-    return 0;
-}
+// Define global pointers for the linked list
+staff* staff_head = NULL;
+staff* staff_tall = NULL;
 
 void sort_staff() {
     if (staff_head == NULL) return;

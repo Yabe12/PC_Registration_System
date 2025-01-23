@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
-#include "../../services/User/staff_service.cpp"
+#include "../../services/User/staff_service.h"
+
 
 using namespace std;
 
@@ -54,25 +55,25 @@ int main() {
 // Function definitions
 void add_staff() {
     // Call the function from staff_service.cpp
-    StaffService::addStaff();
+    STAFF_SERVICE_H::add_staff();
 }
 
 void display_staff() {
     // Call the function from staff_service.cpp
-    StaffService::displayStaff();
+    STAFF_SERVICE_H::display_staff();
 }
 
 void search_staff() {
     // Call the function from staff_service.cpp
-    StaffService::searchStaff();
+    STAFF_SERVICE_H::search_staff();
 }
 
 void update_staff() {
     // Call the function from staff_service.cpp
-    StaffService::updateStaff();
+    STAFF_SERVICE_H::update_staff();
 }
 
 void delete_staff() {
     // Call the function from staff_service.cpp
-    StaffService::deleteStaff();
+    STAFF_SERVICE_H::delete_staff();
 }

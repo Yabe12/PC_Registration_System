@@ -1,10 +1,6 @@
-#include <iostream>
-#include <cstring>
-#include "../../models/users/student.h"
+#include "student_service.h"
 
-using namespace std;
-
-// Global pointers for the linked list
+// Define global pointers for the linked list
 student* student_head = NULL;
 student* student_tall = NULL;
 
@@ -129,7 +125,7 @@ void search_student() {
     }
 }
 
-void display_student() {
+void display_students() {
     student* current = student_head;
     cout << "Student List:" << endl;
     while (current != NULL) {
@@ -168,39 +164,4 @@ void delete_student() {
     }
     delete current;
     cout << "Student deleted successfully." << endl;
-}
-
-int main() {
-    int choice;
-    while (true) {
-        cout << "Student Management System" << endl;
-        cout << "1. Add Student" << endl;
-        cout << "2. Search Student" << endl;
-        cout << "3. Display Students" << endl;
-        cout << "4. Delete Student" << endl;
-        cout << "5. Exit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                add_student();
-                break;
-            case 2:
-                search_student();
-                break;
-            case 3:
-                display_student();
-                break;
-            case 4:
-                delete_student();
-                break;
-            case 5:
-                cout << "Exiting the program." << endl;
-                return 0;
-            default:
-                cout << "Invalid choice. Try again." << endl;
-        }
-    }
-    return 0;
 }
