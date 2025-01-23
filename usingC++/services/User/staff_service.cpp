@@ -1,24 +1,9 @@
 #include <iostream>
 #include <cstring> // For strcmp
+#include "./models/users/student.cpp"
+#include "../../models/users/staff.cpp"
 using namespace std;
 
-// Define the structure for staff
-struct staff {
-    char name[20];
-    char id[20];
-    char gender;
-    char job[50];
-    char typeofpc[50];
-    char phone[20];
-    char pcname[50];
-    char serial[50];
-    staff* next;
-    staff* prev;
-};
-
-// Global pointers for the linked list
-staff* staff_head = NULL;
-staff* staff_tall = NULL;
 
 // Function declarations
 void sort_staff();

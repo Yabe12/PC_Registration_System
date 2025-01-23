@@ -1,20 +1,32 @@
 #include <iostream>
 #include <cstring>
-#include "./models/users/student.h"
-#include "./models/users/student.cpp"
-// #include "./models/users/student.cpp" // Removed this line
+
 using namespace std;
 
-// Assuming the student structure and the student_head and student_tall pointers are defined in student.cpp
-extern student *student_head;
-extern student *student_tall;
+// Define the structure for a student globally
+struct student {
+    char name[50];
+    char id[20];
+    char gender;
+    char department[50];
+    int year;
+    long long phone;
+    char pcname[50];
+    char serial[50];
+    student* next;
+    student* prev;
+};
+
+// Global pointers for the linked list
+student* student_head = NULL;
+student* student_tall = NULL;
 
 void sort_student() {
     if (student_head == NULL) return;
-    student *current = student_head->next;
+    student* current = student_head->next;
     while (current != NULL) {
-        student *key = current;
-        student *prev = student_head;
+        student* key = current;
+        student* prev = student_head;
         while (prev != key && strcmp(prev->id, key->id) < 0) {
             prev = prev->next;
         }
@@ -36,10 +48,10 @@ void sort_student() {
 }
 
 void add_student() {
-    student *new_student = new student;
+    student* new_student = new student;
     cout << "Enter student's name: ";
     cin.ignore();
-    cin.getline(new_student->name, 20);
+    cin.getline(new_student->name, 50);
     cout << "Enter student's ID: ";
     cin >> new_student->id;
     cout << "Enter student's gender (M/F): ";
@@ -54,6 +66,7 @@ void add_student() {
     cin >> new_student->pcname;
     cout << "Enter student's computer serial number: ";
     cin >> new_student->serial;
+
     new_student->next = NULL;
     new_student->prev = student_tall;
     if (student_tall != NULL) {
@@ -63,13 +76,14 @@ void add_student() {
     if (student_head == NULL) {
         student_head = student_tall;
     }
+
     cout << "The student is added" << endl;
     sort_student();
 }
 
 void search_student() {
     char choice;
-    char id[10];
+    char id[20];
     char name[50];
 
     cout << "Search by: " << endl;
@@ -78,7 +92,7 @@ void search_student() {
     cout << "Enter your choice (1 or 2): ";
     cin >> choice;
 
-    student *current = student_head;
+    student* current = student_head;
 
     if (choice == '1') {
         cout << "Enter student's ID to search: ";
@@ -129,7 +143,7 @@ void search_student() {
 }
 
 void display_student() {
-    student *current = student_head;
+    student* current = student_head;
     cout << "Student List:" << endl;
     while (current != NULL) {
         cout << "Name: " << current->name << endl;
@@ -145,113 +159,11 @@ void display_student() {
     }
 }
 
-void update_student() {
-    char id[20];
-    cout << "Enter student's ID to update: ";
-    cin >> id;
-
-    student *current = student_head;
-    while (current != NULL) {
-        if (strcmp(current->id, id) == 0) {
-            cout << "Student found. What would you like to update?" << endl;
-            cout << "1. All details" << endl;
-            cout << "2. Name" << endl;
-            cout << "3. Gender" << endl;
-            cout << "4. Department" << endl;
-            cout << "5. Year" << endl;
-            cout << "6. Phone number" << endl;
-            cout << "7. Computer name" << endl;
-            cout << "8. Computer serial number" << endl;
-            cout << "Enter your choice: ";
-
-            int choice;
-            cin >> choice;
-            cin.ignore();
-
-            switch (choice) {
-                case 1:
-                    cout << "Enter new name: ";
-                    cin.getline(current->name, 50);
-
-                    cout << "Enter new gender (M/F): ";
-                    cin >> current->gender;
-                    cin.ignore();
-
-                    cout << "Enter new department: ";
-                    cin.getline(current->department, 50);
-
-                    cout << "Enter new year: ";
-                    cin >> current->year;
-                    cin.ignore();
-
-                    cout << "Enter new phone number: ";
-                    cin >> current->phone;
-                    cin.ignore();
-
-                    cout << "Enter new computer name: ";
-                    cin.getline(current->pcname, 50);
-
-                    cout << "Enter new computer serial number: ";
-                    cin.getline(current->serial, 50);
-                    break;
-
-                case 2:
-                    cout << "Enter new name: ";
-                    cin.getline(current->name, 50);
-                    break;
-
-                case 3:
-                    cout << "Enter new gender (M/F): ";
-                    cin >> current->gender;
-                    cin.ignore();
-                    break;
-
-                case 4:
-                    cout << "Enter new department: ";
-                    cin.getline(current->department, 50);
-                    break;
-
-                case 5:
-                    cout << "Enter new year: ";
-                    cin >> current->year;
-                    cin.ignore();
-                    break;
-
-                case 6:
-                    cout << "Enter new phone number: ";
-                    cin >> current->phone;
-                    cin.ignore();
-                    break;
-
-                case 7:
-                    cout << "Enter new computer name: ";
-                    cin.getline(current->pcname, 50);
-                    break;
-
-                case 8:
-                    cout << "Enter new computer serial number: ";
-                    cin.getline(current->serial, 50);
-                    break;
-
-                default:
-                    cout << "Invalid choice. No updates were made." << endl;
-                    return;
-            }
-
-            cout << "Student details updated successfully!" << endl;
-            return;
-        }
-        current = current->next;
-    }
-
-    cout << "Student not found." << endl;
-}
-
 void delete_student() {
     char id[20];
     cout << "Enter student's ID to delete: ";
     cin >> id;
-    student *current = student_head;
+    student* current = student_head;
     while (current != NULL && strcmp(current->id, id) != 0) {
         current = current->next;
     }
@@ -265,7 +177,6 @@ void delete_student() {
         student_head = current->next;
     }
     if (current->next != NULL) {
-
         current->next->prev = current->prev;
     }
     delete current;
@@ -273,6 +184,36 @@ void delete_student() {
 }
 
 int main() {
-    // The main function can be used to test the functions if needed
+    int choice;
+    while (true) {
+        cout << "Student Management System" << endl;
+        cout << "1. Add Student" << endl;
+        cout << "2. Search Student" << endl;
+        cout << "3. Display Students" << endl;
+        cout << "4. Delete Student" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                add_student();
+                break;
+            case 2:
+                search_student();
+                break;
+            case 3:
+                display_student();
+                break;
+            case 4:
+                delete_student();
+                break;
+            case 5:
+                cout << "Exiting the program." << endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Try again." << endl;
+        }
+    }
     return 0;
 }

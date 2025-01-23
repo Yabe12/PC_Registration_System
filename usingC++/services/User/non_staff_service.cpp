@@ -1,22 +1,8 @@
 #include <iostream>
 #include <cstring>
+#include "../../models/users/non_staff.cpp"
 using namespace std;
 
-// Define the structure for nonstaff
-struct nonstaff {
-    char name[50];
-    char id[20];
-    char gender;
-    char phone[15];
-    char pcname[50];
-    char serial[50];
-    nonstaff *next;
-    nonstaff *prev;
-};
-
-// Global variables for the linked list
-nonstaff *nonstaff_head = NULL;
-nonstaff *nonstaff_tall = NULL;
 
 // Function declarations
 void sort_nonstaff();
