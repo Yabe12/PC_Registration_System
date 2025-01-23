@@ -2,6 +2,7 @@
 #include <cstring>
 #include "../../services/User/staff_service.h"
 #include "../../services/User/staff_service.cpp"
+#include "staff_menu.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ void search_staff();
 void update_staff();
 void delete_staff();
 
-int main() {
+void staff_menu() {
     int choice;
     do {
         cout << "\nStaff Management System\n";
@@ -48,7 +49,10 @@ int main() {
                 cout << "Invalid choice. Please try again.\n";
         }
     } while (choice != 6);
+}
 
+int main() {
+    staff_menu();
     return 0;
 }
 

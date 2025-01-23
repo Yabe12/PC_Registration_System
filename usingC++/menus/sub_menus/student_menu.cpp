@@ -2,6 +2,8 @@
 #include <cstring>
 #include "../../services/User/student_service.h"
 #include "../../services/User/student_service.cpp"
+#include "student_menu.h"
+
 using namespace std;
 
 // Function declarations
@@ -10,8 +12,40 @@ void display_students();
 void search_student();
 void update_student();
 void delete_student();
+void student_menu();
 
 int main() {
+    student_menu();
+    return 0;
+}
+
+// Function definitions
+void add_student() {
+    // Call the function from student_service.cpp
+    STUDENT_SERVICE_H::add_student();
+}
+
+void display_students() {
+    // Call the function from student_service.cpp
+    STUDENT_SERVICE_H::display_students();
+}
+
+void search_student() {
+    // Call the function from student_service.cpp
+    STUDENT_SERVICE_H::search_student();
+}
+
+void update_student() {
+    // Call the function from student_service.cpp
+    STUDENT_SERVICE_H::update_student();
+}
+
+void delete_student() {
+    // Call the function from student_service.cpp
+    STUDENT_SERVICE_H::delete_student();
+}
+
+void student_menu() {
     int choice;
     do {
         cout << "\nStudent Management System\n";
@@ -47,32 +81,4 @@ int main() {
                 cout << "Invalid choice. Please try again.\n";
         }
     } while (choice != 6);
-
-    return 0;
-}
-
-// Function definitions
-void add_student() {
-    // Call the function from student_service.cpp
-    STUDENT_SERVICE_H::add_student();
-}
-
-void display_students() {
-    // Call the function from student_service.cpp
-    STUDENT_SERVICE_H::display_students();
-}
-
-void search_student() {
-    // Call the function from student_service.cpp
-    STUDENT_SERVICE_H::search_student();
-}
-
-void update_student() {
-    // Call the function from student_service.cpp
-    STUDENT_SERVICE_H::update_student();
-}
-
-void delete_student() {
-    // Call the function from student_service.cpp
-    STUDENT_SERVICE_H::delete_student();
 }
