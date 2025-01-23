@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "../models/admin/admin.h"
+#include "../auth_service.h" // Include the combined auth_service file
 using namespace std;
 
 // Function declarations
