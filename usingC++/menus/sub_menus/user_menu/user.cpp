@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include "./staff_menu.h"
-#include "./non_staff_menu.h"
-#include "./student_menu.h"
+#include "../staff_menu/staff_menu.h"
+#include "../non_staff_menus/non_staff_menu.h"
+#include "../student_menu/student_menu.h"
 #include "user.h"
 
 using namespace std;

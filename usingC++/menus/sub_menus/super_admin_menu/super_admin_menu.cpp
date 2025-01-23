@@ -1,8 +1,8 @@
 // --- menus/sub_menus/admin_menu.cpp ---
 #include <iostream>
-#include "./user.h"
+#include "../user_menu/user.h"
 #include "super_admin_menu.h"
-#include "admin_menu.h"
+#include "../admin_menu/admin_menu.h"
 using namespace std;
 
 void super_admin_menu() {

@@ -1,10 +1,8 @@
 // --- menus/main_menu.cpp ---
 #include <iostream>
 #include "../middleware/auth_middleware.cpp"
-
-void superAdminMenu();
-void adminMenu();
-
+#include "./sub_menus/super_admin_menu/super_admin_menu.h"
+#include "./sub_menus/admin_menu/admin_menu.h"
 void mainMenu() {
     char roleChoice;
     std::cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
@@ -12,11 +10,11 @@ void mainMenu() {
 
     if (roleChoice == 'A' || roleChoice == 'a') {
         if (AuthenticationController::login(true)) {
-            superAdminMenu();
+            super_admin_menu();
         }
     } else if (roleChoice == 'B' || roleChoice == 'b') {
         if (AuthenticationController::login(false)) {
-            adminMenu();
+            admin_menu();
         }
     } else {
         std::cout << "Invalid choice!\n";
