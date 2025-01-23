@@ -1,17 +1,15 @@
 #include <iostream>
 #include <cstring>
 #include "../models/admin/admin.h"
-#include "../auth_service.h" // Include the combined auth_service file
+#include "../auth_service.h"
 using namespace std;
 
-// Function declarations
 void add_admin();
 void update_admin();
 void search_admin();
 void delete_admin();
 void display_admin();
 
-// Global pointers for the linked list
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
 
@@ -55,7 +53,6 @@ int main() {
     return 0;
 }
 
-// Function definitions
 void add_admin() {
     Admin* new_admin = new Admin;
     cout << "Enter admin username: ";
@@ -63,7 +60,7 @@ void add_admin() {
     cout << "Enter admin password: ";
     cin >> new_admin->password;
 
-    // Add to the end of the list
+ 
     new_admin->next = nullptr;
     if (admin_head == nullptr) {
         admin_head = new_admin;
