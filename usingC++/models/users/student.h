@@ -1,7 +1,6 @@
-#include <iostream>
-using namespace std;
+#ifndef STUDENT_H
+#define STUDENT_H
 
-// Define the structure for a student
 struct student {
     char name[50];
     char id[20];
@@ -15,6 +14,4 @@ struct student {
     student* prev;
 };
 
-// Declare global pointers for the linked list
-student* student_head = NULL;
-student* student_tall = NULL;
+#endif // STUDENT_H
