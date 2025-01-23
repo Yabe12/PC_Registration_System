@@ -53,25 +53,25 @@ int main() {
 // Function definitions
 void add_student() {
     // Call the function from student_service.cpp
-    student_service::addStudent();
+    STUDENT_SERVICE_H::add_student();
 }
 
 void display_students() {
     // Call the function from student_service.cpp
-    student_service::displayStudents();
+    STUDENT_SERVICE_H::display_students();
 }
 
 void search_student() {
     // Call the function from student_service.cpp
-    student_service::searchStudent();
+    STUDENT_SERVICE_H::search_student();
 }
 
 void update_student() {
     // Call the function from student_service.cpp
-    student_service::updateStudent();
+    STUDENT_SERVICE_H::update_student();
 }
 
 void delete_student() {
     // Call the function from student_service.cpp
-    student_service::deleteStudent();
+    STUDENT_SERVICE_H::delete_student();
 }

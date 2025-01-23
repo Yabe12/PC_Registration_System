@@ -14,6 +14,7 @@ extern student* student_tall;
 // Function declarations
 void sort_student();
 void add_student();
+void update_student();
 void search_student();
 void display_students();
 void delete_student();
