@@ -1,28 +1,32 @@
 // --- menus/sub_menus/admin_menu.cpp ---
 #include <iostream>
+#include "./user.h"
+#include "super_admin_menu.h"
 
-#include "./user.h" 
+using namespace std;
 
-void adminMenu() {
+void super_admin_menu() {
     int choice;
     while (true) {
-        std::cout << "\nSuper Admin Menu:\n";
-        std::cout << "1. work on admin \n";
-        std::cout << "2. work on user \n";
-        std::cout << "3. Exit\n";
-        std::cin >> choice;
+        cout << "\nSuper Admin Menu:\n";
+        cout << "1. Work on admin\n";
+        cout << "2. Work on user\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
         switch (choice) {
             case 1:
-                USER_MENU_H::user_menu();
+                // Call the admin menu function here if it exists
+                // admin_menu();
                 break;
             case 2:
-                USER_MENU_H::user_menu();
+                user_menu();
                 break;
             case 3:
                 return;
             default:
-                std::cout << "Invalid choice, try again.\n";
+                cout << "Invalid choice, try again.\n";
         }
     }
 }
