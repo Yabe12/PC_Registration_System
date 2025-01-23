@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "../../models/users/non_staff.cpp"
+#include "../../models/users/non_staff.h"
 using namespace std;
 
 
