@@ -3,10 +3,11 @@
 #include "./staff_menu.h"
 #include "./non_staff_menu.h"
 #include "./student_menu.h"
+#include "user.h"
 
 using namespace std;
 
-int main() {
+void user_menu() {
     int choice;
     do {
         cout << "\nUser Management System\n";
@@ -34,6 +35,9 @@ int main() {
                 cout << "Invalid choice. Please try again.\n";
         }
     } while (choice != 4);
+}
 
+int main() {
+    user_menu();
     return 0;
 }
