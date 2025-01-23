@@ -3,8 +3,65 @@
 #include "../models/admin/admin.cpp"
 using namespace std;
 
-int  main () {
-    
+// Define your Admin structure or class if it's not already defined in admin.cpp
+struct Admin {
+    char username[50];
+    char password[50];
+    Admin *next;
+};
+
+// Global variables for the linked list
+Admin *admin_head = NULL;
+Admin *admin_tall = NULL;
+
+// Function declarations
+void add_admin();
+void update_admin();
+void search_admin();
+void delete_admin();
+void display_admin();
+
+int main() {
+    int choice;
+    do {
+        cout << "\nAdmin Management System\n";
+        cout << "1. Add Admin\n";
+        cout << "2. Update Admin\n";
+        cout << "3. Search Admin\n";
+        cout << "4. Delete Admin\n";
+        cout << "5. Display Admins\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                add_admin();
+                break;
+            case 2:
+                update_admin();
+                break;
+            case 3:
+                search_admin();
+                break;
+            case 4:
+                delete_admin();
+                break;
+            case 5:
+                display_admin();
+                break;
+            case 6:
+                cout << "Exiting program. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 6);
+
+    return 0;
+}
+
+// Function definitions
 void add_admin() {
     Admin *new_admin = new Admin;
     cout << "Enter admin username: ";
@@ -36,7 +93,7 @@ void update_admin() {
             cout << "1. Username" << endl;
             cout << "2. Password" << endl;
             cout << "3. Both" << endl;
-            
+
             int choice;
             cin >> choice;
 
@@ -100,11 +157,11 @@ void delete_admin() {
             } else {
                 prev->next = current->next;
             }
-            
+
             if (current == admin_tall) {
                 admin_tall = prev;
             }
-            
+
             delete current;
             cout << "Admin deleted successfully!" << endl;
             return;
@@ -125,7 +182,7 @@ void display_admin() {
     int count = 1;
     cout << "\nAdmin List:" << endl;
     cout << "------------------------" << endl;
-    
+
     while (current != NULL) {
         cout << count << ". Username: " << current->username << endl;
         cout << "   Password: " << string(strlen(current->password), '*') << endl;
@@ -133,6 +190,4 @@ void display_admin() {
         current = current->next;
         count++;
     }
-}
-
 }
