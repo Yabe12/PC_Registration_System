@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
-#include "../models/admin/admin.h"
-#include "../auth_service.h"
+#include "AdminService.h"
+
 using namespace std;
 
 void add_admin();
@@ -60,7 +60,6 @@ void add_admin() {
     cout << "Enter admin password: ";
     cin >> new_admin->password;
 
- 
     new_admin->next = nullptr;
     if (admin_head == nullptr) {
         admin_head = new_admin;
