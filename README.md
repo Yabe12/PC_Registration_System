@@ -7,85 +7,98 @@ This document outlines the folder structure and components of the backend code f
 ## **Folder Structure Overview**
 
 ```
+---
 project-root/
-├── menu/
-│   ├── admin_menu/
-│   ├── super_admin_menu/
-│   └── main_menu/
-├── model/
-│   ├── users/
-│   │   ├── student/
-│   │   ├── non_staff/
-│   │   └── staff/
-├── service/
+├── controllers/
 │   ├── admin/
+│   │   └── admin_controller.cpp
 │   ├── users/
-│   │   ├── student/
-│   │   ├── non_staff/
-│   │   └── staff/
-├── utils/
-│   ├── algorithms/
-│   │   ├── sorting.cpp
-│   │   └── searching.cpp
-│   ├── display/
-│   ├── logs/
-│   ├── backups/
-│   └── reports/
+│   │   ├── student_controller.cpp
+│   │   ├── staff_controller.cpp
+│   │   └── non_staff_controller.cpp
+│   └── authentication_controller.cpp
+│
+├── database/
+│   ├── db_connection.cpp
+│   └── migrations/
+│       ├── create_users_table.sql
+│       ├── create_students_table.sql
+│       ├── create_staff_table.sql
+│       └── create_admins_table.sql
+│
 ├── middleware/
-│   └── input_validation/
-├── controller/
-│   └── authentication/
+│   ├── auth_middleware.cpp
+│   └── input_validation.cpp
+│
+├── models/
+│   ├── admin/
+│   │   └── admin.cpp
+│   ├── users/
+│   │   ├── student.cpp
+│   │   ├── staff.cpp
+│   │   └── non_staff.cpp
+│   └── base_model.cpp
+│
+├── services/
+│   ├── admin/
+│   │   └── admin_service.cpp
+│   ├── users/
+│   │   ├── student_service.cpp
+│   │   ├── staff_service.cpp
+│   │   └── non_staff_service.cpp
+│   └── auth_service.cpp
+│
+├── utils/
+│   ├── logger.cpp
+│   ├── config_loader.cpp
+│   ├── error_handler.cpp
+│   └── constants.h
+│
+├── menus/
+│   ├── main_menu.cpp
+│   └── sub_menus/
+│       ├── admin_menu.cpp
+│       ├── student_menu.cpp
+│       ├── staff_menu.cpp
+│       └── non_staff_menu.cpp
+│
+├── tests/
+│   ├── controllers/
+│   ├── services/
+│   ├── models/
+│   └── utils/
+│
 ├── .env
+├── .gitignore
+├── CMakeLists.txt
+├── main.cpp
 └── README.md
 ```
 
----
+### Purpose of Each Directory and Files
+#### **`controllers/`**
+Handles user requests, processes them, and sends responses. Each role (admin, student, staff) has its dedicated controller.
 
-## **Folder Details**
+#### **`database/`**
+Contains the database connection logic (`db_connection.cpp`) and migration files (`.sql`) for creating and managing database tables.
 
-### 1. **menu/**
-Contains modules for managing different menu types within the system.
-- **admin_menu/**: Code for displaying and handling admin-specific options.
-- **super_admin_menu/**: Code for managing super admin operations.
-- **main_menu/**: Entry point for the user, displaying the main menu options.
+#### **`middleware/`**
+Contains reusable logic like authentication and input validation (`auth_middleware.cpp`, `input_validation.cpp`).
 
-### 2. **model/**
-Holds the structural representation of entities in the system. These are plain C++ classes that define attributes and relationships.
-- **admin/**: Structure for the admin entity, including attributes like `id`, `name`, `role`, etc.
-- **users/**: Structures for user-related entities:
-  - **student/**: Attributes specific to students, such as `studentID`, `department`, etc.
-  - **non_staff/**: Details about non-staff users, like `name`, `purpose`, etc.
-  - **staff/**: Attributes related to staff, such as `employeeID`, `position`, etc.
+#### **`models/`**
+Represents the database entities. Includes base class (`base_model.cpp`) for common database operations.
 
-### 3. **service/**
-Contains the core implementation of the system’s functionality.
-- **admin/**: Admin-specific operations, such as adding or removing PCs, managing permissions, etc.
-- **users/**: User-specific operations categorized into:
-  - **student/**: Services like registering a student, updating details, etc.
-  - **non_staff/**: Non-staff-related services, such as creating or updating records.
-  - **staff/**: Staff-related operations, like assigning or revoking PC access.
+#### **`services/`**
+Implements the business logic for each entity. Separate services handle functionality for admins, students, and staff.
 
-### 4. **utils/**
-Utility functions and modules to support core functionalities.
-- **algorithms/**:
-  - **sorting.cpp**: Sorting algorithms for arranging data.
-  - **searching.cpp**: Searching algorithms for retrieving data efficiently.
-- **display/**: Functions for formatting and presenting data.
-- **logs/**: Logging mechanisms for tracking system activities.
-- **backups/**: Code for managing backups of the database or critical files.
-- **reports/**: Functions to generate reports for administrators or users.
+#### **`utils/`**
+Holds utility functions such as logging, error handling, and loading configuration (`logger.cpp`, `config_loader.cpp`).
 
-### 5. **middleware/**
-Contains logic for handling input validation and pre-processing.
-- **input_validation/**: Ensures inputs adhere to expected formats (e.g., validating phone numbers, email addresses, etc.).
+#### **`menus/`**
+Manages user interaction and menu navigation (`main_menu.cpp` and `sub_menus` for specific roles).
 
-### 6. **controller/**
-Handles high-level application logic and orchestrates between models, services, and utilities.
-- **authentication/**: Verifies credentials for admins and super admins, ensuring secure access to sensitive functionalities.
-
-### 7. **.env**
-Stores sensitive configuration data such as database credentials, API keys, and environment-specific variables. This file should never be committed to version control.
-
+#### **`tests/`**
+Organizes unit and integration tests for each layer of your application.
 ---
 
 ## **Development Notes**
