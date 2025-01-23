@@ -1,9 +1,8 @@
 #include <iostream>
 #include <cstring> // For strcmp
-#include "./models/users/student.cpp"
-#include "../../models/users/staff.cpp"
-using namespace std;
 
+#include "../../models/users/staff.h"
+using namespace std;
 
 // Function declarations
 void sort_staff();

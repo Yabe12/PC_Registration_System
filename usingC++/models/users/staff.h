@@ -1,6 +1,6 @@
-#include <iostream>
-using namespace std;
-int main  () {
+#ifndef STAFF_H
+#define STAFF_H
+
 struct staff {
     char name[50];
     char id[20];
@@ -13,6 +13,9 @@ struct staff {
     staff *next;
     staff *prev;
 };
-staff *staff_head = NULL, *staff_tall = NULL;
 
-}
+// Global pointers for the linked list
+extern staff* staff_head;
+extern staff* staff_tall;
+
+#endif // STAFF_H
