@@ -2,7 +2,7 @@
 #include <iostream>
 #include "./user.h"
 #include "super_admin_menu.h"
-
+#include "admin_menu.h"
 using namespace std;
 
 void super_admin_menu() {
@@ -18,7 +18,7 @@ void super_admin_menu() {
         switch (choice) {
             case 1:
                 // Call the admin menu function here if it exists
-                // admin_menu();
+                admin_menu();
                 break;
             case 2:
                 user_menu();
