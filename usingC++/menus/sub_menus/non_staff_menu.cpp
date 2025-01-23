@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "../../services/User/non_staff_service.cpp"
+#include "../../services/User/non_staff_service.h"
 
 using namespace std;
 
@@ -54,25 +54,25 @@ int main() {
 // Function definitions
 void add_nonstaff() {
     // Call the function from non_staff_service.cpp
-    NonStaffService::addNonStaff();
+    NON_STAFF_SERVICE_H::add_nonstaff();
 }
 
 void search_nonstaff() {
     // Call the function from non_staff_service.cpp
-    NonStaffService::searchNonStaff();
+    NON_STAFF_SERVICE_H::search_nonstaff();
 }
 
 void display_nonstaff() {
     // Call the function from non_staff_service.cpp
-    NonStaffService::displayNonStaff();
+    NON_STAFF_SERVICE_H::display_nonstaff();
 }
 
 void update_nonstaff() {
     // Call the function from non_staff_service.cpp
-    NonStaffService::updateNonStaff();
+    NON_STAFF_SERVICE_H::update_nonstaff();
 }
 
 void delete_nonstaff() {
     // Call the function from non_staff_service.cpp
-    NonStaffService::deleteNonStaff();
+    NON_STAFF_SERVICE_H::delete_nonstaff();
 }
