@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "model/student.h"
+#include "../../models/users/student.h"
 
 using namespace std;
 
