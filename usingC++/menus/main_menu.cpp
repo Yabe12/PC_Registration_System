@@ -1,6 +1,6 @@
 // --- menus/main_menu.cpp ---
 #include <iostream>
-#include "../controllers/authentication_controller.cpp"
+#include "../middleware/auth_middleware.cpp"
 
 void superAdminMenu();
 void adminMenu();
