@@ -1,18 +1,7 @@
 #include <iostream>
 #include <cstring>
-#include "../models/admin/admin.cpp"
+#include "../models/admin/admin.h"
 using namespace std;
-
-// Define your Admin structure or class if it's not already defined in admin.cpp
-struct Admin {
-    char username[50];
-    char password[50];
-    Admin *next;
-};
-
-// Global variables for the linked list
-Admin *admin_head = NULL;
-Admin *admin_tall = NULL;
 
 // Function declarations
 void add_admin();
@@ -20,6 +9,10 @@ void update_admin();
 void search_admin();
 void delete_admin();
 void display_admin();
+
+// Global pointers for the linked list
+Admin* admin_head = nullptr;
+Admin* admin_tall = nullptr;
 
 int main() {
     int choice;
@@ -63,15 +56,15 @@ int main() {
 
 // Function definitions
 void add_admin() {
-    Admin *new_admin = new Admin;
+    Admin* new_admin = new Admin;
     cout << "Enter admin username: ";
     cin >> new_admin->username;
     cout << "Enter admin password: ";
     cin >> new_admin->password;
 
     // Add to the end of the list
-    new_admin->next = NULL;
-    if (admin_head == NULL) {
+    new_admin->next = nullptr;
+    if (admin_head == nullptr) {
         admin_head = new_admin;
         admin_tall = new_admin;
     } else {
@@ -86,8 +79,8 @@ void update_admin() {
     cout << "Enter admin username to update: ";
     cin >> username;
 
-    Admin *current = admin_head;
-    while (current != NULL) {
+    Admin* current = admin_head;
+    while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
             cout << "Admin found. What would you like to update?" << endl;
             cout << "1. Username" << endl;
@@ -129,8 +122,8 @@ void search_admin() {
     cout << "Enter admin username to search: ";
     cin >> username;
 
-    Admin *current = admin_head;
-    while (current != NULL) {
+    Admin* current = admin_head;
+    while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
             cout << "Admin found:" << endl;
             cout << "Username: " << current->username << endl;
@@ -147,12 +140,12 @@ void delete_admin() {
     cout << "Enter admin username to delete: ";
     cin >> username;
 
-    Admin *current = admin_head;
-    Admin *prev = NULL;
+    Admin* current = admin_head;
+    Admin* prev = nullptr;
 
-    while (current != NULL) {
+    while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
-            if (prev == NULL) {
+            if (prev == nullptr) {
                 admin_head = current->next;
             } else {
                 prev->next = current->next;
@@ -173,17 +166,17 @@ void delete_admin() {
 }
 
 void display_admin() {
-    if (admin_head == NULL) {
+    if (admin_head == nullptr) {
         cout << "No admins found in the system." << endl;
         return;
     }
 
-    Admin *current = admin_head;
+    Admin* current = admin_head;
     int count = 1;
     cout << "\nAdmin List:" << endl;
     cout << "------------------------" << endl;
 
-    while (current != NULL) {
+    while (current != nullptr) {
         cout << count << ". Username: " << current->username << endl;
         cout << "   Password: " << string(strlen(current->password), '*') << endl;
         cout << "------------------------" << endl;
