@@ -1,12 +1,13 @@
 #include <iostream>
 #include <cstring>
-#include "./models/users/student.h"
-#include "./models/users/student.cpp"
+#include "../../models/users/student.h"
+#include "student_service.h"
+
 using namespace std;
 
-// Assuming the student structure and the student_head and student_tall pointers are defined in student.cpp
-extern student *student_head;
-extern student *student_tall;
+// Define global pointers for the linked list
+student* student_head = NULL;
+student* student_tall = NULL;
 
 void sort_student() {
     if (student_head == NULL) return;
