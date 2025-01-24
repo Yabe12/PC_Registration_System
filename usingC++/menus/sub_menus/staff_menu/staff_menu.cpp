@@ -6,12 +6,6 @@
 
 using namespace std;
 
-// Function declarations
-void add_staff();
-void display_staff();
-void search_staff();
-void update_staff();
-void delete_staff();
 
 void staff_menu() {
     int choice;
@@ -51,33 +45,3 @@ void staff_menu() {
     } while (choice != 6);
 }
 
-int main() {
-    staff_menu();
-    return 0;
-}
-
-// Function definitions
-void add_staff() {
-    // Call the function from staff_service.cpp
-    STAFF_SERVICE_H::add_staff();
-}
-
-void display_staff() {
-    // Call the function from staff_service.cpp
-    STAFF_SERVICE_H::display_staff();
-}
-
-void search_staff() {
-    // Call the function from staff_service.cpp
-    STAFF_SERVICE_H::search_staff();
-}
-
-void update_staff() {
-    // Call the function from staff_service.cpp
-    STAFF_SERVICE_H::update_staff();
-}
-
-void delete_staff() {
-    // Call the function from staff_service.cpp
-    STAFF_SERVICE_H::delete_staff();
-}
