@@ -8,7 +8,7 @@ using namespace std;
 
 void printHeader(const string& title) {
     cout << "\n=============================================" << endl;
-    cout << "              " << PC REGESTRATION SYSTEM  << endl;
+    cout << "              " << title << endl;
     cout << "=============================================" << endl;
 }
 
