@@ -37,7 +37,5 @@ void user_menu() {
     } while (choice != 4);
 }
 
-int main() {
-    user_menu();
-    return 0;
-}
+
+    

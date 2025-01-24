@@ -1,57 +1,12 @@
 #include <iostream>
 #include <cstring>
-#include "./AdminService.h"
+#include "AdminService.h"
 
 using namespace std;
 
-void add_admin();
-void update_admin();
-void search_admin();
-void delete_admin();
-void display_admin();
-
+// Define global pointers for the linked list
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
-
-int main() {
-    int choice;
-    do {
-        cout << "\nAdmin Management System\n";
-        cout << "1. Add Admin\n";
-        cout << "2. Update Admin\n";
-        cout << "3. Search Admin\n";
-        cout << "4. Delete Admin\n";
-        cout << "5. Display Admins\n";
-        cout << "6. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                add_admin();
-                break;
-            case 2:
-                update_admin();
-                break;
-            case 3:
-                search_admin();
-                break;
-            case 4:
-                delete_admin();
-                break;
-            case 5:
-                display_admin();
-                break;
-            case 6:
-                cout << "Exiting program. Goodbye!\n";
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
-        }
-    } while (choice != 6);
-
-    return 0;
-}
 
 void add_admin() {
     Admin* new_admin = new Admin;

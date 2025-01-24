@@ -128,7 +128,7 @@ void search_student() {
     }
 }
 
-void display_student() {
+void display_students() {
     student *current = student_head;
     cout << "Student List:" << endl;
     while (current != NULL) {
@@ -272,7 +272,3 @@ void delete_student() {
     cout << "Student deleted successfully." << endl;
 }
 
-int main() {
-    // The main function can be used to test the functions if needed
-    return 0;
-}
