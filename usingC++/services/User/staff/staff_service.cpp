@@ -220,4 +220,3 @@ void delete_staff() {
 
     delete current;
     cout << "Staff deleted successfully.\n";
-}
