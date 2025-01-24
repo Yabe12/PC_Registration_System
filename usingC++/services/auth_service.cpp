@@ -1,5 +1,9 @@
 #include "auth_service.h"
 
+// Define global pointers for the linked list
+Admin* admin_head = nullptr;
+Admin* admin_tall = nullptr;
+
 // Define global variables
 bool isSuperAdmin = false;
 bool isAuthenticated = false;
@@ -8,35 +12,36 @@ bool isAuthenticated = false;
 const char superAdminUsername[] = "superadmin";
 const char superAdminPassword[] = "superpassword";
 
-// Define global pointers for the linked list
-Admin* admin_head = nullptr;
-
-// Authentication Function
 bool login(bool isSuper) {
-    char username[50], password[50];
+    char username[50];
+    char password[50];
+
     cout << "Enter username: ";
     cin >> username;
     cout << "Enter password: ";
     cin >> password;
 
-    if (isSuper && strcmp(username, superAdminUsername) == 0 && strcmp(password, superAdminPassword) == 0) {
-        isSuperAdmin = true;
-        isAuthenticated = true;
-        return true;
-    }
-
-    if (!isSuper) {
-        Admin* temp = admin_head;
-        while (temp) {
-            if (strcmp(temp->username, username) == 0 && strcmp(temp->password, password) == 0) {
-                isSuperAdmin = false;
+    if (isSuper) {
+        if (strcmp(username, superAdminUsername) == 0 && strcmp(password, superAdminPassword) == 0) {
+            isSuperAdmin = true;
+            isAuthenticated = true;
+            cout << "SuperAdmin login successful!" << endl;
+            return true;
+        } else {
+            cout << "Invalid SuperAdmin credentials!" << endl;
+            return false;
+        }
+    } else {
+        Admin* current = admin_head;
+        while (current != nullptr) {
+            if (strcmp(current->username, username) == 0 && strcmp(current->password, password) == 0) {
                 isAuthenticated = true;
+                cout << "Admin login successful!" << endl;
                 return true;
             }
-            temp = temp->next;
+            current = current->next;
         }
+        cout << "Invalid Admin credentials!" << endl;
+        return false;
     }
-
-    cout << "Invalid credentials!\n";
-    return false;
 }
