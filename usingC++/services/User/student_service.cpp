@@ -2,7 +2,6 @@
 #include <cstring>
 #include "./models/users/student.h"
 #include "./models/users/student.cpp"
-// #include "./models/users/student.cpp" // Removed this line
 using namespace std;
 
 // Assuming the student structure and the student_head and student_tall pointers are defined in student.cpp

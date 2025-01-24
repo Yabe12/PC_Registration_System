@@ -1,8 +1,13 @@
 #include <iostream>
+#include <cstring>
+#include "./models/users/non_staff.h"
+
+// Declare global variables
+nonstaff* nonstaff_head = NULL;
+nonstaff* nonstaff_tall = NULL;
+
 using namespace std;
 
-int main () {
-    
 void sort_nonstaff() {
     if (nonstaff_head == NULL) return;
     nonstaff *current = nonstaff_head->next;
@@ -205,5 +210,10 @@ void delete_nonstaff() {
     delete current;
     cout << "Nonstaff deleted successfully." << endl;
 }
+    cout << "Nonstaff deleted successfully." << endl;
+}
 
+int main () {
+    // You can call your functions here for testing
+    return 0;
 }
