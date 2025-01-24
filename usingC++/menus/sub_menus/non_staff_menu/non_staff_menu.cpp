@@ -1,49 +1,8 @@
 #include <iostream>
-#include <cstring>
-#include "../../services/User/non_staff_service.h"
-#include "../../services/User/non_staff_service.cpp"
+#include "../../../services/user/non_staff_service.h"
 #include "non_staff_menu.h"
 
 using namespace std;
-
-// Function declarations
-// void add_nonstaff();
-// void search_nonstaff();
-// void display_nonstaff();
-// void update_nonstaff();
-// void delete_nonstaff();
-// void non_staff_menu();
-
-// int main() {
-//     non_staff_menu();
-//     return 0;
-// }
-
-// // Function definitions
-// void add_nonstaff() {
-//     // Call the function from non_staff_service.cpp
-//     NON_STAFF_SERVICE_H::add_nonstaff();
-// }
-
-// void search_nonstaff() {
-//     // Call the function from non_staff_service.cpp
-//     NON_STAFF_SERVICE_H::search_nonstaff();
-// }
-
-// void display_nonstaff() {
-//     // Call the function from non_staff_service.cpp
-//     NON_STAFF_SERVICE_H::display_nonstaff();
-// }
-
-// void update_nonstaff() {
-//     // Call the function from non_staff_service.cpp
-//     NON_STAFF_SERVICE_H::update_nonstaff();
-// }
-
-// void delete_nonstaff() {
-//     // Call the function from non_staff_service.cpp
-//     NON_STAFF_SERVICE_H::delete_nonstaff();
-// }
 
 void non_staff_menu() {
     int choice;

@@ -1,7 +1,5 @@
 #include <iostream>
-#include <cstring>
-#include "../../services/User/student_service.h"
-#include "../../services/User/student_service.cpp"
+#include "../../../services/user/student_service.h"
 #include "student_menu.h"
 
 using namespace std;

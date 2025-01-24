@@ -1,13 +1,8 @@
 #include <iostream>
-#include "../../services/admin/AdminService.h"
+#include "../../../services/admin/AdminService.h"
 #include "admin_menu.h"
 
 using namespace std;
-
-// int main() {
-//     admin_menu();
-//     return 0;
-// }
 
 void admin_menu() {
     int choice;
@@ -46,28 +41,3 @@ void admin_menu() {
         }
     } while (choice != 6);
 }
-
-// void add_admin() {
-//     // Call the function from staff_service.cpp
-//     ADMIN_SERVICE_H::add_admin();
-// }
-
-// void display_admin() {
-//     // Call the function from staff_service.cpp
-//     ADMIN_SERVICE_H::display_admin();
-// }
-
-// void search_admin() {
-//     // Call the function from staff_service.cpp
-//     ADMIN_SERVICE_H::search_admin();
-// }
-
-// void update_admin() {
-//     // Call the function from staff_service.cpp
-//     ADMIN_SERVICE_H::update_admin();
-// }
-
-// void delete_admin() {
-//     // Call the function from staff_service.cpp
-//     ADMIN_SERVICE_H::delete_admin();
-// }

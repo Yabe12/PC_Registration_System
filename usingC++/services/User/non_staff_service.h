@@ -12,7 +12,6 @@ extern nonstaff* nonstaff_head;
 extern nonstaff* nonstaff_tall;
 
 // Function declarations
-
 void sort_nonstaff();
 void add_nonstaff();
 void search_nonstaff();

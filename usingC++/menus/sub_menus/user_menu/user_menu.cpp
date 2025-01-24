@@ -3,7 +3,7 @@
 #include "../staff_menu/staff_menu.h"
 #include "../non_staff_menu/non_staff_menu.h"
 #include "../student_menu/student_menu.h"
-#include "user.h"
+#include "user_menu.h"
 
 using namespace std;
 

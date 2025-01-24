@@ -1,11 +1,8 @@
 #include <iostream>
-#include <cstring>
-#include "../../services/User/staff_service.h"
-#include "../../services/User/staff_service.cpp"
+#include "../../../services/user/staff_service.h"
 #include "staff_menu.h"
 
 using namespace std;
-
 
 void staff_menu() {
     int choice;
@@ -44,4 +41,3 @@ void staff_menu() {
         }
     } while (choice != 6);
 }
-
