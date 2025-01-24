@@ -6,26 +6,45 @@
 
 using namespace std;
 
+void printHeader(const string& title) {
+    cout << "\n=============================================" << endl;
+    cout << "              " << PC REGESTRATION SYSTEM  << endl;
+    cout << "=============================================" << endl;
+}
+
+void printFooter() {
+    cout << "=============================================" << endl;
+}
+
 void mainMenu() {
     char roleChoice;
-    cout << "Choose your role:\nA. I am SuperAdmin\nB. I am Admin\n";
+
+    printHeader("Main Menu");
+    cout << "Choose your role:\n";
+    cout << "A. I am SuperAdmin\n";
+    cout << "B. I am Admin\n";
+    cout << "=============================================" << endl;
+    cout << "Enter your choice (A or B): ";
     cin >> roleChoice;
 
     if (roleChoice == 'A' || roleChoice == 'a') {
         if (login(true)) {
+            printFooter();
             super_admin_menu();
         }
     } else if (roleChoice == 'B' || roleChoice == 'b') {
         if (login(false)) {
+            printFooter();
             admin_menu();
         }
     } else {
-        cout << "Invalid choice!\n";
+        cout << "Invalid choice! Please enter either A or B." << endl;
+        printFooter();
     }
 }
 
 int main() {
+    // Main menu is called when the program starts
     mainMenu();
     return 0;
 }
-
