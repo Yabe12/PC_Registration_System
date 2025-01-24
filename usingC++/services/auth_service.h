@@ -9,15 +9,11 @@ using namespace std;
 extern bool isSuperAdmin;
 extern bool isAuthenticated;
 
-// Define global variables
-bool isSuperAdmin = false;
-bool isAuthenticated = false;
+// Declare super admin credentials
+extern const char superAdminUsername[];
+extern const char superAdminPassword[];
 
-// Define super admin credentials
-const char superAdminUsername[] = "superadmin";
-const char superAdminPassword[] = "superpassword";
-
-// Define your Admin structure or class if it's not already defined
+// Declare your Admin structure or class if it's not already defined
 struct Admin {
     char username[50];
     char password[50];
@@ -28,34 +24,7 @@ struct Admin {
 extern Admin* admin_head;
 
 // Authentication Function
-bool login(bool isSuper) {
-    char username[50], password[50];
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-
-    if (isSuper && strcmp(username, superAdminUsername) == 0 && strcmp(password, superAdminPassword) == 0) {
-        isSuperAdmin = true;
-        isAuthenticated = true;
-        return true;
-    }
-
-    if (!isSuper) {
-        Admin* temp = admin_head;
-        while (temp) {
-            if (strcmp(temp->username, username) == 0 && strcmp(temp->password, password) == 0) {
-                isSuperAdmin = false;
-                isAuthenticated = true;
-                return true;
-            }
-            temp = temp->next;
-        }
-    }
-
-    cout << "Invalid credentials!\n";
-    return false;
-}
+bool login(bool isSuper);
 
 #endif // AUTH_SERVICE_H
 
