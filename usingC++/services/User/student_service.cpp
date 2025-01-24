@@ -32,11 +32,16 @@ void sort_student() {
         }
         current = current->next;
     }
-    cout << "Student list sorted successfully." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "        Student List Sorted Successfully" << endl;
+    cout << "=============================================" << endl;
 }
 
 void add_student() {
     student *new_student = new student;
+    cout << "\n=============================================" << endl;
+    cout << "          Add New Student" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter student's name: ";
     cin.ignore();
     cin.getline(new_student->name, 20);
@@ -54,6 +59,7 @@ void add_student() {
     cin >> new_student->pcname;
     cout << "Enter student's computer serial number: ";
     cin >> new_student->serial;
+
     new_student->next = NULL;
     new_student->prev = student_tall;
     if (student_tall != NULL) {
@@ -63,7 +69,10 @@ void add_student() {
     if (student_head == NULL) {
         student_head = student_tall;
     }
-    cout << "The student is added" << endl;
+
+    cout << "\n=============================================" << endl;
+    cout << "        Student Added Successfully!" << endl;
+    cout << "=============================================" << endl;
     sort_student();
 }
 
@@ -72,6 +81,9 @@ void search_student() {
     char id[10];
     char name[50];
 
+    cout << "\n=============================================" << endl;
+    cout << "          Search for Student" << endl;
+    cout << "=============================================" << endl;
     cout << "Search by: " << endl;
     cout << "1. ID" << endl;
     cout << "2. Name" << endl;
@@ -86,7 +98,9 @@ void search_student() {
 
         while (current != NULL) {
             if (strcmp(current->id, id) == 0) {
-                cout << "Student found:" << endl;
+                cout << "\n=============================================" << endl;
+                cout << "            Student Found" << endl;
+                cout << "=============================================" << endl;
                 cout << "Name: " << current->name << endl;
                 cout << "ID: " << current->id << endl;
                 cout << "Gender: " << current->gender << endl;
@@ -99,7 +113,9 @@ void search_student() {
             }
             current = current->next;
         }
-        cout << "Student not found." << endl;
+        cout << "\n=============================================" << endl;
+        cout << "        Student Not Found" << endl;
+        cout << "=============================================" << endl;
 
     } else if (choice == '2') {
         cout << "Enter student's Name to search: ";
@@ -108,7 +124,9 @@ void search_student() {
 
         while (current != NULL) {
             if (strcmp(current->name, name) == 0) {
-                cout << "Student found:" << endl;
+                cout << "\n=============================================" << endl;
+                cout << "            Student Found" << endl;
+                cout << "=============================================" << endl;
                 cout << "Name: " << current->name << endl;
                 cout << "ID: " << current->id << endl;
                 cout << "Gender: " << current->gender << endl;
@@ -121,17 +139,30 @@ void search_student() {
             }
             current = current->next;
         }
-        cout << "Student not found." << endl;
+        cout << "\n=============================================" << endl;
+        cout << "        Student Not Found" << endl;
+        cout << "=============================================" << endl;
 
     } else {
+        cout << "\n=============================================" << endl;
         cout << "Invalid choice. Please enter 1 or 2." << endl;
+        cout << "=============================================" << endl;
     }
 }
 
 void display_students() {
     student *current = student_head;
-    cout << "Student List:" << endl;
+    cout << "\n=============================================" << endl;
+    cout << "             Student List" << endl;
+    cout << "=============================================" << endl;
+    if (current == NULL) {
+        cout << "No students found." << endl;
+        cout << "=============================================" << endl;
+        return;
+    }
+
     while (current != NULL) {
+        cout << "\n---------------------------------------------" << endl;
         cout << "Name: " << current->name << endl;
         cout << "ID: " << current->id << endl;
         cout << "Gender: " << current->gender << endl;
@@ -141,19 +172,24 @@ void display_students() {
         cout << "Computer Name: " << current->pcname << endl;
         cout << "Computer Serial Number: " << current->serial << endl;
         current = current->next;
-        cout << endl;
     }
+    cout << "\n=============================================" << endl;
 }
 
 void update_student() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "          Update Student Information" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter student's ID to update: ";
     cin >> id;
 
     student *current = student_head;
     while (current != NULL) {
         if (strcmp(current->id, id) == 0) {
-            cout << "Student found. What would you like to update?" << endl;
+            cout << "\n=============================================" << endl;
+            cout << "       Student Found. What would you like to update?" << endl;
+            cout << "=============================================" << endl;
             cout << "1. All details" << endl;
             cout << "2. Name" << endl;
             cout << "3. Gender" << endl;
@@ -238,17 +274,24 @@ void update_student() {
                     return;
             }
 
-            cout << "Student details updated successfully!" << endl;
+            cout << "\n=============================================" << endl;
+            cout << "    Student Details Updated Successfully!" << endl;
+            cout << "=============================================" << endl;
             return;
         }
         current = current->next;
     }
 
-    cout << "Student not found." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "    Student Not Found" << endl;
+    cout << "=============================================" << endl;
 }
 
 void delete_student() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "          Delete Student" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter student's ID to delete: ";
     cin >> id;
     student *current = student_head;
@@ -256,7 +299,9 @@ void delete_student() {
         current = current->next;
     }
     if (current == NULL) {
-        cout << "Student not found." << endl;
+        cout << "\n=============================================" << endl;
+        cout << "        Student Not Found" << endl;
+        cout << "=============================================" << endl;
         return;
     }
     if (current->prev != NULL) {
@@ -265,10 +310,10 @@ void delete_student() {
         student_head = current->next;
     }
     if (current->next != NULL) {
-
         current->next->prev = current->prev;
     }
     delete current;
-    cout << "Student deleted successfully." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "       Student Deleted Successfully!" << endl;
+    cout << "=============================================" << endl;
 }
-
