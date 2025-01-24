@@ -1,4 +1,7 @@
 #include "./staff_service.h"
+#include <iostream>
+#include <cstring>
+using namespace std;
 
 // Define global pointers for the linked list
 staff* staff_head = NULL;
@@ -31,11 +34,16 @@ void sort_staff() {
 
         current = current->next;
     }
-    cout << "Staff list sorted successfully.\n";
+    cout << "\n=============================================" << endl;
+    cout << "          Staff List Sorted" << endl;
+    cout << "=============================================" << endl;
 }
 
 void add_staff() {
-    staff* new_staff = new staff();
+    staff* new_staff = new staff;
+    cout << "\n=============================================" << endl;
+    cout << "           Add New Staff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter staff's name: ";
     cin.ignore();
     cin.getline(new_staff->name, 20);
@@ -66,12 +74,17 @@ void add_staff() {
         staff_head = staff_tall;
     }
 
-    cout << "Staff added successfully.\n";
+    cout << "\n=============================================" << endl;
+    cout << "  Staff added successfully!" << endl;
+    cout << "=============================================" << endl;
     sort_staff();
 }
 
 void search_staff() {
     char name[20];
+    cout << "\n=============================================" << endl;
+    cout << "          Search for Staff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter staff's name to search: ";
     cin.ignore();
     cin.getline(name, 20);
@@ -79,48 +92,68 @@ void search_staff() {
     staff* current = staff_head;
     while (current != NULL) {
         if (strcmp(current->name, name) == 0) {
-            cout << "Staff found:\n";
-            cout << "Name: " << current->name << "\n";
-            cout << "ID: " << current->id << "\n";
-            cout << "Gender: " << current->gender << "\n";
-            cout << "Role: " << current->job << "\n";
-            cout << "Type of PC: " << current->typeofpc << "\n";
-            cout << "Phone: " << current->phone << "\n";
-            cout << "Computer Name: " << current->pcname << "\n";
-            cout << "Computer Serial Number: " << current->serial << "\n";
+            cout << "\n=============================================" << endl;
+            cout << "            Staff Found" << endl;
+            cout << "=============================================" << endl;
+            cout << "Name: " << current->name << endl;
+            cout << "ID: " << current->id << endl;
+            cout << "Gender: " << current->gender << endl;
+            cout << "Role: " << current->job << endl;
+            cout << "Type of PC: " << current->typeofpc << endl;
+            cout << "Phone: " << current->phone << endl;
+            cout << "Computer Name: " << current->pcname << endl;
+            cout << "Computer Serial Number: " << current->serial << endl;
+            cout << "=============================================" << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Staff not found.\n";
+    cout << "\n=============================================" << endl;
+    cout << "  Staff not found." << endl;
+    cout << "=============================================" << endl;
 }
 
 void display_staff() {
     staff* current = staff_head;
-    cout << "Staff List:\n";
+    cout << "\n=============================================" << endl;
+    cout << "             Staff List" << endl;
+    cout << "=============================================" << endl;
+    if (current == NULL) {
+        cout << "No staff members found." << endl;
+        cout << "=============================================" << endl;
+        return;
+    }
+
     while (current != NULL) {
-        cout << "Name: " << current->name << "\n";
-        cout << "ID: " << current->id << "\n";
-        cout << "Gender: " << current->gender << "\n";
-        cout << "Role: " << current->job << "\n";
-        cout << "Type of PC: " << current->typeofpc << "\n";
-        cout << "Phone: " << current->phone << "\n";
-        cout << "Computer Name: " << current->pcname << "\n";
-        cout << "Computer Serial Number: " << current->serial << "\n";
-        cout << endl;
+        cout << "\n---------------------------------------------" << endl;
+        cout << "Name: " << current->name << endl;
+        cout << "ID: " << current->id << endl;
+        cout << "Gender: " << current->gender << endl;
+        cout << "Role: " << current->job << endl;
+        cout << "Type of PC: " << current->typeofpc << endl;
+        cout << "Phone: " << current->phone << endl;
+        cout << "Computer Name: " << current->pcname << endl;
+        cout << "Computer Serial Number: " << current->serial << endl;
+        cout << "---------------------------------------------" << endl;
         current = current->next;
     }
+    cout << "\n=============================================" << endl;
 }
 
 void update_staff() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "        Update Staff Information" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter staff's ID to update: ";
     cin >> id;
 
     staff* current = staff_head;
     while (current != NULL) {
         if (strcmp(current->id, id) == 0) {
-            cout << "Staff found. Updating details...\n";
+            cout << "\n=============================================" << endl;
+            cout << "  Staff found. Enter new details:" << endl;
+            cout << "=============================================" << endl;
             cout << "Enter new name: ";
             cin.ignore();
             cin.getline(current->name, 20);
@@ -137,16 +170,23 @@ void update_staff() {
             cout << "Enter new computer serial number: ";
             cin >> current->serial;
 
-            cout << "Staff details updated successfully.\n";
+            cout << "\n=============================================" << endl;
+            cout << "  Staff updated successfully!" << endl;
+            cout << "=============================================" << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Staff not found.\n";
+    cout << "\n=============================================" << endl;
+    cout << "  Staff not found." << endl;
+    cout << "=============================================" << endl;
 }
 
 void delete_staff() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "        Delete Staff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter staff's ID to delete: ";
     cin >> id;
 
@@ -154,22 +194,22 @@ void delete_staff() {
     while (current != NULL && strcmp(current->id, id) != 0) {
         current = current->next;
     }
-
     if (current == NULL) {
-        cout << "Staff not found.\n";
+        cout << "\n=============================================" << endl;
+        cout << "  Staff not found." << endl;
+        cout << "=============================================" << endl;
         return;
     }
-
     if (current->prev != NULL) {
         current->prev->next = current->next;
     } else {
         staff_head = current->next;
     }
-
     if (current->next != NULL) {
         current->next->prev = current->prev;
     }
-
     delete current;
-    cout << "Staff deleted successfully.\n";
+    cout << "\n=============================================" << endl;
+    cout << "  Staff deleted successfully!" << endl;
+    cout << "=============================================" << endl;
 }
