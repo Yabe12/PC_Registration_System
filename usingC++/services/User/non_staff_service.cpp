@@ -1,4 +1,7 @@
 #include "./non_staff_service.h"
+#include <iostream>
+#include <cstring>
+using namespace std;
 
 // Define global pointers for the linked list
 nonstaff* nonstaff_head = NULL;
@@ -35,11 +38,16 @@ void sort_nonstaff() {
             key->prev = prev;
         }
     }
-    cout << "Nonstaff list sorted successfully." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "          Nonstaff List Sorted" << endl;
+    cout << "=============================================" << endl;
 }
 
 void add_nonstaff() {
     nonstaff *new_nonstaff = new nonstaff;
+    cout << "\n=============================================" << endl;
+    cout << "           Add New Nonstaff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter nonstaff's name: ";
     cin.ignore();
     cin.getline(new_nonstaff->name, 50);
@@ -65,12 +73,17 @@ void add_nonstaff() {
         nonstaff_head = nonstaff_tall;
     }
 
-    cout << "Nonstaff added successfully." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "  Nonstaff added successfully!" << endl;
+    cout << "=============================================" << endl;
     sort_nonstaff();
 }
 
 void search_nonstaff() {
     char name[50];
+    cout << "\n=============================================" << endl;
+    cout << "          Search for Nonstaff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter nonstaff's name to search: ";
     cin.ignore();
     cin.getline(name, 50);
@@ -78,49 +91,61 @@ void search_nonstaff() {
     nonstaff *current = nonstaff_head;
     while (current != NULL) {
         if (strcmp(current->name, name) == 0) {
-            cout << "Nonstaff found:" << endl;
+            cout << "\n=============================================" << endl;
+            cout << "            Nonstaff Found" << endl;
+            cout << "=============================================" << endl;
             cout << "Name: " << current->name << endl;
             cout << "ID: " << current->id << endl;
             cout << "Gender: " << current->gender << endl;
             cout << "Phone: " << current->phone << endl;
             cout << "Computer Name: " << current->pcname << endl;
             cout << "Computer Serial Number: " << current->serial << endl;
+            cout << "=============================================" << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Nonstaff not found." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "  Nonstaff not found." << endl;
+    cout << "=============================================" << endl;
 }
 
 void display_nonstaff() {
     nonstaff *current = nonstaff_head;
+    cout << "\n=============================================" << endl;
+    cout << "             Nonstaff List" << endl;
+    cout << "=============================================" << endl;
     if (current == NULL) {
         cout << "No nonstaff members found." << endl;
+        cout << "=============================================" << endl;
         return;
     }
 
-    cout << "Nonstaff List:" << endl;
     while (current != NULL) {
+        cout << "\n---------------------------------------------" << endl;
         cout << "Name: " << current->name << endl;
         cout << "ID: " << current->id << endl;
         cout << "Gender: " << current->gender << endl;
         cout << "Phone: " << current->phone << endl;
         cout << "Computer Name: " << current->pcname << endl;
         cout << "Computer Serial Number: " << current->serial << endl;
-        cout << "---------------------------------" << endl;
         current = current->next;
     }
+    cout << "\n=============================================" << endl;
 }
 
 void update_nonstaff() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "        Update Nonstaff Information" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter ID to update: ";
     cin >> id;
 
     nonstaff *current = nonstaff_head;
     while (current != NULL) {
         if (strcmp(current->id, id) == 0) {
-            cout << "Nonstaff found. Enter new details:" << endl;
+            cout << "\nNonstaff found. Enter new details:" << endl;
             cout << "Enter new name: ";
             cin.ignore();
             cin.getline(current->name, 50);
@@ -134,16 +159,23 @@ void update_nonstaff() {
             cout << "Enter new computer serial number: ";
             cin.getline(current->serial, 50);
 
-            cout << "Nonstaff updated successfully." << endl;
+            cout << "\n=============================================" << endl;
+            cout << "  Nonstaff updated successfully!" << endl;
+            cout << "=============================================" << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Nonstaff not found." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "  Nonstaff not found." << endl;
+    cout << "=============================================" << endl;
 }
 
 void delete_nonstaff() {
     char id[20];
+    cout << "\n=============================================" << endl;
+    cout << "        Delete Nonstaff Member" << endl;
+    cout << "=============================================" << endl;
     cout << "Enter nonstaff's ID to delete: ";
     cin >> id;
 
@@ -152,7 +184,9 @@ void delete_nonstaff() {
         current = current->next;
     }
     if (current == NULL) {
-        cout << "Nonstaff not found." << endl;
+        cout << "\n=============================================" << endl;
+        cout << "  Nonstaff not found." << endl;
+        cout << "=============================================" << endl;
         return;
     }
     if (current->prev != NULL) {
@@ -164,6 +198,7 @@ void delete_nonstaff() {
         current->next->prev = current->prev;
     }
     delete current;
-    cout << "Nonstaff deleted successfully." << endl;
+    cout << "\n=============================================" << endl;
+    cout << "  Nonstaff deleted successfully!" << endl;
+    cout << "=============================================" << endl;
 }
-
