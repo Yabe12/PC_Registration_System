@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "AdminService.h"
-
+#include "../../middleware/input_validation.h"
 using namespace std;
 
 // Define global pointers for the linked list
@@ -13,8 +13,11 @@ void add_admin() {
     Admin* new_admin = new Admin;
     cout << "Enter admin username: ";
     cin >> new_admin->username;
+    if (!validateInput(new_admin->username, 50)) return;
+
     cout << "Enter admin password: ";
     cin >> new_admin->password;
+    if (!validateInput(new_admin->password, 50)) return;
 
     new_admin->next = nullptr;
     if (admin_head == nullptr) {
@@ -31,6 +34,7 @@ void update_admin() {
     char username[50];
     cout << "Enter admin username to update: ";
     cin >> username;
+    if (!validateInput(username, 50)) return;
 
     Admin* current = admin_head;
     while (current != nullptr) {
@@ -47,16 +51,20 @@ void update_admin() {
                 case 1:
                     cout << "Enter new username: ";
                     cin >> current->username;
+                    if (!validateInput(current->username, 50)) return;
                     break;
                 case 2:
                     cout << "Enter new password: ";
                     cin >> current->password;
+                    if (!validateInput(current->password, 50)) return;
                     break;
                 case 3:
                     cout << "Enter new username: ";
                     cin >> current->username;
+                    if (!validateInput(current->username, 50)) return;
                     cout << "Enter new password: ";
                     cin >> current->password;
+                    if (!validateInput(current->password, 50)) return;
                     break;
                 default:
                     cout << "Invalid choice. No updates made." << endl;
@@ -74,6 +82,7 @@ void search_admin() {
     char username[50];
     cout << "Enter admin username to search: ";
     cin >> username;
+    if (!validateInput(username, 50)) return;
 
     Admin* current = admin_head;
     while (current != nullptr) {
@@ -92,6 +101,7 @@ void delete_admin() {
     char username[50];
     cout << "Enter admin username to delete: ";
     cin >> username;
+    if (!validateInput(username, 50)) return;
 
     Admin* current = admin_head;
     Admin* prev = nullptr;

@@ -1,6 +1,8 @@
 #include "./non_staff_service.h"
+#include "../../middleware/input_validation.h"
 #include <iostream>
 #include <cstring>
+
 using namespace std;
 
 // Define global pointers for the linked list
@@ -51,17 +53,28 @@ void add_nonstaff() {
     cout << "Enter nonstaff's name: ";
     cin.ignore();
     cin.getline(new_nonstaff->name, 50);
+    if (!validateInput(new_nonstaff->name, 50)) return;
+
     cout << "Enter nonstaff's ID: ";
     cin >> new_nonstaff->id;
+    if (!validateInput(new_nonstaff->id, 20)) return;
+
     cout << "Enter nonstaff's gender (M/F): ";
     cin >> new_nonstaff->gender;
+    if (!validateGender(new_nonstaff->gender)) return;
+
     cout << "Enter nonstaff's phone: ";
     cin >> new_nonstaff->phone;
+    if (!validatePhoneNumber(new_nonstaff->phone)) return;
+
     cout << "Enter nonstaff computer name: ";
     cin.ignore();
     cin.getline(new_nonstaff->pcname, 50);
+    if (!validateInput(new_nonstaff->pcname, 50)) return;
+
     cout << "Enter nonstaff computer serial number: ";
     cin.getline(new_nonstaff->serial, 50);
+    if (!validateInput(new_nonstaff->serial, 50)) return;
 
     new_nonstaff->next = NULL;
     new_nonstaff->prev = nonstaff_tall;
@@ -149,15 +162,24 @@ void update_nonstaff() {
             cout << "Enter new name: ";
             cin.ignore();
             cin.getline(current->name, 50);
+            if (!validateInput(current->name, 50)) return;
+
             cout << "Enter new gender (M/F): ";
             cin >> current->gender;
+            if (!validateGender(current->gender)) return;
+
             cout << "Enter new phone: ";
             cin >> current->phone;
+            if (!validatePhoneNumber(current->phone)) return;
+
             cout << "Enter new computer name: ";
             cin.ignore();
             cin.getline(current->pcname, 50);
+            if (!validateInput(current->pcname, 50)) return;
+
             cout << "Enter new computer serial number: ";
             cin.getline(current->serial, 50);
+            if (!validateInput(current->serial, 50)) return;
 
             cout << "\n=============================================" << endl;
             cout << "  Nonstaff updated successfully!" << endl;

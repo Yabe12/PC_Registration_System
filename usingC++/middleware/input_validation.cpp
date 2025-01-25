@@ -1,7 +1,8 @@
+#include "input_validation.h"
+
 using namespace std;
-int main () {
-    
-    bool validateInput(const char* str, int maxLength) {
+
+bool validateInput(const char* str, int maxLength) {
     if (strlen(str) >= maxLength) {
         cout << "Input too long. Maximum length is " << maxLength-1 << " characters." << endl;
         return false;
@@ -31,5 +32,4 @@ bool validatePhoneNumber(long long phone) {
         return false;
     }
     return true;
-}
 }

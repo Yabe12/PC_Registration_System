@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "../../models/users/student.h"
+#include "../../middleware/input_validation.h"
 #include "student_service.h"
 
 using namespace std;
@@ -45,20 +46,34 @@ void add_student() {
     cout << "Enter student's name: ";
     cin.ignore();
     cin.getline(new_student->name, 20);
+    if (!validateInput(new_student->name, 20)) return;
+
     cout << "Enter student's ID: ";
     cin >> new_student->id;
+    if (!validateInput(new_student->id, 10)) return;
+
     cout << "Enter student's gender (M/F): ";
     cin >> new_student->gender;
+    if (!validateGender(new_student->gender)) return;
+
     cout << "Enter student's department: ";
     cin >> new_student->department;
+    if (!validateInput(new_student->department, 50)) return;
+
     cout << "Enter student's year: ";
     cin >> new_student->year;
+
     cout << "Enter student's phone number: ";
     cin >> new_student->phone;
+    if (!validatePhoneNumber(new_student->phone)) return;
+
     cout << "Enter student's computer name: ";
     cin >> new_student->pcname;
+    if (!validateInput(new_student->pcname, 50)) return;
+
     cout << "Enter student's computer serial number: ";
     cin >> new_student->serial;
+    if (!validateInput(new_student->serial, 50)) return;
 
     new_student->next = NULL;
     new_student->prev = student_tall;
@@ -208,13 +223,16 @@ void update_student() {
                 case 1:
                     cout << "Enter new name: ";
                     cin.getline(current->name, 50);
+                    if (!validateInput(current->name, 50)) return;
 
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
                     cin.ignore();
+                    if (!validateGender(current->gender)) return;
 
                     cout << "Enter new department: ";
                     cin.getline(current->department, 50);
+                    if (!validateInput(current->department, 50)) return;
 
                     cout << "Enter new year: ";
                     cin >> current->year;
@@ -223,28 +241,34 @@ void update_student() {
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
                     cin.ignore();
+                    if (!validatePhoneNumber(current->phone)) return;
 
                     cout << "Enter new computer name: ";
                     cin.getline(current->pcname, 50);
+                    if (!validateInput(current->pcname, 50)) return;
 
                     cout << "Enter new computer serial number: ";
                     cin.getline(current->serial, 50);
+                    if (!validateInput(current->serial, 50)) return;
                     break;
 
                 case 2:
                     cout << "Enter new name: ";
                     cin.getline(current->name, 50);
+                    if (!validateInput(current->name, 50)) return;
                     break;
 
                 case 3:
                     cout << "Enter new gender (M/F): ";
                     cin >> current->gender;
                     cin.ignore();
+                    if (!validateGender(current->gender)) return;
                     break;
 
                 case 4:
                     cout << "Enter new department: ";
                     cin.getline(current->department, 50);
+                    if (!validateInput(current->department, 50)) return;
                     break;
 
                 case 5:
@@ -257,16 +281,19 @@ void update_student() {
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
                     cin.ignore();
+                    if (!validatePhoneNumber(current->phone)) return;
                     break;
 
                 case 7:
                     cout << "Enter new computer name: ";
                     cin.getline(current->pcname, 50);
+                    if (!validateInput(current->pcname, 50)) return;
                     break;
 
                 case 8:
                     cout << "Enter new computer serial number: ";
                     cin.getline(current->serial, 50);
+                    if (!validateInput(current->serial, 50)) return;
                     break;
 
                 default:

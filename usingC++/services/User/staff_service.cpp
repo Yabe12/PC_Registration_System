@@ -1,6 +1,8 @@
 #include "./staff_service.h"
+#include "../../middleware/input_validation.h"
 #include <iostream>
 #include <cstring>
+
 using namespace std;
 
 // Define global pointers for the linked list
@@ -47,20 +49,35 @@ void add_staff() {
     cout << "Enter staff's name: ";
     cin.ignore();
     cin.getline(new_staff->name, 20);
+    if (!validateInput(new_staff->name, 20)) return;
+
     cout << "Enter staff's ID: ";
     cin >> new_staff->id;
+    if (!validateInput(new_staff->id, 10)) return;
+
     cout << "Enter staff's gender (M/F): ";
     cin >> new_staff->gender;
+    if (!validateGender(new_staff->gender)) return;
+
     cout << "Enter staff's role: ";
     cin >> new_staff->job;
+    if (!validateInput(new_staff->job, 50)) return;
+
     cout << "Enter staff's type of PC (personal laptop/office laptop): ";
     cin >> new_staff->typeofpc;
+    if (!validateInput(new_staff->typeofpc, 50)) return;
+
     cout << "Enter staff's phone number: ";
     cin >> new_staff->phone;
+    if (!validatePhoneNumber(new_staff->phone)) return;
+
     cout << "Enter staff's computer name: ";
     cin >> new_staff->pcname;
+    if (!validateInput(new_staff->pcname, 50)) return;
+
     cout << "Enter staff's computer serial number: ";
     cin >> new_staff->serial;
+    if (!validateInput(new_staff->serial, 50)) return;
 
     new_staff->next = NULL;
     new_staff->prev = staff_tall;
@@ -157,18 +174,31 @@ void update_staff() {
             cout << "Enter new name: ";
             cin.ignore();
             cin.getline(current->name, 20);
+            if (!validateInput(current->name, 20)) return;
+
             cout << "Enter new gender (M/F): ";
             cin >> current->gender;
+            if (!validateGender(current->gender)) return;
+
             cout << "Enter new role: ";
             cin >> current->job;
+            if (!validateInput(current->job, 50)) return;
+
             cout << "Enter new type of PC: ";
             cin >> current->typeofpc;
+            if (!validateInput(current->typeofpc, 50)) return;
+
             cout << "Enter new phone number: ";
             cin >> current->phone;
+            if (!validatePhoneNumber(current->phone)) return;
+
             cout << "Enter new computer name: ";
             cin >> current->pcname;
+            if (!validateInput(current->pcname, 50)) return;
+
             cout << "Enter new computer serial number: ";
             cin >> current->serial;
+            if (!validateInput(current->serial, 50)) return;
 
             cout << "\n=============================================" << endl;
             cout << "  Staff updated successfully!" << endl;
