@@ -14,8 +14,8 @@ bool validateInput(const char* str, int maxLength) {
 
 bool validateGender(const char* gender) {
     std::string genderStr(gender);
-    for (auto & c: genderStr) c = toupper(c);
-    if (genderStr != "MALE" && genderStr != "FEMALE") {
+    for (auto & c: genderStr) c = tolower(c);
+    if (genderStr != "male" && genderStr != "female") {
         cout << "Invalid gender. Please enter Male or Female." << endl;
         return false;
     }

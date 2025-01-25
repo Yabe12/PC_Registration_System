@@ -52,7 +52,7 @@ void add_student() {
     cin >> new_student->id;
     if (!validateInput(new_student->id, 20)) return;
 
-    cout << "Enter student's gender (M/F): ";
+    cout << "Enter student's gender (Male / Female): ";
     cin >> new_student->gender;
     if (!validateGender(new_student->gender)) return;
 

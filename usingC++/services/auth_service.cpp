@@ -26,7 +26,7 @@ bool login(bool isSuper) {
     char password[50];
 
     cout << "\n=============================================" << endl;
-    cout << "               Admin Login" << endl;
+    cout << "               Login Required " << endl;
     cout << "=============================================" << endl;
     cout << "Enter username: ";
     cin >> username;
