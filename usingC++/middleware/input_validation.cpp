@@ -1,4 +1,6 @@
 #include "input_validation.h"
+#include <iostream>
+#include <cstring>
 
 using namespace std;
 

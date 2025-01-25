@@ -2,3 +2,4 @@
 *.class
 temp.cpp
 .env
+.exe
