@@ -42,6 +42,7 @@ void student_menu() {
                 break;
             default:
                 cout << "\nInvalid choice. Please try again.\n";
+                break;
         }
     } while (choice != 6);
 }

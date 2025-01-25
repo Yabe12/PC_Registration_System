@@ -37,43 +37,65 @@ void sort_student() {
     cout << "        Student List Sorted Successfully" << endl;
     cout << "=============================================" << endl;
 }
-
 void add_student() {
     student *new_student = new student;
     cout << "\n=============================================" << endl;
     cout << "          Add New Student" << endl;
     cout << "=============================================" << endl;
-    cout << "Enter student's name: ";
-    cin.ignore();
-    cin.getline(new_student->name, 20);
-    if (!validateInput(new_student->name, 20)) return;
 
-    cout << "Enter student's ID: ";
-    cin >> new_student->id;
-    if (!validateInput(new_student->id, 10)) return;
+    while (true) {
+        cout << "Enter student's name: ";
+        cin.ignore();
+        cin.getline(new_student->name, 20);
+        if (validateInput(new_student->name, 20)) break;
+        cout << "Please try again.\n";
+    }
 
-    cout << "Enter student's gender (M/F): ";
-    cin >> new_student->gender;
-    if (!validateGender(new_student->gender)) return;
+    while (true) {
+        cout << "Enter student's ID: ";
+        cin.getline(new_student->id, 10);
+        if (validateInput(new_student->id, 10)) break;
+        cout << "Please try again.\n";
+    }
 
-    cout << "Enter student's department: ";
-    cin >> new_student->department;
-    if (!validateInput(new_student->department, 50)) return;
+    while (true) {
+        cout << "Enter student's gender (M/F): ";
+        cin >> new_student->gender;
+        cin.ignore(); // Clear leftover newline character
+        if (validateGender(validateInput(&new_student->gender ,1))) break;
+        cout << "Please try again.\n";
+    }
+
+    while (true) {
+        cout << "Enter student's department: ";
+        cin.getline(new_student->department, 50);
+        if (validateInput(new_student->department, 50)) break;
+        cout << "Please try again.\n";
+    }
 
     cout << "Enter student's year: ";
     cin >> new_student->year;
 
-    cout << "Enter student's phone number: ";
-    cin >> new_student->phone;
-    if (!validatePhoneNumber(new_student->phone)) return;
+    while (true) {
+        cout << "Enter student's phone number: ";
+        cin >> new_student->phone;
+        if (validatePhoneNumber(new_student->phone)) break;
+        cout << "Please try again.\n";
+    }
 
-    cout << "Enter student's computer name: ";
-    cin >> new_student->pcname;
-    if (!validateInput(new_student->pcname, 50)) return;
+    while (true) {
+        cout << "Enter student's computer name: ";
+        cin >> new_student->pcname;
+        if (validateInput(new_student->pcname, 50)) break;
+        cout << "Please try again.\n";
+    }
 
-    cout << "Enter student's computer serial number: ";
-    cin >> new_student->serial;
-    if (!validateInput(new_student->serial, 50)) return;
+    while (true) {
+        cout << "Enter student's computer serial number: ";
+        cin >> new_student->serial;
+        if (validateInput(new_student->serial, 50)) break;
+        cout << "Please try again.\n";
+    }
 
     new_student->next = NULL;
     new_student->prev = student_tall;
