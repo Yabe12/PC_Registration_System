@@ -37,65 +37,42 @@ void sort_student() {
     cout << "        Student List Sorted Successfully" << endl;
     cout << "=============================================" << endl;
 }
+
 void add_student() {
     student *new_student = new student;
     cout << "\n=============================================" << endl;
     cout << "          Add New Student" << endl;
     cout << "=============================================" << endl;
+    cout << "Enter student's name: ";
+    cin.ignore();
+    cin.getline(new_student->name, 50);
+    if (!validateInput(new_student->name, 50)) return;
 
-    while (true) {
-        cout << "Enter student's name: ";
-        cin.ignore();
-        cin.getline(new_student->name, 20);
-        if (validateInput(new_student->name, 20)) break;
-        cout << "Please try again.\n";
-    }
+    cout << "Enter student's ID: ";
+    cin >> new_student->id;
+    if (!validateInput(new_student->id, 20)) return;
 
-    while (true) {
-        cout << "Enter student's ID: ";
-        cin.getline(new_student->id, 10);
-        if (validateInput(new_student->id, 10)) break;
-        cout << "Please try again.\n";
-    }
+    cout << "Enter student's gender (M/F): ";
+    cin >> new_student->gender;
+    if (!validateGender(new_student->gender)) return;
 
-    while (true) {
-        cout << "Enter student's gender (M/F): ";
-        cin >> new_student->gender;
-        cin.ignore(); // Clear leftover newline character
-        if (validateGender(validateInput(&new_student->gender ,1))) break;
-        cout << "Please try again.\n";
-    }
+    cout << "Enter student's department: ";
+    cin.ignore();
+    cin.getline(new_student->department, 50);
+    if (!validateInput(new_student->department, 50)) return;
 
-    while (true) {
-        cout << "Enter student's department: ";
-        cin.getline(new_student->department, 50);
-        if (validateInput(new_student->department, 50)) break;
-        cout << "Please try again.\n";
-    }
+    cout << "Enter student's phone number: ";
+    cin >> new_student->phone;
+    if (!validatePhoneNumber(new_student->phone)) return;
 
-    cout << "Enter student's year: ";
-    cin >> new_student->year;
+    cout << "Enter student's computer name: ";
+    cin.ignore();
+    cin.getline(new_student->pcname, 50);
+    if (!validateInput(new_student->pcname, 50)) return;
 
-    while (true) {
-        cout << "Enter student's phone number: ";
-        cin >> new_student->phone;
-        if (validatePhoneNumber(new_student->phone)) break;
-        cout << "Please try again.\n";
-    }
-
-    while (true) {
-        cout << "Enter student's computer name: ";
-        cin >> new_student->pcname;
-        if (validateInput(new_student->pcname, 50)) break;
-        cout << "Please try again.\n";
-    }
-
-    while (true) {
-        cout << "Enter student's computer serial number: ";
-        cin >> new_student->serial;
-        if (validateInput(new_student->serial, 50)) break;
-        cout << "Please try again.\n";
-    }
+    cout << "Enter student's computer serial number: ";
+    cin.getline(new_student->serial, 50);
+    if (!validateInput(new_student->serial, 50)) return;
 
     new_student->next = NULL;
     new_student->prev = student_tall;
@@ -115,7 +92,7 @@ void add_student() {
 
 void search_student() {
     char choice;
-    char id[10];
+    char id[20];
     char name[50];
 
     cout << "\n=============================================" << endl;
@@ -142,7 +119,6 @@ void search_student() {
                 cout << "ID: " << current->id << endl;
                 cout << "Gender: " << current->gender << endl;
                 cout << "Department: " << current->department << endl;
-                cout << "Year: " << current->year << endl;
                 cout << "Phone: " << current->phone << endl;
                 cout << "Computer Name: " << current->pcname << endl;
                 cout << "Computer Serial Number: " << current->serial << endl;
@@ -168,7 +144,6 @@ void search_student() {
                 cout << "ID: " << current->id << endl;
                 cout << "Gender: " << current->gender << endl;
                 cout << "Department: " << current->department << endl;
-                cout << "Year: " << current->year << endl;
                 cout << "Phone: " << current->phone << endl;
                 cout << "Computer Name: " << current->pcname << endl;
                 cout << "Computer Serial Number: " << current->serial << endl;
@@ -204,7 +179,6 @@ void display_students() {
         cout << "ID: " << current->id << endl;
         cout << "Gender: " << current->gender << endl;
         cout << "Department: " << current->department << endl;
-        cout << "Year: " << current->year << endl;
         cout << "Phone: " << current->phone << endl;
         cout << "Computer Name: " << current->pcname << endl;
         cout << "Computer Serial Number: " << current->serial << endl;
@@ -231,10 +205,9 @@ void update_student() {
             cout << "2. Name" << endl;
             cout << "3. Gender" << endl;
             cout << "4. Department" << endl;
-            cout << "5. Year" << endl;
-            cout << "6. Phone number" << endl;
-            cout << "7. Computer name" << endl;
-            cout << "8. Computer serial number" << endl;
+            cout << "5. Phone number" << endl;
+            cout << "6. Computer name" << endl;
+            cout << "7. Computer serial number" << endl;
             cout << "Enter your choice: ";
 
             int choice;
@@ -255,10 +228,6 @@ void update_student() {
                     cout << "Enter new department: ";
                     cin.getline(current->department, 50);
                     if (!validateInput(current->department, 50)) return;
-
-                    cout << "Enter new year: ";
-                    cin >> current->year;
-                    cin.ignore();
 
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
@@ -294,25 +263,19 @@ void update_student() {
                     break;
 
                 case 5:
-                    cout << "Enter new year: ";
-                    cin >> current->year;
-                    cin.ignore();
-                    break;
-
-                case 6:
                     cout << "Enter new phone number: ";
                     cin >> current->phone;
                     cin.ignore();
                     if (!validatePhoneNumber(current->phone)) return;
                     break;
 
-                case 7:
+                case 6:
                     cout << "Enter new computer name: ";
                     cin.getline(current->pcname, 50);
                     if (!validateInput(current->pcname, 50)) return;
                     break;
 
-                case 8:
+                case 7:
                     cout << "Enter new computer serial number: ";
                     cin.getline(current->serial, 50);
                     if (!validateInput(current->serial, 50)) return;

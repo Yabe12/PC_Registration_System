@@ -4,7 +4,7 @@
 struct nonstaff {
     char name[50];
     char id[20];
-    char gender;
+    char gender[10];
     long long phone;
     char pcname[50];
     char serial[50];

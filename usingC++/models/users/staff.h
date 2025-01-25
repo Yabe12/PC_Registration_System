@@ -4,7 +4,7 @@
 struct staff {
     char name[50];
     char id[20];
-    char gender;
+    char gender[10];
     char job[50];
     long long phone;
     char typeofpc[20];

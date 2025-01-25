@@ -1,44 +1,38 @@
+#include "input_validation.h"
 #include <iostream>
 #include <cstring>
-#include <cctype>
-#include "../services/User/student_service.h"
-#include "../models/users/student.h"
-#include "../models/users/non_staff.h"
-#include "../models/users/staff.h"
+
 using namespace std;
 
-bool validateInput(const char *input, size_t maxLength) {
-    if (strlen(input) >= maxLength) {
-        cout << "Error: Input is too long. Maximum length is " << maxLength - 1 << " characters.\n";
-        return false;
-    }
-    for (size_t i = 0; i < strlen(input); i++) {
-        if (!isalnum(input[i]) && !isspace(input[i])) {
-            cout << "Error: Input contains invalid characters.\n";
-            return false;
-        }
-    }
-    return true;
-}
-
-bool validateGender(char gender) {
-    if (gender != 'M' && gender != 'F' && gender != 'm' && gender != 'f') {
-        cout << "Error: Gender must be 'M' or 'F'.\n";
+bool validateInput(const char* str, int maxLength) {
+    if (strlen(str) >= maxLength) {
+        cout << "Input too long. Maximum length is " << maxLength-1 << " characters." << endl;
         return false;
     }
     return true;
 }
 
-bool validatePhoneNumber(const char *phone) {
-    if (strlen(phone) != 10) {
-        cout << "Error: Phone number must be exactly 10 digits.\n";
+bool validateGender(const char* gender) {
+    std::string genderStr(gender);
+    for (auto & c: genderStr) c = toupper(c);
+    if (genderStr != "MALE" && genderStr != "FEMALE") {
+        cout << "Invalid gender. Please enter Male or Female." << endl;
         return false;
     }
-    for (size_t i = 0; i < strlen(phone); i++) {
-        if (!isdigit(phone[i])) {
-            cout << "Error: Phone number must contain only digits.\n";
-            return false;
-        }
+    return true;
+}
+
+bool validatePhoneNumber(long long phone) {
+    // Assuming phone numbers should be between 8 and 15 digits
+    int digits = 0;
+    long long temp = phone;
+    while (temp != 0) {
+        temp /= 10;
+        digits++;
+    }
+    if (digits < 8 || digits > 15) {
+        cout << "Invalid phone number length." << endl;
+        return false;
     }
     return true;
 }

@@ -22,4 +22,3 @@ extern const char superAdminPassword[];
 bool login(bool isSuper);
 
 #endif // AUTH_SERVICE_H
-

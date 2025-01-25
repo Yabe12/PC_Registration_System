@@ -5,9 +5,11 @@
 #include <cstring>
 
 using namespace std;
+// validation.h
+
 
 bool validateInput(const char* str, int maxLength);
-bool validateGender(char gender);
+bool validateGender(const char* gender);
 bool validatePhoneNumber(long long phone);
 
 #endif // INPUT_VALIDATION_H
