@@ -1,85 +1,112 @@
-# PC Registration System
+# PC Registration System Backend Code Structure
 
-## Overview
-The **PC Registration System** is a console-based application designed to manage the registration of computers used by students, staff, and non-staff members. It allows users to add, search, delete, and update records efficiently using a **doubly linked list** data structure. The system is implemented in both **C++ and Java**.
+This document outlines the folder structure and components of the backend code for a PC Registration System. The system is designed to connect to a database and can be expanded to include a GUI in the future. The focus is on the backend logic, ensuring scalability, maintainability, and clarity.
 
-## Features
-- **Register PCs**: Supports adding students, staff, and non-staff along with their PC details.
-- **Search Records** (Feature to be implemented)
-- **Delete Records** (Feature to be implemented)
-- **Update Records** (Feature to be implemented)
-- **Console-Based Menu**: Provides an interactive menu for user operations.
+---
 
-## Data Structures Used
-The system uses **doubly linked lists** to manage user data:
-- `student`: Stores student details along with their PC information.
-- `staff`: Stores staff details along with their PC information.
-- `nonstaff`: Stores non-staff details along with their PC information.
+## **Folder Structure Overview**
 
-Each class (Java) or struct (C++) contains:
-- **Personal Information**: Name, ID, gender, and phone number.
-- **PC Information**: Computer name, serial number, and model.
-- **Linked List Pointers**: `next` and `prev` for navigation.
-
-## Getting Started
-### Prerequisites
-- A C++ compiler (e.g., g++ for GCC, MSVC for Visual Studio, or Clang)
-- A Java Development Kit (JDK)
-
-### Compilation and Execution
-#### C++
-To compile the C++ version of the project, use:
-```sh
-g++ pc_registration.cpp -o pc_registration
 ```
-To run the compiled program:
-```sh
-./pc_registration
+---
+project-root/
+├── controllers/
+│   ├── admin/
+│   │   └── admin_controller.cpp
+│   ├── users/
+│   │   ├── student_controller.cpp
+│   │   ├── staff_controller.cpp
+│   │   └── non_staff_controller.cpp
+│   └── authentication_controller.cpp
+│
+├── database/
+│   ├── db_connection.cpp
+│   └── migrations/
+│       ├── create_users_table.sql
+│       ├── create_students_table.sql
+│       ├── create_staff_table.sql
+│       └── create_admins_table.sql
+│
+├── middleware/
+│   ├── auth_middleware.cpp
+│   └── input_validation.cpp
+│
+├── models/
+│   ├── admin/
+│   │   └── admin.cpp
+│   ├── users/
+│   │   ├── student.cpp
+│   │   ├── staff.cpp
+│   │   └── non_staff.cpp
+│   └── base_model.cpp
+│
+├── services/
+│   ├── admin/
+│   │   └── admin_service.cpp
+│   ├── users/
+│   │   ├── student_service.cpp
+│   │   ├── staff_service.cpp
+│   │   └── non_staff_service.cpp
+│   └── auth_service.cpp
+│
+├── utils/
+│   ├── logger.cpp
+│   ├── config_loader.cpp
+│   ├── error_handler.cpp
+│   └── constants.h
+│
+├── menus/
+│   ├── main_menu.cpp
+│   └── sub_menus/
+│       ├── admin_menu.cpp
+│       ├── student_menu.cpp
+│       ├── staff_menu.cpp
+│       └── non_staff_menu.cpp
+│
+├── tests/
+│   ├── controllers/
+│   ├── services/
+│   ├── models/
+│   └── utils/
+│
+├── .env
+├── .gitignore
+├── CMakeLists.txt
+├── main.cpp
+└── README.md
 ```
 
-#### Java
-To compile the Java version of the project, use:
-```sh
-javac PcRegistration.java
-```
-To run the compiled program:
-```sh
-java PcRegistration
-```
+### Purpose of Each Directory and Files
+#### **`controllers/`**
+Handles user requests, processes them, and sends responses. Each role (admin, student, staff) has its dedicated controller.
 
-## Usage
-1. **Choose an option from the menu**
-   - Register a PC (students, staff, or non-staff)
-   - Search for a record (to be implemented)
-   - Delete a record (to be implemented)
-   - Update record details (to be implemented)
-   - Exit the program
+#### **`database/`**
+Contains the database connection logic (`db_connection.cpp`) and migration files (`.sql`) for creating and managing database tables.
 
-2. **Enter user and PC details** as prompted.
-3. **The system stores the information** using a doubly linked list in memory.
+#### **`middleware/`**
+Contains reusable logic like authentication and input validation (`auth_middleware.cpp`, `input_validation.cpp`).
 
-## Known Issues & Bugs
-- `add_user` mistakenly calls `add_staff` instead of `add_nonstaff`.
-- Some variables like `char id`, `char department`, and `char model` should be `char arrays` or `strings` for proper data handling in C++.
-- No functions for searching, deleting, and updating users yet.
-- Missing proper linked list implementation to store multiple entries.
-- Java version needs to fully replicate C++ features.
+#### **`models/`**
+Represents the database entities. Includes base class (`base_model.cpp`) for common database operations.
 
-## Future Improvements
-- Implement linked list traversal for storing and retrieving multiple records.
-- Add search, update, and delete functionalities.
-- Improve input validation and error handling.
-- Enhance data persistence with file storage.
-- Improve Java version to match C++ functionality.
+#### **`services/`**
+Implements the business logic for each entity. Separate services handle functionality for admins, students, and staff.
 
-## Contributions
-Contributions are welcome! Feel free to fork this project, report issues, or suggest improvements.
+#### **`utils/`**
+Holds utility functions such as logging, error handling, and loading configuration (`logger.cpp`, `config_loader.cpp`).
 
-## License
-This project is open-source and free to use under the MIT License.
+#### **`menus/`**
+Manages user interaction and menu navigation (`main_menu.cpp` and `sub_menus` for specific roles).
 
+#### **`tests/`**
+Organizes unit and integration tests for each layer of your application.
+---
 
-## Author
-Developed by [**Fitsum helina**](https://github.com/Fitsumhelina) , [**Yeabsira Behailu**](https://www.linkedin.com/in/yeabsira-behailu-19504b285/) , [**Kisanet Hailemariam**](https://www.linkedin.com/in/kisanet-hailemariam-2118642a9/) .
+## **Development Notes**
 
+- **Scalability**: The modular design ensures ease of scalability and facilitates the addition of new features without disrupting the existing codebase.
+- **Maintainability**: Separation of concerns through distinct folders for models, services, and utilities makes the system easy to maintain and debug.
+- **Security**: Sensitive information is stored securely in the `.env` file, and middleware ensures data validation and sanitization.
+- **Future Expansion**: While the current focus is backend development, the system can easily integrate a GUI in the future, leveraging the existing service layer.
+
+---
 
