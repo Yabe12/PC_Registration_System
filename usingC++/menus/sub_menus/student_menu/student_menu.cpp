@@ -6,8 +6,8 @@
 using namespace std;
 
 void student_menu() {
-    int choice;
-    do {
+    int choice = 0;  // Initialize choice to 0 to enter the loop
+    while (choice != 6) {
         cout << "************************************" << endl;
         cout << "  Student Management System" << endl;
         cout << "************************************" << endl;
@@ -44,5 +44,5 @@ void student_menu() {
                 cout << "\nInvalid choice. Please try again.\n";
                 break;
         }
-    } while (choice != 6);
+    }
 }

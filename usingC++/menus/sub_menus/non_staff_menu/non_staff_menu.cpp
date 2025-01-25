@@ -6,8 +6,8 @@
 using namespace std;
 
 void non_staff_menu() {
-    int choice;
-    do {
+    int choice = 0;  // Initialize choice to 0 to enter the loop
+    while (choice != 6) {
         cout << "************************************" << endl;
         cout << "  Nonstaff Management System" << endl;
         cout << "************************************" << endl;
@@ -43,5 +43,5 @@ void non_staff_menu() {
             default:
                 cout << "\nInvalid choice. Please try again.\n";
         }
-    } while (choice != 6);
+    }
 }

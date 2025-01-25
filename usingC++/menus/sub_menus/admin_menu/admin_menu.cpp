@@ -1,13 +1,12 @@
 #include <iostream>
 #include "../../../services/admin/AdminService.h"
 #include "admin_menu.h"
-// #include "../../../utils/menu_utils/menu_utils.h"  // No longer needed if removing header/footer
 
 using namespace std;
 
 void admin_menu() {
-    int choice;
-    do {
+    int choice = 0;  // Initialize choice to 0 to enter the loop
+    while (choice != 6) {
         cout << "************************************" << endl;
         cout << "  Admin Management System" << endl;
         cout << "************************************" << endl;
@@ -43,5 +42,5 @@ void admin_menu() {
             default:
                 cout << "Invalid choice. Please try again." << endl;
         }
-    } while (choice != 6);
+    }
 }

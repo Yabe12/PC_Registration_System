@@ -45,7 +45,6 @@ void mainMenu() {
 }
 
 int main() {
-    // Main menu is called when the program starts
     mainMenu();
     return 0;
 }

@@ -3,14 +3,13 @@
 #include "../staff_menu/staff_menu.h"
 #include "../non_staff_menu/non_staff_menu.h"
 #include "../student_menu/student_menu.h"
-// #include "../../../utils/menu_utils/menu_utils.h"  // No longer needed if removing header/footer
 #include "user_menu.h"
 
 using namespace std;
 
 void user_menu() {
-    int choice;
-    do {
+    int choice = 0;  // Initialize choice to 0 to enter the loop
+    while (choice != 4) {
         cout << "************************************" << endl;
         cout << "  User Management System" << endl;
         cout << "************************************" << endl;
@@ -38,7 +37,5 @@ void user_menu() {
             default:
                 cout << "\nInvalid choice. Please try again.\n";
         }
-    } while (choice != 4);
+    }
 }
-
-
