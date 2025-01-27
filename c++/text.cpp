@@ -1,5 +1,6 @@
 #include <iostream>
 #include <libpq-fe.h>
+#include <cstdlib>
 
 void checkConnection(PGconn *conn) {
     if (PQstatus(conn) != CONNECTION_OK) {
@@ -40,9 +41,25 @@ void executeQuery(PGconn *conn, const char *query) {
 }
 
 int main() {
-   
+    const char *host = std::getenv("DB_HOST");
+    const char *port = std::getenv("DB_PORT");
+    const char *dbname = std::getenv("DB_NAME");
+    const char *user = std::getenv("DB_USER");
+    const char *password = std::getenv("DB_PASSWORD");
+
+    if (!host || !port || !dbname || !user || !password) {
+        std::cerr << "Environment variables for database connection are not set." << std::endl;
+        return 1;
+    }
+
+    std::string conninfo = "host=" + std::string(host) +
+                           " port=" + std::string(port) +
+                           " dbname=" + std::string(dbname) +
+                           " user=" + std::string(user) +
+                           " password=" + std::string(password);
+
     // Connect to the database
-    PGconn *conn = PQconnectdb(conninfo);
+    PGconn *conn = PQconnectdb(conninfo.c_str());
 
     checkConnection(conn);
 
