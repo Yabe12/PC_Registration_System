@@ -40,8 +40,7 @@ void executeQuery(PGconn *conn, const char *query) {
 }
 
 int main() {
-    const char *conninfo = "host=127.0.0.1 port=5432 dbname=lerning_laravel user=postgres password=YAB@340354y";
-
+   
     // Connect to the database
     PGconn *conn = PQconnectdb(conninfo);
 
