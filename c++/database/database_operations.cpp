@@ -17,69 +17,34 @@ void executeQuery(PGconn *conn, const std::string &query) {
     PQclear(res);
 }
 
-void createTables(PGconn *conn) {
-    const std::string superadminTable = "CREATE TABLE IF NOT EXISTS superadmin (" \
-                                        "username VARCHAR(50) PRIMARY KEY, " \
-                                        "password VARCHAR(50) NOT NULL);";
-
-    const std::string adminTable = "CREATE TABLE IF NOT EXISTS admin (" \
-                                    "id SERIAL PRIMARY KEY, " \
-                                    "username VARCHAR(50) NOT NULL, " \
-                                    "password VARCHAR(50) NOT NULL);";
-
-    const std::string studentTable = "CREATE TABLE IF NOT EXISTS student (" \
-                                      "id SERIAL PRIMARY KEY, " \
-                                      "name VARCHAR(50), " \
-                                      "student_id VARCHAR(20), " \
-                                      "gender VARCHAR(10), " \
-                                      "department VARCHAR(50), " \
-                                      "phone BIGINT, " \
-                                      "pcname VARCHAR(50), " \
-                                      "serial VARCHAR(50));";
-
-    const std::string staffTable = "CREATE TABLE IF NOT EXISTS staff (" \
-                                   "id SERIAL PRIMARY KEY, " \
-                                   "name VARCHAR(50), " \
-                                   "staff_id VARCHAR(20), " \
-                                   "gender VARCHAR(10), " \
-                                   "job VARCHAR(50), " \
-                                   "phone BIGINT, " \
-                                   "typeofpc VARCHAR(20), " \
-                                   "pcname VARCHAR(50), " \
-                                   "serial VARCHAR(50));";
-
-    const std::string nonStaffTable = "CREATE TABLE IF NOT EXISTS nonstaff (" \
-                                      "id SERIAL PRIMARY KEY, " \
-                                      "name VARCHAR(50), " \
-                                      "nonstaff_id VARCHAR(20), " \
-                                      "gender VARCHAR(10), " \
-                                      "phone BIGINT, " \
-                                      "pcname VARCHAR(50), " \
-                                      "serial VARCHAR(50));";
-
-    executeQuery(conn, superadminTable);
-    executeQuery(conn, adminTable);
-    executeQuery(conn, studentTable);
-    executeQuery(conn, staffTable);
-    executeQuery(conn, nonStaffTable);
-}
-
 void createSuperAdmin(PGconn *conn, const std::string &username, const std::string &password) {
     std::string query = "INSERT INTO superadmin (username, password) VALUES ('" + username + "', '" + password + "') ON CONFLICT DO NOTHING;";
     executeQuery(conn, query);
     std::cout << "Superadmin created successfully." << std::endl;
 }
 
-void addAdmin(PGconn *conn, const std::string &username, const std::string &password) {
-    std::string query = "INSERT INTO admin (username, password) VALUES ('" + username + "', '" + password + "');";
+void addAdmin(PGconn *conn, const std::string &username, const std::string &password, const std::string &superadmin_username) {
+    std::string query = "INSERT INTO admin (username, password, superadmin_username) VALUES ('" + username + "', '" + password + "', '" + superadmin_username + "');";
     executeQuery(conn, query);
     std::cout << "Admin created successfully." << std::endl;
 }
 
-void addStudent(PGconn *conn, const std::string &name, const std::string &id, const std::string &gender, const std::string &department, long long phone, const std::string &pcname, const std::string &serial) {
-    std::string query = "INSERT INTO student (name, student_id, gender, department, phone, pcname, serial) VALUES ('" + name + "', '" + id + "', '" + gender + "', '" + department + "', " + std::to_string(phone) + ", '" + pcname + "', '" + serial + "');";
+void addStudent(PGconn *conn, const std::string &name, const std::string &id, const std::string &gender, const std::string &department, long long phone, const std::string &pcname, const std::string &serial, const std::string &superadmin_username, int admin_id) {
+    std::string query = "INSERT INTO student (name, student_id, gender, department, phone, pcname, serial, superadmin_username, admin_id) VALUES ('" + name + "', '" + id + "', '" + gender + "', '" + department + "', " + std::to_string(phone) + ", '" + pcname + "', '" + serial + "', '" + superadmin_username + "', " + std::to_string(admin_id) + ");";
     executeQuery(conn, query);
     std::cout << "Student added successfully." << std::endl;
+}
+
+void addStaff(PGconn *conn, const std::string &name, const std::string &id, const std::string &gender, const std::string &job, long long phone, const std::string &typeofpc, const std::string &pcname, const std::string &serial, const std::string &superadmin_username, int admin_id) {
+    std::string query = "INSERT INTO staff (name, staff_id, gender, job, phone, typeofpc, pcname, serial, superadmin_username, admin_id) VALUES ('" + name + "', '" + id + "', '" + gender + "', '" + job + "', " + std::to_string(phone) + ", '" + typeofpc + "', '" + pcname + "', '" + serial + "', '" + superadmin_username + "', " + std::to_string(admin_id) + ");";
+    executeQuery(conn, query);
+    std::cout << "Staff added successfully." << std::endl;
+}
+
+void addNonStaff(PGconn *conn, const std::string &name, const std::string &id, const std::string &gender, long long phone, const std::string &pcname, const std::string &serial, const std::string &superadmin_username, int admin_id) {
+    std::string query = "INSERT INTO nonstaff (name, nonstaff_id, gender, phone, pcname, serial, superadmin_username, admin_id) VALUES ('" + name + "', '" + id + "', '" + gender + "', " + std::to_string(phone) + ", '" + pcname + "', '" + serial + "', '" + superadmin_username + "', " + std::to_string(admin_id) + ");";
+    executeQuery(conn, query);
+    std::cout << "Nonstaff added successfully." << std::endl;
 }
 
 void updateRecord(PGconn *conn, const std::string &table, const std::string &setClause, const std::string &condition) {
@@ -108,13 +73,11 @@ void searchRecords(PGconn *conn, const std::string &table, const std::string &co
     int nRows = PQntuples(res);
     int nFields = PQnfields(res);
 
-    // Print column names
     for (int i = 0; i < nFields; i++) {
         std::cout << PQfname(res, i) << "\t";
     }
     std::cout << std::endl;
 
-    // Print rows
     for (int i = 0; i < nRows; i++) {
         for (int j = 0; j < nFields; j++) {
             std::cout << PQgetvalue(res, i, j) << "\t";
@@ -139,13 +102,11 @@ void displayAllRecords(PGconn *conn, const std::string &table) {
     int nRows = PQntuples(res);
     int nFields = PQnfields(res);
 
-    // Print column names
     for (int i = 0; i < nFields; i++) {
         std::cout << PQfname(res, i) << "\t";
     }
     std::cout << std::endl;
 
-    // Print rows
     for (int i = 0; i < nRows; i++) {
         for (int j = 0; j < nFields; j++) {
             std::cout << PQgetvalue(res, i, j) << "\t";
@@ -156,15 +117,14 @@ void displayAllRecords(PGconn *conn, const std::string &table) {
     PQclear(res);
 }
 
-void connect(){
-  PGconn *conn = connectToDatabase();
-    createTables(conn);
+void connect() {
+    PGconn *conn = connectToDatabase();
 
-    // Example usage:
     createSuperAdmin(conn, "superadmin", "superpassword");
-    addAdmin(conn, "admin1", "adminpass");
-    addStudent(conn, "John Doe", "S123", "Male", "CS", 1234567890, "Dell", "SN123");
+    addAdmin(conn, "admin1", "adminpass", "superadmin");
+    addStudent(conn, "John Doe", "S123", "Male", "CS", 1234567890, "Dell", "SN123", "superadmin", 1);
+    addStaff(conn, "Jane Smith", "ST123", "Female", "Manager", 9876543210, "HP", "Workstation", "SN456", "superadmin", 1);
+    addNonStaff(conn, "Bob Brown", "NST123", "Male", 1239874560, "Acer", "SN789", "superadmin", 1);
 
     closeConnection(conn);
-
 }
