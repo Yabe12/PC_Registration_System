@@ -7,12 +7,10 @@ database.cpp
 .vscode
 .env1
 dbtable.cpp
-connection.cpp
-connection.h
+ 
 dbtable.h
 dbtable.exe
-dotenv.cpp
-dotenv.h
+
 database.h
 
 dotenv.exe

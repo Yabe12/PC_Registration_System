@@ -2,12 +2,14 @@
 #include <cstring>
 #include "AdminService.h"
 #include "../../middleware/input_validation.h"
+#include "../../database/admin/AdminDBOperations.h"  // Include the new header for DB operations
+#include "../../database/connection.h"  // Include the connection header
+
 using namespace std;
 
-// Define global pointers for the linked list
-// Remove the definition of admin_head and admin_tall from here
-// Admin* admin_head = nullptr;
-// Admin* admin_tall = nullptr;
+// Global pointers for the linked list
+Admin* admin_head = nullptr;
+Admin* admin_tall = nullptr;
 
 void add_admin() {
     Admin* new_admin = new Admin;
@@ -19,6 +21,10 @@ void add_admin() {
     cin >> new_admin->password;
     if (!validateInput(new_admin->password, 50)) return;
 
+    // Add admin to the database
+    add_admin_to_db(new_admin->username, new_admin->password);
+
+    // Add admin to the linked list
     new_admin->next = nullptr;
     if (admin_head == nullptr) {
         admin_head = new_admin;
@@ -38,7 +44,7 @@ void update_admin() {
 
     Admin* current = admin_head;
     while (current != nullptr) {
-        if (strcmp(current->username, username) == 0) {
+        if (current->username == username) {
             cout << "Admin found. What would you like to update?" << endl;
             cout << "1. Username" << endl;
             cout << "2. Password" << endl;
@@ -70,6 +76,10 @@ void update_admin() {
                     cout << "Invalid choice. No updates made." << endl;
                     return;
             }
+
+            // Update admin in the database
+            update_admin_in_db(current->username, current->password);
+
             cout << "Admin updated successfully!" << endl;
             return;
         }
@@ -86,15 +96,17 @@ void search_admin() {
 
     Admin* current = admin_head;
     while (current != nullptr) {
-        if (strcmp(current->username, username) == 0) {
-            cout << "Admin found:" << endl;
+        if (current->username == username) {
+            cout << "Admin found in linked list:" << endl;
             cout << "Username: " << current->username << endl;
             cout << "Password: " << string(strlen(current->password), '*') << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Admin not found." << endl;
+
+    // Admin not found in linked list, search in the database
+    search_admin_in_db(username);
 }
 
 void delete_admin() {
@@ -107,7 +119,7 @@ void delete_admin() {
     Admin* prev = nullptr;
 
     while (current != nullptr) {
-        if (strcmp(current->username, username) == 0) {
+        if (current->username == username) {
             if (prev == nullptr) {
                 admin_head = current->next;
             } else {
@@ -117,6 +129,9 @@ void delete_admin() {
             if (current == admin_tall) {
                 admin_tall = prev;
             }
+
+            // Delete admin from the database
+            delete_admin_from_db(username);
 
             delete current;
             cout << "Admin deleted successfully!" << endl;
