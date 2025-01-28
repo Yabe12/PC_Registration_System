@@ -1,5 +1,9 @@
+#include <iostream>
+#include <libpq-fe.h>
+#include <string>
 #include "database_operations.h"
 #include "connection.h"
+
 void executeQuery(PGconn *conn, const std::string &query) {
     PGresult *res = PQexec(conn, query.c_str());
 
@@ -77,6 +81,81 @@ void addStudent(PGconn *conn, const std::string &name, const std::string &id, co
     executeQuery(conn, query);
     std::cout << "Student added successfully." << std::endl;
 }
+
+void updateRecord(PGconn *conn, const std::string &table, const std::string &setClause, const std::string &condition) {
+    std::string query = "UPDATE " + table + " SET " + setClause + " WHERE " + condition + ";";
+    executeQuery(conn, query);
+    std::cout << "Record updated successfully." << std::endl;
+}
+
+void deleteRecord(PGconn *conn, const std::string &table, const std::string &condition) {
+    std::string query = "DELETE FROM " + table + " WHERE " + condition + ";";
+    executeQuery(conn, query);
+    std::cout << "Record deleted successfully." << std::endl;
+}
+
+void searchRecords(PGconn *conn, const std::string &table, const std::string &condition) {
+    std::string query = "SELECT * FROM " + table + " WHERE " + condition + ";";
+    PGresult *res = PQexec(conn, query.c_str());
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        std::cerr << "Query execution failed: " << PQerrorMessage(conn) << std::endl;
+        PQclear(res);
+        PQfinish(conn);
+        exit(1);
+    }
+
+    int nRows = PQntuples(res);
+    int nFields = PQnfields(res);
+
+    // Print column names
+    for (int i = 0; i < nFields; i++) {
+        std::cout << PQfname(res, i) << "\t";
+    }
+    std::cout << std::endl;
+
+    // Print rows
+    for (int i = 0; i < nRows; i++) {
+        for (int j = 0; j < nFields; j++) {
+            std::cout << PQgetvalue(res, i, j) << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    PQclear(res);
+}
+
+void displayAllRecords(PGconn *conn, const std::string &table) {
+    std::string query = "SELECT * FROM " + table + ";";
+    PGresult *res = PQexec(conn, query.c_str());
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        std::cerr << "Query execution failed: " << PQerrorMessage(conn) << std::endl;
+        PQclear(res);
+        PQfinish(conn);
+        exit(1);
+    }
+
+    int nRows = PQntuples(res);
+    int nFields = PQnfields(res);
+
+    // Print column names
+    for (int i = 0; i < nFields; i++) {
+        std::cout << PQfname(res, i) << "\t";
+    }
+    std::cout << std::endl;
+
+    // Print rows
+    for (int i = 0; i < nRows; i++) {
+        for (int j = 0; j < nFields; j++) {
+            std::cout << PQgetvalue(res, i, j) << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    PQclear(res);
+}
+
 void connect(){
   PGconn *conn = connectToDatabase();
     createTables(conn);
