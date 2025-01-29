@@ -1,155 +1,128 @@
-#include "StudentDBOperations.h"
+#include "./StudentDBOperations.h"
+#include "../connection.h"
 #include <iostream>
-#include <fstream>
-#include <cstring>
-#include <sstream>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
-// Helper function to read the student database file and return all student records
-vector<student> read_students_from_db() {
-    vector<student> students;
-    ifstream infile("students_db.txt");
+void add_student_to_db(const std::string& name, const std::string& id, const std::string& gender, 
+                       const std::string& department, long long phone, const std::string& pcname, 
+                       const std::string& serial) {
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "INSERT INTO students (name, id, gender, department, phone, pcname, serial) VALUES ('" 
+                            + name + "', '" + id + "', '" + gender + "', '" + department + "', " 
+                            + to_string(phone) + ", '" + pcname + "', '" + serial + "');";
+        PGresult *res = PQexec(conn, query.c_str());
 
-    if (infile.is_open()) {
-        student temp_student;
-        while (infile.getline(temp_student.name, 50)) {
-            infile.getline(temp_student.id, 20);
-            infile.getline(temp_student.gender, 10);
-            infile.getline(temp_student.department, 50);
-            infile >> temp_student.phone;
-            infile.ignore();  // To skip the newline after the phone number
-            infile.getline(temp_student.pcname, 50);
-            infile.getline(temp_student.serial, 50);
-            temp_student.next = nullptr;
-            temp_student.prev = nullptr;  // For a simple linked list in memory
-            students.push_back(temp_student);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            cerr << "Error inserting student: " << PQerrorMessage(conn) << endl;
+        } else {
+            cout << "Student added to database successfully!" << endl;
         }
-        infile.close();
-    } else {
-        cout << "Failed to open student database file." << endl;
-    }
 
-    return students;
-}
-
-// Helper function to write all students back to the database file
-void write_students_to_db(const vector<student>& students) {
-    ofstream outfile("students_db.txt");
-
-    if (outfile.is_open()) {
-        for (const auto& student : students) {
-            outfile << student.name << endl;
-            outfile << student.id << endl;
-            outfile << student.gender << endl;
-            outfile << student.department << endl;
-            outfile << student.phone << endl;
-            outfile << student.pcname << endl;
-            outfile << student.serial << endl;
-        }
-        outfile.close();
-    } else {
-        cout << "Failed to open student database file." << endl;
+        PQclear(res);
+        closeConnection(conn);
     }
 }
 
-void add_student_to_db(const char* name, const char* id, const char* gender, const char* department,
-                       long long phone, const char* pcname, const char* serial) {
-    vector<student> students = read_students_from_db();
+void update_student_in_db(const std::string& id, const std::string& name, const std::string& gender, 
+                          const std::string& department, long long phone, const std::string& pcname, 
+                          const std::string& serial) {
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "UPDATE students SET name = '" + name + "', gender = '" + gender + "', department = '" 
+                            + department + "', phone = " + to_string(phone) + ", pcname = '" + pcname + 
+                            "', serial = '" + serial + "' WHERE id = '" + id + "';";
+        PGresult *res = PQexec(conn, query.c_str());
 
-    // Add the new student to the list
-    student new_student;
-    strcpy(new_student.name, name);
-    strcpy(new_student.id, id);
-    strcpy(new_student.gender, gender);
-    strcpy(new_student.department, department);
-    new_student.phone = phone;
-    strcpy(new_student.pcname, pcname);
-    strcpy(new_student.serial, serial);
-    new_student.next = nullptr;
-    new_student.prev = nullptr;
-
-    students.push_back(new_student);
-
-    // Write updated student list to the database
-    write_students_to_db(students);
-}
-
-void update_student_in_db(const char* id, const char* name, const char* gender, const char* department,
-                          long long phone, const char* pcname, const char* serial) {
-    vector<student> students = read_students_from_db();
-
-    for (auto& student : students) {
-        if (strcmp(student.id, id) == 0) {
-            // Update the student data
-            strcpy(student.name, name);
-            strcpy(student.gender, gender);
-            strcpy(student.department, department);
-            student.phone = phone;
-            strcpy(student.pcname, pcname);
-            strcpy(student.serial, serial);
-            break;
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            cerr << "Error updating student: " << PQerrorMessage(conn) << endl;
+        } else {
+            cout << "Student record updated successfully!" << endl;
         }
+
+        PQclear(res);
+        closeConnection(conn);
     }
-
-    // Write updated student list back to the database
-    write_students_to_db(students);
 }
 
-void delete_student_from_db(const char* id) {
-    vector<student> students = read_students_from_db();
+void delete_student_from_db(const std::string& id) {
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "DELETE FROM students WHERE id = '" + id + "';";
+        PGresult *res = PQexec(conn, query.c_str());
 
-    // Remove student from the list
-    students.erase(remove_if(students.begin(), students.end(), [id](const student& s) {
-        return strcmp(s.id, id) == 0;
-    }), students.end());
-
-    // Write updated student list to the database
-    write_students_to_db(students);
-}
-
-void search_student_in_db(const char* id) {
-    vector<student> students = read_students_from_db();
-
-    bool found = false;
-    for (const auto& student : students) {
-        if (strcmp(student.id, id) == 0) {
-            // Print student details if found
-            cout << "Student found:\n";
-            cout << "Name: " << student.name << endl;
-            cout << "ID: " << student.id << endl;
-            cout << "Gender: " << student.gender << endl;
-            cout << "Department: " << student.department << endl;
-            cout << "Phone: " << student.phone << endl;
-            cout << "PC Name: " << student.pcname << endl;
-            cout << "Serial Number: " << student.serial << endl;
-            found = true;
-            break;
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            cerr << "Error deleting student: " << PQerrorMessage(conn) << endl;
+        } else {
+            cout << "Student record deleted successfully!" << endl;
         }
-    }
 
-    if (!found) {
-        cout << "Student with ID " << id << " not found." << endl;
+        PQclear(res);
+        closeConnection(conn);
+    }
+}
+
+void search_student_in_db(const std::string& id) {
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "SELECT * FROM students WHERE id = '" + id + "';";
+        PGresult *res = PQexec(conn, query.c_str());
+
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            cerr << "Error searching student: " << PQerrorMessage(conn) << endl;
+            PQclear(res);
+            closeConnection(conn);
+            return;
+        }
+
+        if (PQntuples(res) > 0) {
+            cout << "Student found in database:\n";
+            cout << "Name: " << PQgetvalue(res, 0, 0) << "\nID: " << PQgetvalue(res, 0, 1) 
+                 << "\nGender: " << PQgetvalue(res, 0, 2) << "\nDepartment: " << PQgetvalue(res, 0, 3)
+                 << "\nPhone: " << PQgetvalue(res, 0, 4) << "\nPC Name: " << PQgetvalue(res, 0, 5) 
+                 << "\nSerial: " << PQgetvalue(res, 0, 6) << endl;
+        } else {
+            cout << "Student not found in database." << endl;
+        }
+
+        PQclear(res);
+        closeConnection(conn);
     }
 }
 
 void display_all_students_from_db() {
-    vector<student> students = read_students_from_db();
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "SELECT * FROM students;";
+        PGresult *res = PQexec(conn, query.c_str());
 
-    if (students.empty()) {
-        cout << "No students found." << endl;
-    } else {
-        for (const auto& student : students) {
-            cout << "Name: " << student.name << endl;
-            cout << "ID: " << student.id << endl;
-            cout << "Gender: " << student.gender << endl;
-            cout << "Department: " << student.department << endl;
-            cout << "Phone: " << student.phone << endl;
-            cout << "PC Name: " << student.pcname << endl;
-            cout << "Serial Number: " << student.serial << endl;
-            cout << "------------------------------------" << endl;
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            cerr << "Error retrieving student data: " << PQerrorMessage(conn) << endl;
+            PQclear(res);
+            closeConnection(conn);
+            return;
         }
+
+        int rows = PQntuples(res);
+        if (rows > 0) {
+            cout << "\nAll Students:\n";
+            cout << "------------------------------------------------------\n";
+            for (int i = 0; i < rows; i++) {
+                cout << "Name: " << PQgetvalue(res, i, 0) 
+                     << " | ID: " << PQgetvalue(res, i, 1) 
+                     << " | Gender: " << PQgetvalue(res, i, 2) 
+                     << " | Department: " << PQgetvalue(res, i, 3) 
+                     << " | Phone: " << PQgetvalue(res, i, 4) 
+                     << " | PC Name: " << PQgetvalue(res, i, 5) 
+                     << " | Serial: " << PQgetvalue(res, i, 6) << endl;
+                cout << "------------------------------------------------------\n";
+            }
+        } else {
+            cout << "No students found in database." << endl;
+        }
+
+        PQclear(res);
+        closeConnection(conn);
     }
 }

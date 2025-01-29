@@ -17,22 +17,22 @@ void add_staff() {
 
     cout << "Enter staff name: ";
     cin.ignore(); 
-    getline(cin, new_staff->name);
+    cin, new_staff->name;
     if (!validateInput(new_staff->name, 50)) return;
 
     cout << "Enter staff ID: ";
-    getline(cin, new_staff->id);
+    cin, new_staff->id;
     if (!validateInput(new_staff->id, 20)) return;
 
     cout << "Enter gender (Male/Female): ";
-    getline(cin, new_staff->gender);
+    cin, new_staff->gender;
     if (new_staff->gender != "Male" && new_staff->gender != "Female") {
         cout << "Invalid gender. Please enter 'Male' or 'Female'." << endl;
         return;
     }
 
     cout << "Enter job position: ";
-    getline(cin, new_staff->job);
+    cin, new_staff->job;
     if (!validateInput(new_staff->job, 50)) return;
 
     cout << "Enter phone number: ";
@@ -40,15 +40,15 @@ void add_staff() {
     cin.ignore();
 
     cout << "Enter PC type: ";
-    getline(cin, new_staff->typeofpc);
+    cin, new_staff->typeofpc;
     if (!validateInput(new_staff->typeofpc, 20)) return;
 
     cout << "Enter PC name: ";
-    getline(cin, new_staff->pcname);
+    cin, new_staff->pcname;
     if (!validateInput(new_staff->pcname, 50)) return;
 
     cout << "Enter serial number: ";
-    getline(cin, new_staff->serial);
+    cin, new_staff->serial;
     if (!validateInput(new_staff->serial, 50)) return;
 
     // Add to database
@@ -86,12 +86,12 @@ void update_staff() {
             switch (choice) {
                 case 1:
                     cout << "Enter new name: ";
-                    getline(cin, current->name);
+                    cin, current->name;
                     if (!validateInput(current->name, 50)) return;
                     break;
                 case 2:
                     cout << "Enter new gender (Male/Female): ";
-                    getline(cin, current->gender);
+                    cin, current->gender;
                     if (current->gender != "Male" && current->gender != "Female") {
                         cout << "Invalid gender." << endl;
                         return;
@@ -99,7 +99,7 @@ void update_staff() {
                     break;
                 case 3:
                     cout << "Enter new job: ";
-                    getline(cin, current->job);
+                    cin, current->job;
                     if (!validateInput(current->job, 50)) return;
                     break;
                 case 4:
@@ -109,17 +109,17 @@ void update_staff() {
                     break;
                 case 5:
                     cout << "Enter new PC type: ";
-                    getline(cin, current->typeofpc);
+                    cin, current->typeofpc;
                     if (!validateInput(current->typeofpc, 20)) return;
                     break;
                 case 6:
                     cout << "Enter new PC name: ";
-                    getline(cin, current->pcname);
+                    cin, current->pcname;
                     if (!validateInput(current->pcname, 50)) return;
                     break;
                 case 7:
                     cout << "Enter new serial: ";
-                    getline(cin, current->serial);
+                    cin, current->serial;
                     if (!validateInput(current->serial, 50)) return;
                     break;
                 case 8:
@@ -132,7 +132,7 @@ void update_staff() {
 
             // Update in database
             update_staff_in_db(current->id, current->name, current->gender, current->job, 
-                               current->phone, current->typeofpc, current->pcname, current->serial);
+                               to_string(current->phone), current->typeofpc, current->pcname, current->serial);
             cout << "✅ Staff updated successfully!" << endl;
             return;
         }
@@ -145,7 +145,7 @@ void search_staff() {
     string id;
     cout << "Enter staff ID to search: ";
     cin >> id;
-    if (!validateInput(id, 20)) return;
+    if (!validateInput(id.c_str(), 20)) return;
 
     staff* current = staff_head;
     while (current != nullptr) {
@@ -164,7 +164,7 @@ void delete_staff() {
     string id;
     cout << "Enter staff ID to delete: ";
     cin >> id;
-    if (!validateInput(id, 20)) return;
+    if (!validateInput(id.c_str(), 20)) return;
 
     staff* current = staff_head;
     staff* prev = nullptr;
@@ -197,5 +197,10 @@ void delete_staff() {
 }
 
 void display_staff() {
+    cout << "\n=============================================" << endl;
+    cout << "             Staff List" << endl;
+    cout << "=============================================" << endl;
+
+    // Call display function from StaffDBOperations to show all staff
     display_all_staff_from_db();
 }
