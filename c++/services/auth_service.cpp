@@ -17,9 +17,7 @@ bool isAuthenticated = false;
 const char superAdminUsername[] = "superadmin";
 const char superAdminPassword[] = "superpassword";
 
-// Fetch SuperAdmin credentials from environment variables
-// const char* superAdminUsername = std::getenv("SUPERADMIN_USERNAME");
-// const char* superAdminPassword = std::getenv("SUPERADMIN_PASSWORD");
+
 
 bool login(bool isSuper) {
     char username[50];
