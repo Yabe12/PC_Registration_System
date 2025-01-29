@@ -5,7 +5,6 @@
 #include "../../models/users/Staff.h" // Include the header file where Staff is defined
 #include "../../database/user/staff/StaffDBOperations.h"
 
-
 using namespace std;
 
 // Global pointers for the linked list
@@ -17,22 +16,22 @@ void add_staff() {
 
     cout << "Enter staff name: ";
     cin.ignore(); 
-    cin, new_staff->name;
+    cin.getline(new_staff->name, 50);
     if (!validateInput(new_staff->name, 50)) return;
 
     cout << "Enter staff ID: ";
-    cin, new_staff->id;
+    cin.getline(new_staff->id, 20);
     if (!validateInput(new_staff->id, 20)) return;
 
     cout << "Enter gender (Male/Female): ";
-    cin, new_staff->gender;
-    if (new_staff->gender != "Male" && new_staff->gender != "Female") {
+    cin.getline(new_staff->gender, 10);
+    if (strcmp(new_staff->gender, "Male") != 0 && strcmp(new_staff->gender, "Female") != 0) {
         cout << "Invalid gender. Please enter 'Male' or 'Female'." << endl;
         return;
     }
 
     cout << "Enter job position: ";
-    cin, new_staff->job;
+    cin.getline(new_staff->job, 50);
     if (!validateInput(new_staff->job, 50)) return;
 
     cout << "Enter phone number: ";
@@ -40,15 +39,15 @@ void add_staff() {
     cin.ignore();
 
     cout << "Enter PC type: ";
-    cin, new_staff->typeofpc;
+    cin.getline(new_staff->typeofpc, 20);
     if (!validateInput(new_staff->typeofpc, 20)) return;
 
     cout << "Enter PC name: ";
-    cin, new_staff->pcname;
+    cin.getline(new_staff->pcname, 50);
     if (!validateInput(new_staff->pcname, 50)) return;
 
     cout << "Enter serial number: ";
-    cin, new_staff->serial;
+    cin.getline(new_staff->serial, 50);
     if (!validateInput(new_staff->serial, 50)) return;
 
     // Add to database
@@ -68,14 +67,14 @@ void add_staff() {
 }
 
 void update_staff() {
-    string id;
+    char id[20];
     cout << "Enter staff ID to update: ";
-    cin >> id;
-    if (!validateInput(id.c_str(), 20)) return;
+    cin.getline(id, 20);
+    if (!validateInput(id, 20)) return;
 
     staff* current = staff_head;
     while (current != nullptr) {
-        if (current->id == id) {
+        if (strcmp(current->id, id) == 0) {
             cout << "Staff found. What would you like to update?" << endl;
             cout << "1. Name\n2. Gender\n3. Job\n4. Phone\n5. PC Type\n6. PC Name\n7. Serial\n8. All" << endl;
 
@@ -86,20 +85,20 @@ void update_staff() {
             switch (choice) {
                 case 1:
                     cout << "Enter new name: ";
-                    cin, current->name;
+                    cin.getline(current->name, 50);
                     if (!validateInput(current->name, 50)) return;
                     break;
                 case 2:
                     cout << "Enter new gender (Male/Female): ";
-                    cin, current->gender;
-                    if (current->gender != "Male" && current->gender != "Female") {
+                    cin.getline(current->gender, 10);
+                    if (strcmp(current->gender, "Male") != 0 && strcmp(current->gender, "Female") != 0) {
                         cout << "Invalid gender." << endl;
                         return;
                     }
                     break;
                 case 3:
                     cout << "Enter new job: ";
-                    cin, current->job;
+                    cin.getline(current->job, 50);
                     if (!validateInput(current->job, 50)) return;
                     break;
                 case 4:
@@ -109,17 +108,17 @@ void update_staff() {
                     break;
                 case 5:
                     cout << "Enter new PC type: ";
-                    cin, current->typeofpc;
+                    cin.getline(current->typeofpc, 20);
                     if (!validateInput(current->typeofpc, 20)) return;
                     break;
                 case 6:
                     cout << "Enter new PC name: ";
-                    cin, current->pcname;
+                    cin.getline(current->pcname, 50);
                     if (!validateInput(current->pcname, 50)) return;
                     break;
                 case 7:
                     cout << "Enter new serial: ";
-                    cin, current->serial;
+                    cin.getline(current->serial, 50);
                     if (!validateInput(current->serial, 50)) return;
                     break;
                 case 8:
@@ -142,14 +141,14 @@ void update_staff() {
 }
 
 void search_staff() {
-    string id;
+    char id[20];
     cout << "Enter staff ID to search: ";
-    cin >> id;
-    if (!validateInput(id.c_str(), 20)) return;
+    cin.getline(id, 20);
+    if (!validateInput(id, 20)) return;
 
     staff* current = staff_head;
     while (current != nullptr) {
-        if (current->id == id) {
+        if (strcmp(current->id, id) == 0) {
             cout << "✅ Staff found in linked list:\nName: " << current->name << "\nID: " << current->id << endl;
             return;
         }
@@ -161,16 +160,16 @@ void search_staff() {
 }
 
 void delete_staff() {
-    string id;
+    char id[20];
     cout << "Enter staff ID to delete: ";
-    cin >> id;
-    if (!validateInput(id.c_str(), 20)) return;
+    cin.getline(id, 20);
+    if (!validateInput(id, 20)) return;
 
     staff* current = staff_head;
     staff* prev = nullptr;
 
     while (current != nullptr) {
-        if (current->id == id) {
+        if (strcmp(current->id, id) == 0) {
             if (prev == nullptr) {
                 staff_head = current->next;
                 if (staff_tail == current) {
@@ -202,5 +201,5 @@ void display_staff() {
     cout << "=============================================" << endl;
 
     // Call display function from StaffDBOperations to show all staff
-    display_all_staff_from_db();
+    display_all_staff_from_db();  // No arguments needed
 }
