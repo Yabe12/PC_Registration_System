@@ -65,7 +65,7 @@ void add_staff() {
     }
 
     // Add staff to database
-    add_staff_to_db(name, id, gender, job,to_string(phone) , typeofpc, pcname, serial);
+add_staff_to_db(name, id, gender, job, phone, typeofpc, pcname, serial);;
     cout << "Staff added successfully." << endl;
 }
 
@@ -143,7 +143,7 @@ void update_staff() {
     }
 
     // Update staff in database
-    update_staff_in_db(id, name, gender, job, to_string(phone), typeofpc, pcname, serial);
+   update_staff_in_db(id, name, gender, job, phone, typeofpc, pcname, serial);
     cout << "Staff updated successfully." << endl;
 }
 

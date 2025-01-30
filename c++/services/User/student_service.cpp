@@ -3,8 +3,15 @@
 #include "../../models/users/student.h"
 #include "../../middleware/input_validation.h"
 #include "../../database/user/student/StudentDBOperations.h"
-
+#include "./student_service.h"
 using namespace std;
+
+
+// Define the global pointers for the linked list
+student* student_head = nullptr;
+student* student_tall = nullptr;
+
+// Implement function definitions (add_student, update_student, etc.)
 
 // Function to add a new student
 void add_student() {

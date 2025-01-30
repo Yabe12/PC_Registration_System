@@ -7,9 +7,6 @@
 
 using namespace std;
 
-// Global pointers for the linked list
-Admin* admin_head = nullptr;
-Admin* admin_tall = nullptr;
 
 void add_admin() {
     Admin* new_admin = new Admin;

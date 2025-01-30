@@ -1,15 +1,17 @@
-#ifndef STUDENTDBOPERATIONS_H
-#define STUDENTDBOPERATIONS_H
+#ifndef STUDENT_DB_OPERATIONS_H
+#define STUDENT_DB_OPERATIONS_H
 
-#include "../../../models/users/student.h"
+#include <string>
 
-// Function prototypes for student database operations
-void add_student_to_db(const char* name, const char* id, const char* gender, const char* department,
-                       long long phone, const char* pcname, const char* serial);
-void update_student_in_db(const char* id, const char* name, const char* gender, const char* department,
-                          long long phone, const char* pcname, const char* serial);
-void delete_student_from_db(const char* id);
-void search_student_in_db(const char* id);
+void add_student_to_db(const std::string& name, const std::string& id, const std::string& gender, 
+                       const std::string& department, long long phone, const std::string& pcname, 
+                       const std::string& serial);
+
+void search_student_in_db(const std::string& id);
+void update_student_in_db(const std::string& id, const std::string& name, const std::string& gender, 
+                          const std::string& department, long long phone, const std::string& pcname, 
+                          const std::string& serial);
+
+void delete_student_from_db(const std::string& id);
 void display_all_students_from_db();
-
-#endif // STUDENTDBOPERATIONS_H
+#endif

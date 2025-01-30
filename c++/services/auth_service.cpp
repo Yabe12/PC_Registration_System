@@ -1,24 +1,19 @@
-#include "auth_service.h"
+#include "./auth_service.h"
 #include <iostream>
 #include <cstring>
 #include "../middleware/input_validation.h"
 #include "../database/admin/AdminDBOperations.h"
+// #include "../database/superadmin/SuperAdminDBOperations.h"
 #include "../database/superadmin/SuperAdminDBOperations.h"
-
 using namespace std;
 
-// Define global pointers for the linked list
+// Define global pointers ONLY in this file (remove them from other `.cpp` files)
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
 
 // Define global variables
-bool isSuper = false;
+bool isSuperAdmin = false;  // Ensure this matches the header file
 bool isAuthenticated = false;
-
-// Define super admin credentials
-const char superAdminUsername[] = "superadmin";
-const char superAdminPassword[] = "superpassword";
-
 
 bool login(bool isSuper) {
     char username[50];
@@ -35,9 +30,13 @@ bool login(bool isSuper) {
     cin >> password;
     if (!validateInput(password, 50)) return false;
 
+    // Convert char[] to std::string
+    string usernameStr(username);
+    string passwordStr(password);
+
     if (isSuper) {
         // Call SuperAdminDBOperations to verify the credentials
-        if (checkSuperAdminCredentials(username, password)) {
+        if (checkSuperAdminCredentials(usernameStr, passwordStr)) {
             isSuperAdmin = true;
             isAuthenticated = true;
             cout << "\n=============================================" << endl;
@@ -51,7 +50,7 @@ bool login(bool isSuper) {
             return false;
         }
     } else {
-       if (check_admin_credentials(username, password)) {
+        if (check_admin_credentials(usernameStr, passwordStr)) {
             isAuthenticated = true;
             cout << "\n=============================================" << endl;
             cout << "          Admin Login Successful!" << endl;

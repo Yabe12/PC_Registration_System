@@ -8,5 +8,6 @@ void update_nonstaff_in_db(const std::string& id, const std::string& name, const
 void delete_nonstaff_from_db(const std::string& id);
 void search_nonstaff_in_db(const std::string& name);
 void display_all_nonstaff_from_db();
+void sort_nonstaff_from_db();
 
 #endif

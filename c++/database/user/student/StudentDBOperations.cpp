@@ -47,23 +47,40 @@ void update_student_in_db(const std::string& id, const std::string& name, const 
     }
 }
 
-void delete_student_from_db(const std::string& id) {
+void display_all_students_from_db() {
+    // Function body that retrieves and displays all students from the database
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "DELETE FROM students WHERE id = '" + id + "';";
+        string query = "SELECT * FROM students;";
         PGresult *res = PQexec(conn, query.c_str());
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-            cerr << "Error deleting student: " << PQerrorMessage(conn) << endl;
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            cerr << "Error retrieving student data: " << PQerrorMessage(conn) << endl;
+            PQclear(res);
+            closeConnection(conn);
+            return;
+        }
+
+        int rows = PQntuples(res);
+        if (rows > 0) {
+            cout << "\nAll Students:\n";
+            for (int i = 0; i < rows; i++) {
+                cout << "Name: " << PQgetvalue(res, i, 0) 
+                     << " | ID: " << PQgetvalue(res, i, 1) 
+                     << " | Gender: " << PQgetvalue(res, i, 2) 
+                     << " | Department: " << PQgetvalue(res, i, 3) 
+                     << " | Phone: " << PQgetvalue(res, i, 4) 
+                     << " | PC Name: " << PQgetvalue(res, i, 5) 
+                     << " | Serial: " << PQgetvalue(res, i, 6) << endl;
+            }
         } else {
-            cout << "Student record deleted successfully!" << endl;
+            cout << "No students found in database." << endl;
         }
 
         PQclear(res);
         closeConnection(conn);
     }
 }
-
 void search_student_in_db(const std::string& id) {
     PGconn *conn = connectToDatabase();
     if (conn) {
@@ -92,35 +109,16 @@ void search_student_in_db(const std::string& id) {
     }
 }
 
-void display_all_students_from_db() {
+void delete_student_from_db(const std::string& id) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "SELECT * FROM students;";
+        string query = "DELETE FROM students WHERE id = '" + id + "';";
         PGresult *res = PQexec(conn, query.c_str());
 
-        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-            cerr << "Error retrieving student data: " << PQerrorMessage(conn) << endl;
-            PQclear(res);
-            closeConnection(conn);
-            return;
-        }
-
-        int rows = PQntuples(res);
-        if (rows > 0) {
-            cout << "\nAll Students:\n";
-            cout << "------------------------------------------------------\n";
-            for (int i = 0; i < rows; i++) {
-                cout << "Name: " << PQgetvalue(res, i, 0) 
-                     << " | ID: " << PQgetvalue(res, i, 1) 
-                     << " | Gender: " << PQgetvalue(res, i, 2) 
-                     << " | Department: " << PQgetvalue(res, i, 3) 
-                     << " | Phone: " << PQgetvalue(res, i, 4) 
-                     << " | PC Name: " << PQgetvalue(res, i, 5) 
-                     << " | Serial: " << PQgetvalue(res, i, 6) << endl;
-                cout << "------------------------------------------------------\n";
-            }
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            cerr << "Error deleting student: " << PQerrorMessage(conn) << endl;
         } else {
-            cout << "No students found in database." << endl;
+            cout << "Student deleted successfully!" << endl;
         }
 
         PQclear(res);
