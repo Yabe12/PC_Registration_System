@@ -76,3 +76,30 @@ void search_admin_in_db(const std::string& username) {
         closeConnection(conn);
     }
 }
+bool check_admin_credentials(const std::string& username, const std::string& password) {
+    PGconn *conn = connectToDatabase();
+    if (!conn) {
+        cerr << "Database connection failed!" << endl;
+        return false;
+    }
+
+    // Query to check if the username and password match in the database
+    std::string query = "SELECT * FROM admin WHERE username = '" + username + "' AND password = '" + password + "';";
+
+    PGresult *res = PQexec(conn, query.c_str());
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        cerr << "Error executing query: " << PQerrorMessage(conn) << endl;
+        PQclear(res);
+        closeConnection(conn);
+        return false;
+    }
+
+    // Check if any result rows were returned
+    bool isValid = PQntuples(res) > 0;
+
+    PQclear(res);
+    closeConnection(conn);
+
+    return isValid;
+}
