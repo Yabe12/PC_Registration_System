@@ -11,6 +11,8 @@ struct student {
     char serial[50];
     student* next;
     student* prev;
-};
 
+};
+    extern student* student_head;
+extern student* student_tall;
 #endif // STUDENT_H

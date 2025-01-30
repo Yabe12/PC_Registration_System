@@ -1,7 +1,7 @@
 #ifndef STUDENTDBOPERATIONS_H
 #define STUDENTDBOPERATIONS_H
 
-#include "student.h"
+#include "../../../models/users/student.h"
 
 // Function prototypes for student database operations
 void add_student_to_db(const char* name, const char* id, const char* gender, const char* department,

@@ -2,7 +2,7 @@
 #include <cstring>
 #include "../../models/users/student.h"
 #include "../../middleware/input_validation.h"
-#include "StudentDBOperations.h"
+#include "../../database/user/student/StudentDBOperations.h"
 
 using namespace std;
 

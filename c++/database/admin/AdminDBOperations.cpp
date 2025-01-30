@@ -1,5 +1,5 @@
 #include "AdminDBOperations.h"
-#include "Connection.h"  // Include connection header
+#include "../Connection.h"  // Include connection header
 #include <iostream>
 #include <cstring>  // Include cstring for strlen
 #include <libpq-fe.h>

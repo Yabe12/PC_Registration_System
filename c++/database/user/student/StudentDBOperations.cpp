@@ -1,5 +1,6 @@
 #include "./StudentDBOperations.h"
-#include "../connection.h"
+#include "../../connection.h"
+
 #include <iostream>
 
 using namespace std;
