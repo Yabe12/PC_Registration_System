@@ -1,5 +1,5 @@
 #include "NonStaffDBOperations.h"
-#include "../connection.h"
+#include "../../connection.h"
 #include <iostream>
 #include <libpq-fe.h>
 #include <string>

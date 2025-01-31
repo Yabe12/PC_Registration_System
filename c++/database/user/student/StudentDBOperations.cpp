@@ -5,13 +5,13 @@
 
 using namespace std;
 
-void add_student_to_db(const std::string& name, const std::string& id, const std::string& gender, 
-                       const std::string& department, long long phone, const std::string& pcname, 
-                       const std::string& serial) {
+void add_student_to_db(const std::string& name, const std::string& student_id, const std::string& gender, 
+                        const std::string& department, long long phone, const std::string& pcname, 
+const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "INSERT INTO students (name, id, gender, department, phone, pcname, serial) VALUES ('" 
-                            + name + "', '" + id + "', '" + gender + "', '" + department + "', " 
+        std::string query = "INSERT INTO student (name, student_id, gender, department, phone, pcname, serial) VALUES ('" 
+                            + name + "', " + student_id + ", '" + gender + "', '" + department + "', " 
                             + to_string(phone) + ", '" + pcname + "', '" + serial + "');";
         PGresult *res = PQexec(conn, query.c_str());
 
@@ -26,14 +26,14 @@ void add_student_to_db(const std::string& name, const std::string& id, const std
     }
 }
 
-void update_student_in_db(const std::string& id, const std::string& name, const std::string& gender, 
+void update_student_in_db(const std::string student_id, const std::string& name, const std::string& gender, 
                           const std::string& department, long long phone, const std::string& pcname, 
                           const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "UPDATE students SET name = '" + name + "', gender = '" + gender + "', department = '" 
+        std::string query = "UPDATE student SET name = '" + name + "', gender = '" + gender + "', department = '" 
                             + department + "', phone = " + to_string(phone) + ", pcname = '" + pcname + 
-                            "', serial = '" + serial + "' WHERE id = '" + id + "';";
+                            "', serial = '" + serial + "' WHERE student_id = " + (student_id) + ";";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
@@ -48,10 +48,9 @@ void update_student_in_db(const std::string& id, const std::string& name, const 
 }
 
 void display_all_students_from_db() {
-    // Function body that retrieves and displays all students from the database
     PGconn *conn = connectToDatabase();
     if (conn) {
-        string query = "SELECT * FROM students;";
+        string query = "SELECT * FROM student;";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
@@ -66,7 +65,7 @@ void display_all_students_from_db() {
             cout << "\nAll Students:\n";
             for (int i = 0; i < rows; i++) {
                 cout << "Name: " << PQgetvalue(res, i, 0) 
-                     << " | ID: " << PQgetvalue(res, i, 1) 
+                     << " | Student ID: " << PQgetvalue(res, i, 1) 
                      << " | Gender: " << PQgetvalue(res, i, 2) 
                      << " | Department: " << PQgetvalue(res, i, 3) 
                      << " | Phone: " << PQgetvalue(res, i, 4) 
@@ -81,10 +80,11 @@ void display_all_students_from_db() {
         closeConnection(conn);
     }
 }
-void search_student_in_db(const std::string& id) {
+
+void search_student_in_db( const std::string student_id) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "SELECT * FROM students WHERE id = '" + id + "';";
+        std::string query = "SELECT * FROM student WHERE student_id = " + (student_id) + ";";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
@@ -96,7 +96,7 @@ void search_student_in_db(const std::string& id) {
 
         if (PQntuples(res) > 0) {
             cout << "Student found in database:\n";
-            cout << "Name: " << PQgetvalue(res, 0, 0) << "\nID: " << PQgetvalue(res, 0, 1) 
+            cout << "Name: " << PQgetvalue(res, 0, 0) << "\nStudent ID: " << PQgetvalue(res, 0, 1) 
                  << "\nGender: " << PQgetvalue(res, 0, 2) << "\nDepartment: " << PQgetvalue(res, 0, 3)
                  << "\nPhone: " << PQgetvalue(res, 0, 4) << "\nPC Name: " << PQgetvalue(res, 0, 5) 
                  << "\nSerial: " << PQgetvalue(res, 0, 6) << endl;
@@ -109,10 +109,10 @@ void search_student_in_db(const std::string& id) {
     }
 }
 
-void delete_student_from_db(const std::string& id) {
+void delete_student_from_db( const std::string student_id) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        string query = "DELETE FROM students WHERE id = '" + id + "';";
+        string query = "DELETE FROM student WHERE student_id = " + (student_id) + ";";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {

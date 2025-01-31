@@ -3,6 +3,6 @@
 
 #include <string>
 
-bool checkSuperAdminCredentials(const std::string& username, const std::string& password);
+bool checkSuperAdminCredentials(const std::string &username, const std::string &password);
 
-#endif
+#endif // SUPERADMIN_DB_OPERATIONS_H
