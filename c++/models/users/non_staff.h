@@ -12,8 +12,8 @@ struct nonstaff {
     nonstaff* prev;
 };
 
-// Global pointers for the linked list
+
 extern nonstaff* nonstaff_head;
 extern nonstaff* nonstaff_tall;
 
-#endif // NON_STAFF_H
+#endif 

@@ -7,4 +7,4 @@ void checkConnection(PGconn *conn);
 PGconn* connectToDatabase();
 void closeConnection(PGconn *conn);
 
-#endif // CONNECTION_H
+#endif 

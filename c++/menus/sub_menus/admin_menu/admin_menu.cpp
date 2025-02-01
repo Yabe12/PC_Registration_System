@@ -5,7 +5,7 @@
 using namespace std;
 
 void admin_menu() {
-    int choice = 0;  // Initialize choice to 0 to enter the loop
+    int choice = 0;  
     while (choice != 6) {
         cout << "************************************" << endl;
         cout << "  Admin Management System" << endl;

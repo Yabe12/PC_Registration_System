@@ -29,12 +29,12 @@ void add_nonstaff() {
     cout << "Enter nonstaff's phone number: ";
     cin >> new_nonstaff->phone;
     if (!validatePhoneNumber(new_nonstaff->phone)) return;
-    cin.ignore();  // Ignore newline left in buffer
+    cin.ignore();
 
     cout << "Enter nonstaff's PC name: ";
     cin >> new_nonstaff->pcname;
     if (!validateInput(new_nonstaff->pcname, 50)) return;
-    cin.ignore();  // Ignore newline left in buffer
+    cin.ignore(); 
     cout << "Enter nonstaff's PC serial number: ";
     cin >> new_nonstaff->serial;
     if (!validateInput(new_nonstaff->serial, 50)) return;

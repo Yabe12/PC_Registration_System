@@ -23,7 +23,7 @@ bool validateGender(const char* gender) {
 }
 
 bool validatePhoneNumber(long long phone) {
-    // Assuming phone numbers should be between 8 and 15 digits
+   
     int digits = 0;
     long long temp = phone;
     while (temp != 0) {

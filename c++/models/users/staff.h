@@ -17,4 +17,4 @@ struct staff {
 
 extern staff* staff_head;
 extern staff* staff_tall;
-#endif // STAFF_H
+#endif 

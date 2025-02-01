@@ -15,4 +15,4 @@ struct student {
 };
     extern student* student_head;
 extern student* student_tall;
-#endif // STUDENT_H
+#endif 

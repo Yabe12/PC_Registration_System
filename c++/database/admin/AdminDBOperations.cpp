@@ -1,7 +1,7 @@
 #include "AdminDBOperations.h"
-#include "../Connection.h"  // Include connection header
+#include "../Connection.h"  
 #include <iostream>
-#include <cstring>  // Include cstring for strlen
+#include <cstring>  
 #include <libpq-fe.h>
 
 using namespace std;
