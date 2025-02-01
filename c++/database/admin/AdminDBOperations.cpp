@@ -24,7 +24,7 @@ bool add_admin_to_db(const std::string& username, const std::string& password) {
 
 
 
-void update_admin_in_db(const std::string& username, const std::string& password) {
+bool  update_admin_in_db(const std::string& username, const std::string& password) {
     PGconn *conn = connectToDatabase();
     if (conn) {
         std::string query = "UPDATE admin SET password = '" + password + "' WHERE username = '" + username + "';";
@@ -37,9 +37,10 @@ void update_admin_in_db(const std::string& username, const std::string& password
         PQclear(res);
         closeConnection(conn);
     }
+    return true;
 }
 
-void delete_admin_from_db(const std::string& username) {
+bool delete_admin_from_db(const std::string& username) {
     PGconn *conn = connectToDatabase();
     if (conn) {
         std::string query = "DELETE FROM admin WHERE username = '" + username + "';";
@@ -52,6 +53,7 @@ void delete_admin_from_db(const std::string& username) {
         PQclear(res);
         closeConnection(conn);
     }
+    return true;
 }
 
 void search_admin_in_db(const std::string& username) {
@@ -77,6 +79,41 @@ void search_admin_in_db(const std::string& username) {
 
         PQclear(res);
         closeConnection(conn);
+    }
+}
+void display_admin() {
+    PGconn *conn = connectToDatabase();
+    if (conn) {
+        std::string query = "SELECT * FROM admin;";
+        PGresult *res = PQexec(conn, query.c_str());
+
+        // Check if the query was successful
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            cerr << "Error fetching admins from database: " << PQerrorMessage(conn) << endl;
+            PQclear(res);
+            closeConnection(conn);
+            return;
+        }
+
+        // Fetch and display results from the database
+        int rows = PQntuples(res);
+        if (rows == 0) {
+            cout << "No admins found in the database." << endl;
+        } else {
+            cout << "Admin List from Database:" << endl;
+            cout << "--------------------------" << endl;
+            for (int i = 0; i < rows; ++i) {
+                cout << "Username: " << PQgetvalue(res, i, 0) << endl;
+                cout << "Password: " << string(strlen(PQgetvalue(res, i, 1)), '*') << endl;
+                cout << "--------------------------" << endl;
+            }
+        }
+
+        // Clear the result and close the connection
+        PQclear(res);
+        closeConnection(conn);
+    } else {
+        cerr << "❌ Database connection failed!" << endl;
     }
 }
 
