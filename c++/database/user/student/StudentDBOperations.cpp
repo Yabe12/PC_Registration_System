@@ -27,7 +27,7 @@ const std::string& serial) {
     return true;
 }
 
-void update_student_in_db(const std::string student_id, const std::string& name, const std::string& gender, 
+bool update_student_in_db(const std::string student_id, const std::string& name, const std::string& gender, 
                           const std::string& department, long long phone, const std::string& pcname, 
                           const std::string& serial) {
     PGconn *conn = connectToDatabase();
@@ -46,6 +46,7 @@ void update_student_in_db(const std::string student_id, const std::string& name,
         PQclear(res);
         closeConnection(conn);
     }
+    return true;
 }
 
 void display_all_students_from_db() {

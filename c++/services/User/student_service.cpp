@@ -100,17 +100,82 @@ void display_students() {
 }
 
 void update_student() {
-    char student_id[50];
-    char name[50], gender[10], department[50], pcname[50], serial[50];
-    long long phone;
-
+   char student_id[MAX_LENGTH];
     cout << "\n=============================================" << endl;
     cout << "          Update Student Information" << endl;
     cout << "=============================================" << endl;
     cout << "Enter student's ID to update: ";
-    cin.ignore();
-    cin.getline(student_id, 50);
-    if (!validateInput(student_id, 50)) return;
+    cin >> student_id;
+    student *current =  student_head;
+   while (current != nullptr){
+    if(strcmp(current->name, student_id) == 0){
+        cout << "Student found:" << endl;
+        cout << "Name: " << current->name << endl;
+        cout << "ID: " << current->id << endl;
+        cout << "Gender: " << current->gender << endl;
+        cout << "Department: " << current->department << endl;
+        cout << "Phone: " << current->phone << endl;
+        cout << "Computer Name: " << current->pcname << endl;
+        cout << "Computer Serial Number: " << current->serial << endl;
+        int choice ;
+        cin >>choice ;
+        switch (choice) {
+            case 1:
+                cout << "Enter new name: ";
+                cin >> current->name;
+                if (!validateInput(current->name, MAX_LENGTH)) return;
+                break;
+            case 2:
+                cout << "Enter new ID: ";
+                cin >> current->id;
+                if (!validateInput(current->id, 50)) return;
+                break;
+            case 3:
+                cout << "Enter new Gender: " << current->gender;
+                if (!validateGender(current->gender)) return;
+                break;
+            case 4:
+                cout << "Enter new Department: ";
+                cin >> current->department;
+                if (!validateInput(current->department, 50)) return;
+                break;
+            case 5:
+                cout << "Enter new Phone: ";
+                cin >> current->phone;
+                if (!validatePhoneNumber(current->phone)) return;
+                break;
+            case 6:
+                cout << "Enter new Computer Name: ";
+                cin >> current->pcname;
+                if (!validateInput(current->pcname, 50)) return;
+                break;
+            case 7:
+            cout << "Enter new Computer Serial Number: ";
+                cin >> current->serial;
+                if (!validateInput(current->serial, 50)) return;
+                break;
+                default:
+                cout << "\nInvalid choice. Please enter a number between 1 and 7." << endl;
+        
+    }
+    cout << "Student details updated successfully temporary" << endl;
+     cout << "Would you like to update this from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
+            cout << " Admin successfully updated in the database!" << endl;
+        } else {
+            cout << " Failed to update admin in database!" << endl;
+        }
+    } else {
+        cout << " Admin update discarded. Not saved to database." << endl;
+    }
+    return;
+    }
+    current = current->next;
+
+   }
 
     cout << "Checking if student exists...\n";
     search_student_in_db(student_id);
