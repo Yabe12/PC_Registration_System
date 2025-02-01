@@ -65,30 +65,36 @@ new_student->next =NULL;
 }
 
 void search_student() {
-    char choice;
-    char student_id[50];
-    char name[50];
-
-    cout << "\n=============================================" << endl;
-    cout << "          Search for Student" << endl;
-    cout << "=============================================" << endl;
-    cout << "Search by: " << endl;
-    cout << "1. ID" << endl;
-    cout << "2. Name" << endl;
-    cout << "Enter your choice (1 or 2): ";
-    cin >> choice;
-    cin.ignore();  // Ignore newline left in buffer
-
-    if (choice == '1') {
-        cout << "Enter student's ID to search: ";
-        cin.getline(student_id, 50);
-        search_student_in_db(student_id);
-    } else if (choice == '2') {
-        cout << "Enter student's Name to search: ";
-        cin.getline(name, 50);
-        cout << "Searching by name is not yet implemented.\n";
-    } else {
-        cout << "\nInvalid choice. Please enter 1 or 2." << endl;
+    char student_id[MAX_LENGTH];
+    cout << "Enter student id to search: ";
+    cin >> student_id;
+    if (!validateInput(student_id, MAX_LENGTH)) return;
+    student *current=student_head;
+    while (current != NULL){
+        if (strcmp(current->id, student_id)==0){
+            cout << "\n=============================================" << endl;
+            cout << "          Student Details" << endl;
+            cout << "=============================================" << endl;
+            cout << "Name: " << current->name << endl;
+            cout << "ID: " << 
+            current->id << endl;
+            cout << "Gender: " << current->gender << endl;
+            cout << "Department: " << current->department << endl;
+            cout << "Phone Number: " << current->phone << endl;
+            cout << "Computer Name: " << current->pcname << endl;
+            cout << "Computer Serial Number: " << current->serial << endl;
+            return;
+        }
+        current = current->next;
+    }
+    cout << "\nStudent not found in the database." << endl;
+cout << "Would you like to search from the  this from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if(confirmation == "yes" || confirmation == "y"){
+        search_student_in_db(current->id);
+    }else{
+        cout << " Student search discarded. Not searched in database." << endl;
     }
 }
 
@@ -96,7 +102,32 @@ void display_students() {
     cout << "\n=============================================" << endl;
     cout << "             Student List" << endl;
     cout << "=============================================" << endl;
-    display_all_students_from_db();
+    student *current = student_head;    
+    if(current==NULL)
+{
+    cout << "No students found in the database." << endl;
+    return;
+}
+cout <<"students in the temporary storage" << endl;
+while(current != NULL){
+    cout << "Name: " << current->name << endl;
+    cout << "ID: " << current->id << endl;
+    cout << "Gender: " << current->gender << endl;
+    cout << "Department: " << current->department << endl;
+    cout << "Phone: " << current->phone << endl;
+    cout << "Computer Name: " << current->pcname << endl;
+    cout << "Computer Serial Number: " << current->serial << endl;
+    current = current->next;
+}
+current = student_head;
+cout << "would like to display all student from the database.?(yes/no)" << endl;
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_all_students_from_db();
+    }else{
+        cout << "Students not displayed from the database." << endl;
+    }
 }
 
 void update_student() {
@@ -177,55 +208,31 @@ void update_student() {
 
    }
 
-    cout << "Checking if student exists...\n";
-    search_student_in_db(student_id);
-
-    cout << "\nEnter new name: ";
-    cin.getline(name, 50);
-    if (!validateInput(name, 50)) return;
-
-    cout << "Enter new gender (Male / Female): ";
-    cin.getline(gender, 10);
-    if (!validateGender(gender)) return;
-
-    cout << "Enter new department: ";
-    cin.getline(department, 50);
-    if (!validateInput(department, 50)) return;
-
-    cout << "Enter new phone number: ";
-    cin >> phone;
-    if (!validatePhoneNumber(phone)) return;
-    cin.ignore();  // Ignore newline left in buffer
-
-    cout << "Enter new computer name: ";
-    cin.getline(pcname, 50);
-    if (!validateInput(pcname, 50)) return;
-
-    cout << "Enter new computer serial number: ";
-    cin.getline(serial, 50);
-    if (!validateInput(serial, 50)) return;
-
-    update_student_in_db(student_id, name, gender, department, phone, pcname, serial);
-
-    cout << "\n=============================================" << endl;
-    cout << "        Student Details Updated Successfully!" << endl;
-    cout << "=============================================" << endl;
 }
 
 void delete_student() {
-    char student_id[50];
-
-    cout << "\n=============================================" << endl;
-    cout << "          Delete Student" << endl;
-    cout << "=============================================" << endl;
-    cout << "Enter student's ID to delete: ";
-    cin.ignore();
-    cin.getline(student_id, 50);
-    if (!validateInput(student_id, 50)) return;
-
-    delete_student_from_db(student_id);
-
-    cout << "\n=============================================" << endl;
-    cout << "       Student Deleted Successfully!" << endl;
-    cout << "=============================================" << endl;
+     char student_id[MAX_LENGTH];
+cout<<"Enter student id that will be deleted";
+cin >>student_id;
+   student * current =student_head;
+   student *prev = nullptr;
+   while(current != NULL){
+    if(strcmp(current->id,student_id)==0){
+        if(prev == nullptr){
+            student_head = current->next;
+        }else{
+            prev->next = current->next;
+        }
+        if(current== student_tall){
+            student_tall = prev;
+        }
+        delete current;
+        cout << "Student deleted successfully temporary" << endl;
+    
+   }
+    prev = current;
+    current = current->next;
+}
+cout << "Student not fount in temporary" << endl;
+delete_student_from_db(student_id);
 }
