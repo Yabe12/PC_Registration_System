@@ -14,11 +14,9 @@ void checkConnection(PGconn *conn) {
 
 PGconn* connectToDatabase() {
   
-    // Load the .env file
     const std::string envPath = ".env";
     auto envVars = loadEnvFile(envPath);
 
-    // Access variables
     std::string dbName = envVars["DB_NAME"];
     std::string dbUser = envVars["DB_USER"];
     std::string dbPassword = envVars["DB_PASSWORD"];

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void add_admin_to_db(const std::string& username, const std::string& password) {
+bool add_admin_to_db(const std::string& username, const std::string& password) {
     PGconn *conn = connectToDatabase();
     if (conn) {
         std::string query = "INSERT INTO admin (username, password) VALUES ('" + username + "', '" + password + "');";
@@ -19,7 +19,10 @@ void add_admin_to_db(const std::string& username, const std::string& password) {
         PQclear(res);
         closeConnection(conn);
     }
+    return true;
 }
+
+
 
 void update_admin_in_db(const std::string& username, const std::string& password) {
     PGconn *conn = connectToDatabase();
