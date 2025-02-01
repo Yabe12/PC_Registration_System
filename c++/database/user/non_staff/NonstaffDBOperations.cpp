@@ -6,10 +6,11 @@
 
 using namespace std;
 
-void add_nonstaff_to_db(const std::string& name, const std::string& id, const std::string& gender, const std::string& phone, const std::string& pcname, const std::string& serial) {
+void add_nonstaff_to_db(const std::string& name, const std::string& id, const std::string& gender, long long phone, const std::string& pcname, const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "INSERT INTO nonstaff (name, id, gender, phone, pcname, serial) VALUES ('" + name + "', '" + id + "', '" + gender + "', '" + phone + "', '" + pcname + "', '" + serial + "');";
+        // Constructing the query with proper formatting for the phone number
+        std::string query = "INSERT INTO nonstaff (name, id, gender, phone, pcname, serial) VALUES ('" + name + "', '" + id + "', '" + gender + "', " + std::to_string(phone) + ", '" + pcname + "', '" + serial + "');";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
@@ -23,10 +24,11 @@ void add_nonstaff_to_db(const std::string& name, const std::string& id, const st
     }
 }
 
-void update_nonstaff_in_db(const std::string& id, const std::string& name, const std::string& gender, const std::string& phone, const std::string& pcname, const std::string& serial) {
+void update_nonstaff_in_db(const std::string& id, const std::string& name, const std::string& gender, long long phone, const std::string& pcname, const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        std::string query = "UPDATE nonstaff SET name = '" + name + "', gender = '" + gender + "', phone = '" + phone + "', pcname = '" + pcname + "', serial = '" + serial + "' WHERE id = '" + id + "';";
+        // Constructing the query with proper formatting for the phone number
+        std::string query = "UPDATE nonstaff SET name = '" + name + "', gender = '" + gender + "', phone = " + std::to_string(phone) + ", pcname = '" + pcname + "', serial = '" + serial + "' WHERE id = '" + id + "';";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
