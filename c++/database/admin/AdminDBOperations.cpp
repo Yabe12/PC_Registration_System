@@ -87,7 +87,6 @@ void display_admin() {
         std::string query = "SELECT * FROM admin;";
         PGresult *res = PQexec(conn, query.c_str());
 
-        // Check if the query was successful
         if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             cerr << "Error fetching admins from database: " << PQerrorMessage(conn) << endl;
             PQclear(res);
@@ -95,7 +94,7 @@ void display_admin() {
             return;
         }
 
-        // Fetch and display results from the database
+  
         int rows = PQntuples(res);
         if (rows == 0) {
             cout << "No admins found in the database." << endl;
@@ -103,37 +102,38 @@ void display_admin() {
             cout << "Admin List from Database:" << endl;
             cout << "--------------------------" << endl;
             for (int i = 0; i < rows; ++i) {
-                cout << "Username: " << PQgetvalue(res, i, 0) << endl;
-                cout << "Password: " << string(strlen(PQgetvalue(res, i, 1)), '*') << endl;
+                cout << "DB ID: " << PQgetvalue(res, i, 0) << endl;
+                cout << "Username: " << PQgetvalue(res, i, 1) << endl;
+                cout << "Password: " << string(strlen(PQgetvalue(res, i, 2)), '*') << endl;
                 cout << "--------------------------" << endl;
             }
         }
 
-        // Clear the result and close the connection
         PQclear(res);
         closeConnection(conn);
     } else {
-        cerr << "❌ Database connection failed!" << endl;
+        cerr << "Database connection failed!" << endl;
     }
 }
+
 
 
 bool check_admin_credentials(const std::string& username, const std::string& password) {
     PGconn *conn = connectToDatabase();
     if (!conn) {
-        cerr << "❌ Database connection failed!" << endl;
+        cerr << " Database connection failed!" << endl;
         return false;
     }
 
     const char *query = "SELECT * FROM admin WHERE username = $1 AND password = $2;";
     const char *paramValues[2] = { username.c_str(), password.c_str() };
     int paramLengths[2] = { (int)username.length(), (int)password.length() };
-    int paramFormats[2] = { 0, 0 }; // Text format
+    int paramFormats[2] = { 0, 0 }; 
 
     PGresult *res = PQexecParams(conn, query, 2, NULL, paramValues, paramLengths, paramFormats, 0);
 
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-        cerr << "❌ Error executing query: " << PQerrorMessage(conn) << endl;
+        cerr << " Error executing query: " << PQerrorMessage(conn) << endl;
         PQclear(res);
         closeConnection(conn);
         return false;

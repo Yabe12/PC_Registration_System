@@ -4,6 +4,9 @@
 #include <iostream>
 
 using namespace std;
+
+nonstaff* nonstaff_head = nullptr;
+nonstaff* nonstaff_tall = nullptr;
 const int MAX_LENGTH = 50;
 
 void add_nonstaff() {

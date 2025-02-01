@@ -108,21 +108,21 @@ void search_admin(){
     Admin* current = admin_head;
     while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
-            cout << "✅ Admin found in temporary storage:" << endl;
+            cout << "Admin found in temporary storage:" << endl;
             cout << "Username: " << current->username << endl;
             cout << "Password: " << string(strlen(current->password), '*') << endl;
             return;
         }
         current = current->next;
     }
-    cout << "❌ Admin not found in temporary storage." << endl;
+    cout << " Admin not found in temporary storage." << endl;
 cout << "Would you like to search from the  this from the database? (yes/no): ";
             string confirmation;
             cin >> confirmation;
             if (confirmation == "yes" || confirmation == "y") {
                 search_admin_in_db(username);
             } else {
-                cout << "⚠️ Admin search discarded. Not searched in database." << endl;
+                cout << " Admin search discarded. Not searched in database." << endl;
             }
 }
   
@@ -150,7 +150,7 @@ void delete_admin(){
         prev = current;
         current = current->next;
     }
-    cout << "❌ Admin not found in temporary storage." << endl;
+    cout << " Admin not found in temporary storage." << endl;
     delete_admin_from_db(username);
 }
 

@@ -3,6 +3,9 @@
 #include "../../database/user/staff/StaffDBOperations.h"
 #include <iostream>
 using namespace std;
+
+staff* staff_head = nullptr;
+staff* staff_tall = nullptr;
 const int MAX_LENGTH = 50;
 void add_staff() {
     staff* new_staff = new staff;
@@ -192,7 +195,7 @@ void update_staff() {
                     if (!validateInput(current->serial, MAX_LENGTH)) return;
                     break;
                 default:
-                    cout << "❌ Invalid choice. No updates made." << endl;
+                    cout << " Invalid choice. No updates made." << endl;
                     return;
             }
             
@@ -238,7 +241,7 @@ void delete_staff() {
     
     while (current != nullptr) {
         if (strcmp(staff_name, current->name) == 0) {
-            // Correct the condition to update pointers correctly
+          
             if (prev != nullptr) {
                 prev->next = current->next;
             } else {
@@ -250,7 +253,7 @@ void delete_staff() {
             delete current;
             cout << "Staff deleted successfully from temporary." << endl;
 
-            // Optionally ask if the user wants to delete from the database as well
+            
             cout << "Would you like to delete this staff member from the database as well? (yes/no): ";
             string confirmation;
             cin >> confirmation;

@@ -9,7 +9,7 @@ using namespace std;
 void add_nonstaff_to_db(const std::string& name, const std::string& id, const std::string& gender, long long phone, const std::string& pcname, const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        // Constructing the query with proper formatting for the phone number
+      
         std::string query = "INSERT INTO nonstaff (name, id, gender, phone, pcname, serial) VALUES ('" + name + "', '" + id + "', '" + gender + "', " + std::to_string(phone) + ", '" + pcname + "', '" + serial + "');";
         PGresult *res = PQexec(conn, query.c_str());
 
@@ -27,8 +27,7 @@ void add_nonstaff_to_db(const std::string& name, const std::string& id, const st
 void update_nonstaff_in_db(const std::string& id, const std::string& name, const std::string& gender, long long phone, const std::string& pcname, const std::string& serial) {
     PGconn *conn = connectToDatabase();
     if (conn) {
-        // Constructing the query with proper formatting for the phone number
-        std::string query = "UPDATE nonstaff SET name = '" + name + "', gender = '" + gender + "', phone = " + std::to_string(phone) + ", pcname = '" + pcname + "', serial = '" + serial + "' WHERE id = '" + id + "';";
+     std::string query = "UPDATE nonstaff SET name = '" + name + "', gender = '" + gender + "', phone = " + std::to_string(phone) + ", pcname = '" + pcname + "', serial = '" + serial + "' WHERE id = '" + id + "';";
         PGresult *res = PQexec(conn, query.c_str());
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
@@ -58,7 +57,6 @@ void delete_nonstaff_from_db(const std::string& id) {
         closeConnection(conn);
     }
 }
-
 void display_all_nonstaff_from_db() {
     PGconn *conn = connectToDatabase();
     if (conn) {
@@ -76,12 +74,13 @@ void display_all_nonstaff_from_db() {
         if (numRows > 0) {
             cout << "\nAll Nonstaff in Database:" << endl;
             for (int i = 0; i < numRows; i++) {
-                cout << "Name: " << PQgetvalue(res, i, 0) << endl;
-                cout << "ID: " << PQgetvalue(res, i, 1) << endl;
-                cout << "Gender: " << PQgetvalue(res, i, 2) << endl;
-                cout << "Phone: " << PQgetvalue(res, i, 3) << endl;
-                cout << "PC Name: " << PQgetvalue(res, i, 4) << endl;
-                cout << "Serial: " << PQgetvalue(res, i, 5) << endl;
+                cout << "DB ID: " << PQgetvalue(res, i, 0) << endl;
+                cout << "Name: " << PQgetvalue(res, i, 1) << endl;
+                cout << "ID: " << PQgetvalue(res, i, 2) << endl;
+                cout << "Gender: " << PQgetvalue(res, i, 3) << endl;
+                cout << "Phone: " << PQgetvalue(res, i, 4) << endl;
+                cout << "PC Name: " << PQgetvalue(res, i, 5) << endl;
+                cout << "Serial: " << PQgetvalue(res, i, 6) << endl;
                 cout << "-----------------------" << endl;
             }
         } else {

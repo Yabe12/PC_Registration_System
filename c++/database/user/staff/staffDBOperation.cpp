@@ -107,7 +107,6 @@ void search_staff_in_name(const std::string& name) {
     PQclear(res);
     closeConnection(conn);
 }
-
 void display_all_staff_from_db() {
     PGconn *conn = connectToDatabase();
     if (!conn) {
@@ -130,14 +129,15 @@ void display_all_staff_from_db() {
         cout << "\nAll Staff Members:\n";
         cout << "------------------------------------------------------\n";
         for (int i = 0; i < rows; i++) {
-            cout << "Name: " << PQgetvalue(res, i, 0)
-                 << " | ID: " << PQgetvalue(res, i, 1)
-                 << " | Gender: " << PQgetvalue(res, i, 2)
-                 << " | Job: " << PQgetvalue(res, i, 3)
-                 << " | Phone: " << PQgetvalue(res, i, 4)
-                 << " | PC Type: " << PQgetvalue(res, i, 5)
-                 << " | PC Name: " << PQgetvalue(res, i, 6)
-                 << " | Serial: " << PQgetvalue(res, i, 7) << endl;
+            cout << "DB ID: " << PQgetvalue(res, i, 0)
+                 << " | Name: " << PQgetvalue(res, i, 1)
+                 << " | Staff ID: " << PQgetvalue(res, i, 2)
+                 << " | Gender: " << PQgetvalue(res, i, 3)
+                 << " | Job: " << PQgetvalue(res, i, 4)
+                 << " | Phone: " << PQgetvalue(res, i, 5)
+                 << " | PC Type: " << PQgetvalue(res, i, 6)
+                 << " | PC Name: " << PQgetvalue(res, i, 7)
+                 << " | Serial: " << PQgetvalue(res, i, 8) << endl;
             cout << "------------------------------------------------------\n";
         }
     } else {

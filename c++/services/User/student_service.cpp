@@ -6,6 +6,9 @@
 #include "./student_service.h"
 
 using namespace std;
+
+student* student_head = nullptr;
+student* student_tall = nullptr;
 const int MAX_LENGTH = 50;
 
 

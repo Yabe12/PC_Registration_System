@@ -37,5 +37,5 @@ PGconn* connectToDatabase() {
 
 void closeConnection(PGconn *conn) {
     PQfinish(conn);
-    // std::cout << "Connection closed." << std::endl;
+    
 }

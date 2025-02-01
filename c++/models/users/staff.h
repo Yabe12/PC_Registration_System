@@ -14,8 +14,7 @@ struct staff {
     staff *prev;
 };
 
-// Global pointers for the linked list
+
 extern staff* staff_head;
 extern staff* staff_tall;
-
 #endif // STAFF_H

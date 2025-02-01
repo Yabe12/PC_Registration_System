@@ -3,16 +3,16 @@
 #include <cstring>
 #include "../middleware/input_validation.h"
 #include "../database/admin/AdminDBOperations.h"
-// #include "../database/superadmin/SuperAdminDBOperations.h"
+
 #include "../database/superadmin/SuperAdminDBOperations.h"
 using namespace std;
 
-// Define global pointers ONLY in this file (remove them from other `.cpp` files)
+
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
 
-// Define global variables
-bool isSuperAdmin = false;  // Ensure this matches the header file
+
+bool isSuperAdmin = false;  
 bool isAuthenticated = false;
 
 bool login(bool isSuper) {
@@ -30,12 +30,12 @@ bool login(bool isSuper) {
     cin >> password;
     if (!validateInput(password, 50)) return false;
 
-    // Convert char[] to std::string
+ 
     string usernameStr(username);
     string passwordStr(password);
 
     if (isSuper) {
-        // Call SuperAdminDBOperations to verify the credentials
+        
         if (checkSuperAdminCredentials(usernameStr, passwordStr)) {
             isSuperAdmin = true;
             isAuthenticated = true;

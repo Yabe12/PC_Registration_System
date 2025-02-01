@@ -8,7 +8,7 @@ using namespace std;
 bool checkSuperAdminCredentials(const std::string& usernameStr, const std::string& passwordStr) {
     PGconn *conn = connectToDatabase();
     if (!conn) {
-        cerr << "❌ Database connection failed!" << endl;
+        cerr << " Database connection failed!" << endl;
         return false;
     }
 
@@ -22,14 +22,14 @@ bool checkSuperAdminCredentials(const std::string& usernameStr, const std::strin
     PGresult *res = PQexecParams(conn, query, 2, NULL, paramValues, paramLengths, paramFormats, 0);
 
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-        cerr << "❌ Error executing query: " << PQerrorMessage(conn) << endl;
+        cerr << "Error executing query: " << PQerrorMessage(conn) << endl;
         PQclear(res);
         closeConnection(conn);
         return false;
     }
 
     bool isValid = PQntuples(res) > 0;
-    // cout << "Query returned " << PQntuples(res) << " rows." << endl;
+    
 
     PQclear(res);
     closeConnection(conn);
