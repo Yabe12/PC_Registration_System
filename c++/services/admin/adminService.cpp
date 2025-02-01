@@ -26,18 +26,18 @@ void add_admin() {
         admin_tall->next = new_admin;
         admin_tall = new_admin;
     }
-    cout << "\n✅ Admin added to temporary storage.\n";
+    cout << "\n Admin added to temporary storage.\n";
     cout << "Would you like to save it to the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
     if (confirmation == "yes" || confirmation == "y") {
         if (add_admin_to_db(new_admin->username, new_admin->password)) {
-            cout << "✅ Admin successfully saved to the database!" << endl;
+            cout << "Admin successfully saved to the database!" << endl;
         } else {
-            cout << "❌ Failed to save admin to database!" << endl;
+            cout << " Failed to save admin to database!" << endl;
         }
     } else {
-        cout << "❌ Admin not saved to the database." << endl;
+        cout << " Admin not saved to the database." << endl;
     }
 }
 
@@ -48,7 +48,7 @@ void update_admin() {
     Admin* current = admin_head;
     while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
-            cout << "✅ Admin found. What would you like to update?" << endl;
+            cout << "Admin found. What would you like to update?" << endl;
             cout << "1. Username" << endl;
             cout << "2. Password" << endl;
             cout << "3. Both" << endl;
@@ -75,27 +75,28 @@ void update_admin() {
                     if (!validateInput(current->password, MAX_LENGTH)) return;
                     break;
                 default:
-                    cout << "❌ Invalid choice. No updates made." << endl;
+                    cout << "Invalid choice. No updates made." << endl;
                     return;
             }
-            cout << "✅ Admin updated successfully temporary!" << endl;
-            return;
-        }
-        current = current->next;
-    }
-    cout << "❌ Admin not found in temporary" << endl;
-    cout << "Would you like to update this from the database? (yes/no): ";
+            cout << " Admin updated successfully temporary!" << endl;
+             cout << "Would you like to update this from the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
     if (confirmation == "yes" || confirmation == "y") {
         if (update_admin_in_db(username, current->password)) {
-            cout << "✅ Admin successfully updated in the database!" << endl;
+            cout << " Admin successfully updated in the database!" << endl;
         } else {
-            cout << "❌ Failed to update admin in database!" << endl;
+            cout << " Failed to update admin in database!" << endl;
         }
     } else {
-        cout << "⚠️ Admin update discarded. Not saved to database." << endl;
+        cout << " Admin update discarded. Not saved to database." << endl;
     }
+            return;
+        }
+        current = current->next;
+    }
+    cout << " Admin not found in temporary" << endl;
+   
 }
 
 void search_admin(){
@@ -156,7 +157,7 @@ void delete_admin(){
 void display_all_admins(){
     Admin* current = admin_head;
     if (current == nullptr) {
-        cout << "❌ No admins found in temporary storage." << endl;
+        cout << " No admins found in temporary storage." << endl;
         return;
     }
     cout << "Admins in temporary storage:" << endl;
@@ -173,6 +174,6 @@ void display_all_admins(){
     if (confirmation == "yes" || confirmation == "y") {
         display_admin();
     } else {
-        cout << "⚠️ Admins not displayed from the database." << endl;
+        cout << " Admins not displayed from the database." << endl;
     }
 }
