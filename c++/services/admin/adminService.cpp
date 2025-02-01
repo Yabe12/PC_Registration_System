@@ -1,8 +1,4 @@
 #include <iostream>
-#include <cstring>
-#include <openssl/sha.h>  // For password hashing
-#include <sstream>        // For stringstream
-#include <iomanip>        // For setw, setfill
 #include "../../models/admin/admin.h"
 #include "../../middleware/input_validation.h"
 #include "../../database/admin/AdminDBOperations.h"
@@ -12,17 +8,6 @@ using namespace std;
 
 const int MAX_LENGTH = 50;
 
-// Function to hash a password using SHA-256
-string hashPassword(const string &password) {
-    unsigned char hash[SHA256_DIGEST_LENGTH];
-    SHA256((unsigned char *)password.c_str(), password.length(), hash);
-
-    stringstream ss;
-    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
-        ss << hex << setw(2) << setfill('0') << (int)hash[i];
-    }
-    return ss.str();
-}
 
 void add_admin() {
     Admin* new_admin = new Admin;
@@ -32,88 +17,87 @@ void add_admin() {
     cout << "Enter admin password: ";
     cin >> new_admin->password;
     if (!validateInput(new_admin->password, MAX_LENGTH)) return;
-  string Password = hashPassword(new_admin->password);
-new_admin->next=nullptr;
-if(admin_head == nullptr) {
-    admin_head = new_admin;
-    admin_tall = new_admin;
-}else{
-    admin_tall->next=new_admin;
-    admin_tall = new_admin;
-}
-   cout << "\n✅ Admin added to temporary storage.\n";
+
+    new_admin->next = nullptr;
+    if (admin_head == nullptr) {
+        admin_head = new_admin;
+        admin_tall = new_admin;
+    } else {
+        admin_tall->next = new_admin;
+        admin_tall = new_admin;
+    }
+    cout << "\n✅ Admin added to temporary storage.\n";
     cout << "Would you like to save it to the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
-     if (confirmation == "yes" || confirmation == "y") {
-        if (add_admin_to_db(new_admin->username, Password)) {
+    if (confirmation == "yes" || confirmation == "y") {
+        if (add_admin_to_db(new_admin->username, new_admin->password)) {
             cout << "✅ Admin successfully saved to the database!" << endl;
         } else {
             cout << "❌ Failed to save admin to database!" << endl;
-        }}else {
-            cout << "�� Admin not saved to the database." << endl;
         }
+    } else {
+        cout << "❌ Admin not saved to the database." << endl;
+    }
 }
 
-void update_admin(){
+void update_admin() {
     char username[MAX_LENGTH];
     cout << "Enter admin username to update: ";
     cin >> username;
-    Admin *current = admin_head;
-    while(current != NULL){
-        if (strcmp(current->username, username) == 0){
-            cout << "�� Admin found. What would you like to update?" << endl;
+    Admin* current = admin_head;
+    while (current != nullptr) {
+        if (strcmp(current->username, username) == 0) {
+            cout << "✅ Admin found. What would you like to update?" << endl;
             cout << "1. Username" << endl;
             cout << "2. Password" << endl;
             cout << "3. Both" << endl;
 
             int choice;
             cin >> choice;
-                 switch (choice) {
-                    case 1:
-                        cout << "Enter new username: ";
-                         cin >> current->username;
+            switch (choice) {
+                case 1:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
                     if (!validateInput(current->username, MAX_LENGTH)) return;
                     break;
                 case 2:
                     cout << "Enter new password: ";
                     cin >> current->password;
                     if (!validateInput(current->password, MAX_LENGTH)) return;
-                    strcpy(current->password, hashPassword(current->password).c_str());
                     break;
-                    case 3:
-                       cout << "Enter new username: ";
-                         cin >> current->username;
+                case 3:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
                     if (!validateInput(current->username, MAX_LENGTH)) return;
                     cout << "Enter new password: ";
                     cin >> current->password;
                     if (!validateInput(current->password, MAX_LENGTH)) return;
-                    strcpy(current->password, hashPassword(current->password).c_str());
                     break;
-                    default:
-                        cout << "❌ Invalid choice. No updates made." << endl;
-                        return;
-        }
-        cout << "✅ Admin updated successfully temporary!" << endl;
-        return;
-    }
-    current = current->next;
-    }
-    cout << "�� Admin not found in temporary" << endl;
-       cout << "Would you like to update this from the database? (yes/no): ";
-            string confirmation;
-            cin >> confirmation;
-
-            if (confirmation == "yes" || confirmation == "y") {
-                if (update_admin_in_db(current->username,current->password)) {
-                    cout << "✅ Admin successfully updated in the database!" << endl;
-                } else {
-                    cout << "❌ Failed to update admin in database!" << endl;
-                }
-            } else {
-                cout << "⚠️ Admin update discarded. Not saved to database." << endl;
+                default:
+                    cout << "❌ Invalid choice. No updates made." << endl;
+                    return;
             }
+            cout << "✅ Admin updated successfully temporary!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+    cout << "❌ Admin not found in temporary" << endl;
+    cout << "Would you like to update this from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        if (update_admin_in_db(username, current->password)) {
+            cout << "✅ Admin successfully updated in the database!" << endl;
+        } else {
+            cout << "❌ Failed to update admin in database!" << endl;
+        }
+    } else {
+        cout << "⚠️ Admin update discarded. Not saved to database." << endl;
+    }
 }
+
 void search_admin(){
     char username[MAX_LENGTH];
     cout << "Enter admin username to search: ";
