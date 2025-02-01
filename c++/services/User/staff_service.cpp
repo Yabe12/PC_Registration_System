@@ -93,12 +93,181 @@ void search_staff() {
 }
 
 void update_staff() {
-    
+    char staff_name[MAX_LENGTH];
+    cout << "Enter the name of the staff to update: ";
+    cin >> staff_name;
+    if (!validateInput(staff_name, MAX_LENGTH)) return;
+
+    staff* current = staff_head;
+    while (current != nullptr) {
+        if (strcmp(staff_name, current->name) == 0) {
+            cout << "Staff found. What would you like to update?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. ID" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Phone Number" << endl;
+            cout << "5. Job Title" << endl;
+            cout << "6. PC Type" << endl;
+            cout << "7. Computer Name" << endl;
+            cout << "8. Computer Serial Number" << endl;
+            cout << "9. All of the above" << endl;
+
+            int choice;
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    break;
+                case 4:
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    break;
+                case 5:
+                    cout << "Enter new job title: ";
+                    cin >> current->job;
+                    if (!validateInput(current->job, MAX_LENGTH)) return;
+                    break;
+                case 6:
+                    cout << "Enter new PC type: ";
+                    cin >> current->typeofpc;
+                    if (!validateInput(current->typeofpc, MAX_LENGTH)) return;
+                    break;
+                case 7:
+                    cout << "Enter new computer name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    break;
+                case 8:
+                    cout << "Enter new computer serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
+                case 9:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    
+                    cin.ignore();  // Clear the input buffer
+                    
+                    cout << "Enter new job title: ";
+                    cin >> current->job;
+                    if (!validateInput(current->job, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new PC type: ";
+                    cin >> current->typeofpc;
+                    if (!validateInput(current->typeofpc, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new computer name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new computer serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
+                default:
+                    cout << "❌ Invalid choice. No updates made." << endl;
+                    return;
+            }
+            
+            cout << "Staff information updated successfully." << endl;
+            cout << "Would you like to update the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                update_staff_in_db(current->name, current->id, 
+                                current->gender, 
+                                current->job, 
+                                current->phone, 
+                                current->typeofpc, 
+                                current->pcname, 
+                                current->serial);
+                cout << "Staff information updated in the database." << endl;
+            } else {
+                cout << "Staff update discarded. Not updated in database." << endl;
+            }
+            return;
+        }
+        current = current->next;
+    }
+    cout << "Staff not found in temporary storage." << endl;
+    cout << "Would you like to search for the staff in the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        search_staff_in_name(staff_name);
+    } else {
+        cout << "Staff search discarded. Not searched in database." << endl;
+    }
 }
+
 
 void delete_staff() {
+    char staff_name[MAX_LENGTH];
+    cout << "Enter the name of the staff to delete: ";
+    cin >> staff_name;
+    
+    staff* current = staff_head;
+    staff* prev = nullptr;
+    
+    while (current != nullptr) {
+        if (strcmp(staff_name, current->name) == 0) {
+            // Correct the condition to update pointers correctly
+            if (prev != nullptr) {
+                prev->next = current->next;
+            } else {
+                staff_head = current->next;
+            }
+            if (current == staff_tall) {
+                staff_tall = prev;
+            }
+            delete current;
+            cout << "Staff deleted successfully from temporary." << endl;
 
+            // Optionally ask if the user wants to delete from the database as well
+            cout << "Would you like to delete this staff member from the database as well? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                delete_staff_from_db(staff_name);
+                cout << "Staff deleted successfully from the database." << endl;
+            } else {
+                cout << "Staff deletion from the database discarded." << endl;
+            }
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    cout << "Staff not found in temporary storage." << endl;
 }
+
 void display_staff() {
     cout << "\n=============================================" << endl;
     cout << "             Staff List" << endl;
