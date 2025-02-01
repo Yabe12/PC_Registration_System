@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void add_student_to_db(const std::string& name, const std::string& student_id, const std::string& gender, 
+bool add_student_to_db(const std::string& name, const std::string& student_id, const std::string& gender, 
                         const std::string& department, long long phone, const std::string& pcname, 
 const std::string& serial) {
     PGconn *conn = connectToDatabase();
@@ -24,6 +24,7 @@ const std::string& serial) {
         PQclear(res);
         closeConnection(conn);
     }
+    return true;
 }
 
 void update_student_in_db(const std::string student_id, const std::string& name, const std::string& gender, 

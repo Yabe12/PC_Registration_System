@@ -4,7 +4,7 @@
 #include <string>
 
 // Function to add a student to the database
-void add_student_to_db(const std::string& name, const std::string& student_id, const std::string& gender, 
+bool add_student_to_db(const std::string& name, const std::string& student_id, const std::string& gender, 
                         const std::string& department, long long phone, const std::string& pcname, 
                         const std::string& serial);
 
