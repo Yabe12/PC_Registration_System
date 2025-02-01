@@ -87,7 +87,7 @@ void search_student() {
         }
         current = current->next;
     }
-    cout << "\nStudent not found in the database." << endl;
+    cout << "\nStudent not found in the temporary." << endl;
 cout << "Would you like to search from the  this from the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
@@ -105,7 +105,7 @@ void display_students() {
     student *current = student_head;    
     if(current==NULL)
 {
-    cout << "No students found in the database." << endl;
+    cout << "No students found in the temporary." << endl;
     return;
 }
 cout <<"students in the temporary storage" << endl;

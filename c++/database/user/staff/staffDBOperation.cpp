@@ -76,15 +76,15 @@ void delete_staff_from_db(const std::string& id) {
     closeConnection(conn);
 }
 
-void search_staff_in_db(const std::string& id) {
+void search_staff_in_name(const std::string& name) {
     PGconn *conn = connectToDatabase();
     if (!conn) {
         cerr << "Failed to connect to the database." << endl;
         return;
     }
 
-    const char *query = "SELECT * FROM staff WHERE id = $1;";
-    const char *params[1] = {id.c_str()};
+    const char *query = "SELECT * FROM staff WHERE name = $1;";
+    const char *params[1] = {name.c_str()};
     PGresult *res = PQexecParams(conn, query, 1, NULL, params, NULL, NULL, 0);
 
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
