@@ -3,3 +3,16 @@
 temp.cpp
 .env
 .exe
+database.cpp
+.vscode
+.env1
+dbtable.cpp
+ 
+dbtable.h
+dbtable.exe
+
+database.h
+
+dotenv.exe
+database.exe
+db_connection.cpp

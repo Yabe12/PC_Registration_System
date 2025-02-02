@@ -8,7 +8,7 @@
 using namespace std;
 
 void user_menu() {
-    int choice = 0;  // Initialize choice to 0 to enter the loop
+    int choice = 0; 
     while (choice != 4) {
         cout << "************************************" << endl;
         cout << "  User Management System" << endl;
