@@ -96,6 +96,14 @@ void update_admin() {
         current = current->next;
     }
     cout << " Admin not found in temporary" << endl;
+    cout << "Would you like to search for the admin in the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        search_admin_in_db(username);
+    } else {
+        cout << " Admin search discarded. Not searched in database." << endl;
+    }
    
 }
 
@@ -144,23 +152,39 @@ void delete_admin(){
                 admin_tall = prev;
             }
             delete current;
-            cout << "Admin deleted successfully!" << endl;
+            cout << "Admin deleted successfully from temporary!" << endl;
+            cout << "Would you like to delete this from the database as well? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                delete_admin_from_db(username);
+                cout << "Admin deleted successfully from the database!" << endl;
+            } else {
+                cout << "Admin deletion from the database discarded." << endl;
+            }
             return;
         }
         prev = current;
         current = current->next;
     }
     cout << " Admin not found in temporary storage." << endl;
-    delete_admin_from_db(username);
+    cout << "Would you like to delete this from the database as well? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        delete_admin_from_db(username);
+        cout << "Admin deleted successfully from the database!" << endl;
+    } else {
+        cout << "Admin deletion from the database discarded." << endl;
+    }
+   
 }
 
 void display_all_admins(){
     Admin* current = admin_head;
     if (current == nullptr) {
         cout << " No admins found in temporary storage." << endl;
-        return;
-    }
-    cout << "Admins in temporary storage:" << endl;
+         cout << "Admins in temporary storage:" << endl;
      cout << "Would you like to display all admins from the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
@@ -169,6 +193,9 @@ void display_all_admins(){
     } else {
         cout << " Admins not displayed from the database." << endl;
     }
+        return;
+    }
+   
     while (current != nullptr) {
         cout << "Username: " << current->username << endl;
         cout << "Password: " << string(strlen(current->password), '*') << endl;

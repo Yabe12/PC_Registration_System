@@ -179,6 +179,15 @@ void update_nonstaff() {
         current = current->next;
 }
 cout << "Nonstaff not found in temporary storage." << endl;
+cout << "Would you like to update this from the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                update_nonstaff_in_db(current->id, current->name, current->gender, current->phone, current->pcname, current->serial);
+                cout << "Nonstaff information updated in database successfully." << endl;
+            } else {
+                cout << "Nonstaff information update discarded. Not updated in database." << endl;
+            }
 }
 void delete_nonstaff() {
     char nonstaff_name[MAX_LENGTH];
@@ -213,6 +222,15 @@ void delete_nonstaff() {
         current = current->next;
     }
     cout << "Nonstaff not found in temporary storage." << endl;
+     cout << "Would you like to delete this nonstaff from the database as well? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                delete_nonstaff_from_db(nonstaff_name);
+                cout << "Nonstaff deleted successfully from the database." << endl;
+            } else {
+                cout << "Nonstaff deletion from the database discarded." << endl;
+            }
 }
 
 void display_nonstaff() {

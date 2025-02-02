@@ -12,7 +12,7 @@ student* student_tall = nullptr;
 const int MAX_LENGTH = 50;
 
 
-// Function to add a new student
+
 void add_student() {
   cout << "\n=============================================" << endl;
     cout << "          Add New Student" << endl;
@@ -140,85 +140,113 @@ cout << "would like to display all student from the database.?(yes/no)" << endl;
         cout << "Students not displayed from the database." << endl;
     }
 }
-
 void update_student() {
-   char student_id[MAX_LENGTH];
+    char student_id[MAX_LENGTH];
     cout << "\n=============================================" << endl;
     cout << "          Update Student Information" << endl;
     cout << "=============================================" << endl;
     cout << "Enter student's ID to update: ";
-    cin >> student_id;
-    student *current =  student_head;
-   while (current != nullptr){
-    if(strcmp(current->name, student_id) == 0){
-        cout << "Student found:" << endl;
-        cout << "Name: " << current->name << endl;
-        cout << "ID: " << current->id << endl;
-        cout << "Gender: " << current->gender << endl;
-        cout << "Department: " << current->department << endl;
-        cout << "Phone: " << current->phone << endl;
-        cout << "Computer Name: " << current->pcname << endl;
-        cout << "Computer Serial Number: " << current->serial << endl;
-        int choice ;
-        cin >>choice ;
-        switch (choice) {
-            case 1:
-                cout << "Enter new name: ";
-                cin >> current->name;
-                if (!validateInput(current->name, MAX_LENGTH)) return;
-                break;
-            case 2:
-                cout << "Enter new ID: ";
-                cin >> current->id;
-                if (!validateInput(current->id, 50)) return;
-                break;
-            case 3:
-                cout << "Enter new Gender: " << current->gender;
-                if (!validateGender(current->gender)) return;
-                break;
-            case 4:
-                cout << "Enter new Department: ";
-                cin >> current->department;
-                if (!validateInput(current->department, 50)) return;
-                break;
-            case 5:
-                cout << "Enter new Phone: ";
-                cin >> current->phone;
-                if (!validatePhoneNumber(current->phone)) return;
-                break;
-            case 6:
-                cout << "Enter new Computer Name: ";
-                cin >> current->pcname;
-                if (!validateInput(current->pcname, 50)) return;
-                break;
-            case 7:
-            cout << "Enter new Computer Serial Number: ";
-                cin >> current->serial;
-                if (!validateInput(current->serial, 50)) return;
-                break;
+    cin.ignore(); 
+    cin.getline(student_id, MAX_LENGTH);
+
+    student *current = student_head;
+    while (current != nullptr) {
+        if (strcmp(current->id, student_id) == 0) {
+            cout << "Student found:" << endl;
+         cout << "\nWhat would you like to update?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. ID" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Department" << endl;
+            cout << "5. Phone" << endl;
+            cout << "6. Computer Name" << endl;
+            cout << "7. Computer Serial Number" << endl;
+            cout << "Enter your choice: ";
+            int choice;
+            cin >> choice;
+            cin.ignore(); 
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin.getline(current->name, MAX_LENGTH);
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new ID: ";
+                    cin.getline(current->id, MAX_LENGTH);
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new Gender: ";
+                    cin.getline(current->gender, MAX_LENGTH);
+                    if (!validateGender(current->gender)) return;
+                    break;
+                case 4:
+                    cout << "Enter new Department: ";
+                    cin.getline(current->department, MAX_LENGTH);
+                    if (!validateInput(current->department, MAX_LENGTH)) return;
+                    break;
+                case 5:
+                    cout << "Enter new Phone: ";
+                    cin >> current->phone;
+                    cin.ignore(); 
+                    if (!validatePhoneNumber(current->phone)) return;
+                    break;
+                case 6:
+                    cout << "Enter new Computer Name: ";
+                    cin.getline(current->pcname, MAX_LENGTH);
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    break;
+                case 7:
+                    cout << "Enter new Computer Serial Number: ";
+                    cin.getline(current->serial, MAX_LENGTH);
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
                 default:
-                cout << "\nInvalid choice. Please enter a number between 1 and 7." << endl;
-        
-    }
-    cout << "Student details updated successfully temporary" << endl;
-     cout << "Would you like to update this from the database? (yes/no): ";
-    string confirmation;
-    cin >> confirmation;
-    if (confirmation == "yes" || confirmation == "y") {
-        if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
-            cout << " Admin successfully updated in the database!" << endl;
-        } else {
-            cout << " Failed to update admin in database!" << endl;
+                    cout << "\nInvalid choice. Please enter a number between 1 and 7." << endl;
+                    return;
+            }
+
+            cout << "Student details updated successfully (temporary)." << endl;
+
+          
+            cout << "Would you like to update this in the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            cin.ignore(); 
+
+            if (confirmation == "yes" || confirmation == "y") {
+                if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
+                    cout << "Student successfully updated in the database!" << endl;
+                } else {
+                    cout << "Failed to update student in the database!" << endl;
+                }
+            } else {
+                cout << "Student update discarded. Changes not saved to the database." << endl;
+            }
+
+            return; 
         }
-    } else {
-        cout << " Admin update discarded. Not saved to database." << endl;
+        current = current->next;
     }
-    return;
-    }
-    current = current->next;
 
-   }
+   
+    cout << "Student with ID " << student_id << " not found." << endl;
+     cout << "Would you like to update this in the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            cin.ignore(); 
 
+            if (confirmation == "yes" || confirmation == "y") {
+                if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
+                    cout << "Student successfully updated in the database!" << endl;
+                } else {
+                    cout << "Failed to update student in the database!" << endl;
+                }
+            } else {
+                cout << "Student update discarded. Changes not saved to the database." << endl;
+            }
 }
 
 void delete_student() {
@@ -239,11 +267,33 @@ cin >>student_id;
         }
         delete current;
         cout << "Student deleted successfully temporary" << endl;
-    
+    cout << "would you like to continue deleting this student from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    cin.ignore();
+    if(confirmation == "yes" || confirmation == "y"){
+        delete_student_from_db(student_id);
+        cout << "Student deleted successfully from the database." << endl;
+
+    }else{
+        cout << "Student deletion discarded. Changes not saved to the database." << endl;
+    }
+
    }
     prev = current;
     current = current->next;
 }
 cout << "Student not fount in temporary" << endl;
-delete_student_from_db(student_id);
+ cout << "would you like to continue deleting this student from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    cin.ignore();
+    if(confirmation == "yes" || confirmation == "y"){
+        delete_student_from_db(student_id);
+        cout << "Student deleted successfully from the database." << endl;
+
+    }else{
+        cout << "Student deletion discarded. Changes not saved to the database." << endl;
+    }
+
 }

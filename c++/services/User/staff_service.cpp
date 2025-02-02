@@ -176,7 +176,7 @@ void update_staff() {
                     cin >> current->phone;
                     if (!validatePhoneNumber(current->phone)) return;
                     
-                    cin.ignore();  // Clear the input buffer
+                    cin.ignore();  
                     
                     cout << "Enter new job title: ";
                     cin >> current->job;
@@ -220,14 +220,23 @@ void update_staff() {
         current = current->next;
     }
     cout << "Staff not found in temporary storage." << endl;
-    cout << "Would you like to search for the staff in the database? (yes/no): ";
-    string confirmation;
-    cin >> confirmation;
-    if (confirmation == "yes" || confirmation == "y") {
-        search_staff_in_name(staff_name);
-    } else {
-        cout << "Staff search discarded. Not searched in database." << endl;
-    }
+            
+            cout << "Staff information updated successfully." << endl;
+            cout << "Would you like to update the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                update_staff_in_db(current->name, current->id, 
+                                current->gender, 
+                                current->job, 
+                                current->phone, 
+                                current->typeofpc, 
+                                current->pcname, 
+                                current->serial);
+                cout << "Staff information updated in the database." << endl;
+            } else {
+                cout << "Staff update discarded. Not updated in database." << endl;
+            }
 }
 
 
@@ -269,6 +278,15 @@ void delete_staff() {
         current = current->next;
     }
     cout << "Staff not found in temporary storage." << endl;
+     cout << "Would you like to delete this staff member from the database as well? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                delete_staff_from_db(staff_name);
+                cout << "Staff deleted successfully from the database." << endl;
+            } else {
+                cout << "Staff deletion from the database discarded." << endl;
+            }
 }
 
 void display_staff() {
