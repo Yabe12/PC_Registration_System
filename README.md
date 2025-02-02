@@ -111,8 +111,8 @@ c++/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository_url>
-cd <repository_folder>
+git clone https://github.com/Yabe12/PC_Registration_System.git
+cd c++
 ```
 
 ### 2. Install PostgreSQL and libpqxx
@@ -162,7 +162,7 @@ DB_PASSWORD=<password>
 Compile the C++ files using a C++ compiler such as `g++`.
 
 ```bash
-g++ -o pc_registration_system main.cpp -l pqxx
+g++ menus/main_menu.cpp services/auth_service.cpp menus/sub_menus/super_admin_menu/super_admin_menu.cpp menus/sub_menus/admin_menu/admin_menu.cpp services/admin/AdminService.cpp menus/sub_menus/user_menu/user_menu.cpp menus/sub_menus/staff_menu/staff_menu.cpp menus/sub_menus/non_staff_menu/non_staff_menu.cpp menus/sub_menus/student_menu/student_menu.cpp services/user/non_staff_service.cpp services/user/staff_service.cpp services/user/student_service.cpp database/admin/AdminDBOperations.cpp  database/superadmin/SuperAdminDBOperations.cpp database/user/non_staff/NonstaffDBOperations.cpp database/user/staff/staffDBOperation.cpp database/user/student/StudentDBOperations.cpp database/connection.cpp database/dotenv.cpp middleware/input_validation.cpp -o database/app.exe -I"C:/Program Files/PostgreSQL/16/include" -L"C:/Program Files/PostgreSQL/16/lib" -lpq
 ```
 
 ### 6. Run the System
