@@ -226,6 +226,102 @@ void update_staff() {
             string confirmation;
             cin >> confirmation;
             if (confirmation == "yes" || confirmation == "y") {
+                 if (strcmp(staff_name, current->name) == 0) {
+            cout << "Staff found. What would you like to update?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. ID" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Phone Number" << endl;
+            cout << "5. Job Title" << endl;
+            cout << "6. PC Type" << endl;
+            cout << "7. Computer Name" << endl;
+            cout << "8. Computer Serial Number" << endl;
+            cout << "9. All of the above" << endl;
+
+            int choice;
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    break;
+                case 4:
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    break;
+                case 5:
+                    cout << "Enter new job title: ";
+                    cin >> current->job;
+                    if (!validateInput(current->job, MAX_LENGTH)) return;
+                    break;
+                case 6:
+                    cout << "Enter new PC type: ";
+                    cin >> current->typeofpc;
+                    if (!validateInput(current->typeofpc, MAX_LENGTH)) return;
+                    break;
+                case 7:
+                    cout << "Enter new computer name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    break;
+                case 8:
+                    cout << "Enter new computer serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
+                case 9:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    
+                    cin.ignore();  
+                    
+                    cout << "Enter new job title: ";
+                    cin >> current->job;
+                    if (!validateInput(current->job, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new PC type: ";
+                    cin >> current->typeofpc;
+                    if (!validateInput(current->typeofpc, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new computer name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    
+                    cout << "Enter new computer serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
+                default:
+                    cout << " Invalid choice. No updates made." << endl;
+                    return;
+            }
+                 }
                 update_staff_in_db(current->name, current->id, 
                                 current->gender, 
                                 current->job, 

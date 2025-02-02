@@ -217,6 +217,7 @@ void update_student() {
             cin.ignore(); 
 
             if (confirmation == "yes" || confirmation == "y") {
+                
                 if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
                     cout << "Student successfully updated in the database!" << endl;
                 } else {
@@ -232,21 +233,80 @@ void update_student() {
     }
 
    
-    cout << "Student with ID " << student_id << " not found." << endl;
-     cout << "Would you like to update this in the database? (yes/no): ";
-            string confirmation;
-            cin >> confirmation;
+       cout << "Student with ID " << student_id << " not found in temporary data." << endl;
+
+    cout << "Would you like to update this student directly from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    cin.ignore(); 
+
+    if (confirmation == "yes" || confirmation == "y") {
+        if (strcmp(current->id, student_id) == 0) {
+            cout << "Student found:" << endl;
+         cout << "\nWhat would you like to update?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. ID" << endl;
+            cout << "3. Gender" << endl;
+            cout << "4. Department" << endl;
+            cout << "5. Phone" << endl;
+            cout << "6. Computer Name" << endl;
+            cout << "7. Computer Serial Number" << endl;
+            cout << "Enter your choice: ";
+            int choice;
+            cin >> choice;
             cin.ignore(); 
 
-            if (confirmation == "yes" || confirmation == "y") {
-                if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
-                    cout << "Student successfully updated in the database!" << endl;
-                } else {
-                    cout << "Failed to update student in the database!" << endl;
-                }
-            } else {
-                cout << "Student update discarded. Changes not saved to the database." << endl;
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin.getline(current->name, MAX_LENGTH);
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new ID: ";
+                    cin.getline(current->id, MAX_LENGTH);
+                    if (!validateInput(current->id, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new Gender: ";
+                    cin.getline(current->gender, MAX_LENGTH);
+                    if (!validateGender(current->gender)) return;
+                    break;
+                case 4:
+                    cout << "Enter new Department: ";
+                    cin.getline(current->department, MAX_LENGTH);
+                    if (!validateInput(current->department, MAX_LENGTH)) return;
+                    break;
+                case 5:
+                    cout << "Enter new Phone: ";
+                    cin >> current->phone;
+                    cin.ignore(); 
+                    if (!validatePhoneNumber(current->phone)) return;
+                    break;
+                case 6:
+                    cout << "Enter new Computer Name: ";
+                    cin.getline(current->pcname, MAX_LENGTH);
+                    if (!validateInput(current->pcname, MAX_LENGTH)) return;
+                    break;
+                case 7:
+                    cout << "Enter new Computer Serial Number: ";
+                    cin.getline(current->serial, MAX_LENGTH);
+                    if (!validateInput(current->serial, MAX_LENGTH)) return;
+                    break;
+                default:
+                    cout << "\nInvalid choice. Please enter a number between 1 and 7." << endl;
+                    return;
             }
+        }
+       
+    if (update_student_in_db(current->name, current->id, current->gender, current->department, current->phone, current->pcname, current->serial)) {
+            cout << "Student successfully updated in the database!" << endl;
+        } else {
+            cout << "Failed to update student in the database!" << endl;
+        }
+    } else {
+        cout << "Update operation canceled." << endl;
+    }
 }
 
 void delete_student() {

@@ -183,6 +183,73 @@ cout << "Would you like to update this from the database? (yes/no): ";
             string confirmation;
             cin >> confirmation;
             if (confirmation == "yes" || confirmation == "y") {
+                  if(strcmp(current->name, nonstaff_id) == 0){
+            cout << "Nonstaff found: what to what to update " << endl;
+            cout << "1. Name: "  << endl;
+            cout << "2. ID: " << endl;
+            cout << "3. Gender: " <<  endl;
+            cout << "4. Phone: " << endl;
+            cout << "5. Computer Name: " <<  endl;
+            cout << "6. Computer Serial Number: " <<  endl;
+            cout << "7.all of the above" << endl;
+        int choice;
+            cin >> choice;
+            switch (choice) {
+                case 1:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, 20)) return;
+                    break;
+                case 3:
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    break;
+                case 4:
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    break;
+                case 5:
+                    cout << "Enter new PC name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, 50)) return;
+                case 6:
+                    cout << "Enter new PC serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, 50)) return;
+                    break;
+                case 7:
+                    cout << "Enter new name: ";
+                    cin >> current->name;
+                    if (!validateInput(current->name, MAX_LENGTH)) return;
+                    cout << "Enter new ID: ";
+                    cin >> current->id;
+                    if (!validateInput(current->id, 20)) return;
+                    cout << "Enter new gender (Male/Female): ";
+                    cin >> current->gender;
+                    if (!validateGender(current->gender)) return;
+                    cout << "Enter new phone number: ";
+                    cin >> current->phone;
+                    if (!validatePhoneNumber(current->phone)) return;
+                    cout << "Enter new PC name: ";
+                    cin >> current->pcname;
+                    if (!validateInput(current->pcname, 50)) return;
+                    cout << "Enter new PC serial number: ";
+                    cin >> current->serial;
+                    if (!validateInput(current->serial, 50)) return;
+                    break;
+
+                default:
+                cout << "Invalid choice. Please try again." << endl;
+                return;
+                
+            }}
                 update_nonstaff_in_db(current->id, current->name, current->gender, current->phone, current->pcname, current->serial);
                 cout << "Nonstaff information updated in database successfully." << endl;
             } else {

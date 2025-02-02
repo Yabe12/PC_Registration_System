@@ -96,13 +96,44 @@ void update_admin() {
         current = current->next;
     }
     cout << " Admin not found in temporary" << endl;
-    cout << "Would you like to search for the admin in the database? (yes/no): ";
+     cout << "Would you like to update this from the database? (yes/no): ";
     string confirmation;
     cin >> confirmation;
     if (confirmation == "yes" || confirmation == "y") {
-        search_admin_in_db(username);
+        if (strcmp(current->username, username) == 0) {
+            cout << "Admin found. What would you like to update?" << endl;
+            cout << "1. Username" << endl;
+            cout << "2. Password" << endl;
+            cout << "3. Both" << endl;
+
+            int choice;
+            cin >> choice;
+            switch (choice) {
+                case 1:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new password: ";
+                    cin >> current->password;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
+                    cout << "Enter new password: ";
+                    cin >> current->password;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
+                    break;
+                default:
+                    cout << "Invalid choice. No updates made." << endl;
+                    return;
+            }}
+        update_admin_in_db(username, current->password);
     } else {
-        cout << " Admin search discarded. Not searched in database." << endl;
+        cout << " Admin search discarded. Not update in database." << endl;
     }
    
 }
