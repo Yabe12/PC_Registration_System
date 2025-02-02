@@ -2,7 +2,8 @@
 #include "../services/auth_service.h"
 #include "./sub_menus/super_admin_menu/super_admin_menu.h"
 #include "./sub_menus/admin_menu/admin_menu.h"
-// #include "../utils/menu_utils/menu_utils.h"  // No longer needed if removing header/footer
+#include "./sub_menus/user_menu/user_menu.h"
+
 
 using namespace std;
 
@@ -22,19 +23,19 @@ void mainMenu() {
         cin >> roleChoice;
 
         switch (tolower(roleChoice)) {
-            case 'a': // SuperAdmin
+            case 'a': 
                 if (login(true)) {
                     super_admin_menu();
                 }
                 break;
 
-            case 'b': // Admin
+            case 'b': 
                 if (login(false)) {
-                    admin_menu();
+                    user_menu();
                 }
                 break;
 
-            case 'c': // Exit
+            case 'c': 
                 cout << "\nExiting program. Goodbye!\n";
                 return;
 

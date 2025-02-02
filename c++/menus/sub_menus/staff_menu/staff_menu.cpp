@@ -1,12 +1,12 @@
 #include <iostream>
 #include "../../../services/user/staff_service.h"
 #include "staff_menu.h"
-// #include "../../../utils/menu_utils/menu_utils.h"  // No longer needed if removing header/footer
+
 
 using namespace std;
 
 void staff_menu() {
-    int choice = 0;  // Initialize choice to 0 to enter the loop
+    int choice = 0;  
     while (choice != 6) {
         cout << "************************************" << endl;
         cout << "  Staff Management System" << endl;

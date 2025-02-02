@@ -1,23 +1,22 @@
 #include <iostream>
-#include <cstring>
-#include "AdminService.h"
+#include "../../models/admin/admin.h"
 #include "../../middleware/input_validation.h"
+#include "../../database/admin/AdminDBOperations.h"
+#include "../../database/connection.h"
+
 using namespace std;
 
-// Define global pointers for the linked list
-// Remove the definition of admin_head and admin_tall from here
-// Admin* admin_head = nullptr;
-// Admin* admin_tall = nullptr;
+const int MAX_LENGTH = 50;
+
 
 void add_admin() {
     Admin* new_admin = new Admin;
     cout << "Enter admin username: ";
     cin >> new_admin->username;
-    if (!validateInput(new_admin->username, 50)) return;
-
+    if (!validateInput(new_admin->username, MAX_LENGTH)) return;
     cout << "Enter admin password: ";
     cin >> new_admin->password;
-    if (!validateInput(new_admin->password, 50)) return;
+    if (!validateInput(new_admin->password, MAX_LENGTH)) return;
 
     new_admin->next = nullptr;
     if (admin_head == nullptr) {
@@ -27,15 +26,25 @@ void add_admin() {
         admin_tall->next = new_admin;
         admin_tall = new_admin;
     }
-    cout << "Admin added successfully!" << endl;
+    cout << "\n Admin added to temporary storage.\n";
+    cout << "Would you like to save it to the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        if (add_admin_to_db(new_admin->username, new_admin->password)) {
+            cout << "Admin successfully saved to the database!" << endl;
+        } else {
+            cout << " Failed to save admin to database!" << endl;
+        }
+    } else {
+        cout << " Admin not saved to the database." << endl;
+    }
 }
 
 void update_admin() {
-    char username[50];
+    char username[MAX_LENGTH];
     cout << "Enter admin username to update: ";
     cin >> username;
-    if (!validateInput(username, 50)) return;
-
     Admin* current = admin_head;
     while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
@@ -46,104 +55,191 @@ void update_admin() {
 
             int choice;
             cin >> choice;
-
             switch (choice) {
                 case 1:
                     cout << "Enter new username: ";
                     cin >> current->username;
-                    if (!validateInput(current->username, 50)) return;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
                     break;
                 case 2:
                     cout << "Enter new password: ";
                     cin >> current->password;
-                    if (!validateInput(current->password, 50)) return;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
                     break;
                 case 3:
                     cout << "Enter new username: ";
                     cin >> current->username;
-                    if (!validateInput(current->username, 50)) return;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
                     cout << "Enter new password: ";
                     cin >> current->password;
-                    if (!validateInput(current->password, 50)) return;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
                     break;
                 default:
                     cout << "Invalid choice. No updates made." << endl;
                     return;
             }
-            cout << "Admin updated successfully!" << endl;
+            cout << " Admin updated successfully temporary!" << endl;
+             cout << "Would you like to update this from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        if (update_admin_in_db(username, current->password)) {
+            cout << " Admin successfully updated in the database!" << endl;
+        } else {
+            cout << " Failed to update admin in database!" << endl;
+        }
+    } else {
+        cout << " Admin update discarded. Not saved to database." << endl;
+    }
             return;
         }
         current = current->next;
     }
-    cout << "Admin not found." << endl;
+    cout << " Admin not found in temporary" << endl;
+     cout << "Would you like to update this from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        if (strcmp(current->username, username) == 0) {
+            cout << "Admin found. What would you like to update?" << endl;
+            cout << "1. Username" << endl;
+            cout << "2. Password" << endl;
+            cout << "3. Both" << endl;
+
+            int choice;
+            cin >> choice;
+            switch (choice) {
+                case 1:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
+                    break;
+                case 2:
+                    cout << "Enter new password: ";
+                    cin >> current->password;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
+                    break;
+                case 3:
+                    cout << "Enter new username: ";
+                    cin >> current->username;
+                    if (!validateInput(current->username, MAX_LENGTH)) return;
+                    cout << "Enter new password: ";
+                    cin >> current->password;
+                    if (!validateInput(current->password, MAX_LENGTH)) return;
+                    break;
+                default:
+                    cout << "Invalid choice. No updates made." << endl;
+                    return;
+            }}
+        update_admin_in_db(username, current->password);
+    } else {
+        cout << " Admin search discarded. Not update in database." << endl;
+    }
+   
 }
 
-void search_admin() {
-    char username[50];
+void search_admin(){
+    char username[MAX_LENGTH];
     cout << "Enter admin username to search: ";
     cin >> username;
-    if (!validateInput(username, 50)) return;
+    if (!validateInput(username, MAX_LENGTH)) return;
 
     Admin* current = admin_head;
     while (current != nullptr) {
         if (strcmp(current->username, username) == 0) {
-            cout << "Admin found:" << endl;
+            cout << "Admin found in temporary storage:" << endl;
             cout << "Username: " << current->username << endl;
             cout << "Password: " << string(strlen(current->password), '*') << endl;
             return;
         }
         current = current->next;
     }
-    cout << "Admin not found." << endl;
+    cout << " Admin not found in temporary storage." << endl;
+cout << "Would you like to search from the  this from the database? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                search_admin_in_db(username);
+            } else {
+                cout << " Admin search discarded. Not searched in database." << endl;
+            }
 }
+  
+void delete_admin(){
 
-void delete_admin() {
-    char username[50];
+    char username[MAX_LENGTH];
     cout << "Enter admin username to delete: ";
     cin >> username;
-    if (!validateInput(username, 50)) return;
-
-    Admin* current = admin_head;
-    Admin* prev = nullptr;
-
-    while (current != nullptr) {
-        if (strcmp(current->username, username) == 0) {
-            if (prev == nullptr) {
+  Admin *current = admin_head;
+    Admin *prev = NULL;
+    while(current != NULL){
+        if(strcmp(current->username, username) == 0){
+            if(prev == NULL){
                 admin_head = current->next;
-            } else {
+            }else{
                 prev->next = current->next;
             }
-
-            if (current == admin_tall) {
+            if(current == admin_tall){
                 admin_tall = prev;
             }
-
             delete current;
-            cout << "Admin deleted successfully!" << endl;
+            cout << "Admin deleted successfully from temporary!" << endl;
+            cout << "Would you like to delete this from the database as well? (yes/no): ";
+            string confirmation;
+            cin >> confirmation;
+            if (confirmation == "yes" || confirmation == "y") {
+                delete_admin_from_db(username);
+                cout << "Admin deleted successfully from the database!" << endl;
+            } else {
+                cout << "Admin deletion from the database discarded." << endl;
+            }
             return;
         }
         prev = current;
         current = current->next;
     }
-    cout << "Admin not found." << endl;
+    cout << " Admin not found in temporary storage." << endl;
+    cout << "Would you like to delete this from the database as well? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        delete_admin_from_db(username);
+        cout << "Admin deleted successfully from the database!" << endl;
+    } else {
+        cout << "Admin deletion from the database discarded." << endl;
+    }
+   
 }
 
-void display_admin() {
-    if (admin_head == nullptr) {
-        cout << "No admins found in the system." << endl;
+void display_all_admins(){
+    Admin* current = admin_head;
+    if (current == nullptr) {
+        cout << " No admins found in temporary storage." << endl;
+         cout << "Admins in temporary storage:" << endl;
+     cout << "Would you like to display all admins from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_admin();
+    } else {
+        cout << " Admins not displayed from the database." << endl;
+    }
         return;
     }
-
-    Admin* current = admin_head;
-    int count = 1;
-    cout << "\nAdmin List:" << endl;
-    cout << "------------------------" << endl;
-
+   
     while (current != nullptr) {
-        cout << count << ". Username: " << current->username << endl;
-        cout << "   Password: " << string(strlen(current->password), '*') << endl;
+        cout << "Username: " << current->username << endl;
+        cout << "Password: " << string(strlen(current->password), '*') << endl;
         cout << "------------------------" << endl;
         current = current->next;
-        count++;
+    }
+    current = admin_head;
+    cout << "Would you like to display all admins from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_admin();
+    } else {
+        cout << " Admins not displayed from the database." << endl;
     }
 }

@@ -1,25 +1,19 @@
-#include "auth_service.h"
+#include "./auth_service.h"
 #include <iostream>
 #include <cstring>
 #include "../middleware/input_validation.h"
+#include "../database/admin/AdminDBOperations.h"
 
+#include "../database/superadmin/SuperAdminDBOperations.h"
 using namespace std;
 
-// Define global pointers for the linked list
+
 Admin* admin_head = nullptr;
 Admin* admin_tall = nullptr;
 
-// Define global variables
-bool isSuperAdmin = false;
+
+bool isSuperAdmin = false;  
 bool isAuthenticated = false;
-
-// Define super admin credentials
-const char superAdminUsername[] = "superadmin";
-const char superAdminPassword[] = "superpassword";
-
-// Fetch SuperAdmin credentials from environment variables
-// const char* superAdminUsername = std::getenv("SUPERADMIN_USERNAME");
-// const char* superAdminPassword = std::getenv("SUPERADMIN_PASSWORD");
 
 bool login(bool isSuper) {
     char username[50];
@@ -36,8 +30,13 @@ bool login(bool isSuper) {
     cin >> password;
     if (!validateInput(password, 50)) return false;
 
+ 
+    string usernameStr(username);
+    string passwordStr(password);
+
     if (isSuper) {
-        if (strcmp(username, superAdminUsername) == 0 && strcmp(password, superAdminPassword) == 0) {
+        
+        if (checkSuperAdminCredentials(usernameStr, passwordStr)) {
             isSuperAdmin = true;
             isAuthenticated = true;
             cout << "\n=============================================" << endl;
@@ -51,20 +50,17 @@ bool login(bool isSuper) {
             return false;
         }
     } else {
-        Admin* current = admin_head;
-        while (current != nullptr) {
-            if (strcmp(current->username, username) == 0 && strcmp(current->password, password) == 0) {
-                isAuthenticated = true;
-                cout << "\n=============================================" << endl;
-                cout << "          Admin Login Successful!" << endl;
-                cout << "=============================================" << endl;
-                return true;
-            }
-            current = current->next;
+        if (check_admin_credentials(usernameStr, passwordStr)) {
+            isAuthenticated = true;
+            cout << "\n=============================================" << endl;
+            cout << "          Admin Login Successful!" << endl;
+            cout << "=============================================" << endl;
+            return true;
+        } else {
+            cout << "\n=============================================" << endl;
+            cout << "    Invalid Admin Credentials!" << endl;
+            cout << "=============================================" << endl;
+            return false;
         }
-        cout << "\n=============================================" << endl;
-        cout << "    Invalid Admin Credentials!" << endl;
-        cout << "=============================================" << endl;
-        return false;
     }
 }
