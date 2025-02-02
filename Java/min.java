@@ -38,17 +38,16 @@ class Student {
     }
 }
 
-class Staff extends Student {
+class Staff extends Student{
     String staff_id;
     String job;
 
     public Staff(String full_name, String staff_id, String gender, String phone_number, String department, String job, int year, String pc_name, String pc_serial, String pc_model) {
-        super(full_name, null, gender, phone_number, department, year, pc_name, pc_serial, pc_model);
+        super(full_name, staff_id, gender, phone_number, department, year, pc_name, pc_serial, pc_model); 
         this.staff_id = staff_id;
         this.job = job;
     }
 
-    @Override
     public void displayDetails() {
         System.out.println("----------------------");
         System.out.println("Staff's Name: " + full_name);
@@ -65,40 +64,12 @@ class Staff extends Student {
     }
 }
 
-class Nonstaff extends Student {
+class Nonstaff extends Student{
     String nonstaff_id;
 
     public Nonstaff(String full_name, String nonstaff_id, String gender, String phone_number, String pc_name, String pc_serial, String pc_model) {
-        super(full_name, null, gender, phone_number, null, 0, pc_name, pc_serial, pc_model);
+        super(full_name, nonstaff_id, gender, phone_number, null, 0, pc_name, pc_serial, pc_model);
         this.nonstaff_id = nonstaff_id;
-    }
-
-    @Override
-    public void displayDetails() {
-        System.out.println("----------------------");
-        System.out.println("NonStaff's Name: " + full_name);
-        System.out.println("NonStaff's ID: " + nonstaff_id);
-        System.out.println("NonStaff's Gender: " + gender);
-        System.out.println("NonStaff's Phone Number: " + phone_number);
-        System.out.println("NonStaff's PC Name: " + pc_name);
-        System.out.println("NonStaff's PC Serial: " + pc_serial);
-        System.out.println("NonStaff's PC Model: " + pc_model);
-        System.out.println("----------------------");
-    }
-}
-
-class Nonstaff expends Student{
-    String full_name;
-    String nonstaff_id;
-
-    public Nonstaff(String full_name, String nonstaff_id, String gender, String phone_number, String pc_name, String pc_serial, String pc_model) {
-        this.full_name = full_name;
-        this.nonstaff_id = nonstaff_id;
-        this.gender = gender;
-        this.phone_number = phone_number;
-        this.pc_name = pc_name;
-        this.pc_serial = pc_serial;
-        this.pc_model = pc_model;
     }
 
     public void displayDetails() {
@@ -117,13 +88,17 @@ class Nonstaff expends Student{
 class Admin {
     private String username;
     private String password;
+    private int rollNumber; 
 
-    public Admin(String username, String password) {
+    public Admin(String username, String password, int rollnumber) {
         this.username = username;
         this.password = password;
+        this.rollNumber = rollNumber;
     }
 
     public void displayDetails() {
+        System.out.println("--------------------");
+        System.out.println("Admin's RollNumber: " + rollNumber);
         System.out.println("Admin's Username: " + username);
         System.out.println("Admin's Password: " + password);
     }
@@ -287,48 +262,62 @@ public class min {
     }
     
     public static void changeUsername(SuperAdmin superAdminInstance) {
+        System.out.println("Enter old username:");
+        String oldUsername = input.next();
+        if (!oldUsername.equals(superAdminInstance.getUserName())) {
+            System.out.println("Invalid username");
+            return;
+        }
         System.out.println("Enter new username:");
         String newUsername = input.next();
         superAdminInstance.setUserName(newUsername);
         System.out.println("Username changed successfully");
+        System.out.println("New username: " + superAdminInstance.getUserName());
     }
     
     public static void changePassword(SuperAdmin superAdminInstance) {
+        System.out.println("Enter old password:");
+        String oldPassword = input.next();
+        if (!oldPassword.equals(superAdminInstance.getPassword())) {
+            System.out.println("Invalid password");
+            return;
+        }
         System.out.println("Enter new password:");
         String newPassword = input.next();
         superAdminInstance.setPassword(newPassword);
         System.out.println("Password changed successfully");
+        System.out.println("New password: " + superAdminInstance.getPassword());
+        System.out.println("--------------------");
     }
 
     public static void addAdmin() {
         System.out.println("Add Admin to the System");
         System.out.println("--------------------");
-        System.out.println("Enter Admin's Roll Number Password");
-        String rollNumber = input.next();
+        System.out.println("Enter Admin's Roll Number:");
+        int rollNumber = input.nextInt();
         System.out.println("Enter Admin's username:");
         String username = input.next();
         System.out.println("Enter Admin's password:");
         String password = input.next();
-        Admin newAdmin = new Admin(username, password);
+        Admin newAdmin = new Admin(username, password, rollNumber);
         admins.add(newAdmin);
         System.out.println("Admin added successfully");
     }
 
     public static void removeAdmin() {
         System.out.println("Enter Admin's Roll Number to remove:");
-        int rollnumber = input.nextInt();
+        int rollNumber = input.nextInt();
         for (int i = 0; i < admins.size(); i++) {
-            if (admins.getRollNumber().equals(rollnumber)) {
-                System.out.println(" you want to remove the Admin: " + admins.get(i).getUserName());
+            if (admins.get(i).getRollNumber() == rollNumber) {
+                System.out.println("Do you want to remove the Admin: " + admins.get(i).getUserName());
                 System.out.println("1. Yes");
                 System.out.println("2. No");
                 int choice = input.nextInt();
-                if (choice == 1){
+                if (choice == 1) {
                     admins.remove(i);
                     System.out.println("Admin removed successfully");
                     return;
-                }
-                else{
+                } else {
                     System.out.println("Admin is not removed");
                     return;
                 }
@@ -336,14 +325,12 @@ public class min {
         }
         System.out.println("Admin not found");
     }
-
     public static void searchAdmin() {
-        System.out.println("Enter admin's roll number to search:");
-        int rollnumber = input.nextInt();
-        
-        for (int i = 0; i < admins.size(); i++) {
-            if (admins.get(i).getRollNumber().equals(rollnumber)) {
-                admins.get(i).displayDetails();
+        System.out.println("Enter Admin's Roll Number to search:");
+        int rollNumber = input.nextInt();
+        for (Admin admin : admins) {
+            if (admin.getRollNumber() == rollNumber) {
+                admin.displayDetails();
                 return;
             }
         }
@@ -421,13 +408,58 @@ public class min {
 
 
     public static void changeUsernameAndPassword(Admin adminInstance) {
+        while (true) { 
+            System.out.println("Change username and password");
+            System.out.println("--------------------");
+            System.out.println("What do you want to do?");
+            System.out.println("1. Change username");
+            System.out.println("2. Change password");
+            System.out.println("3. Exit");
+            System.out.println("--------------------");
+    
+            System.out.println("Insert your choice:");
+            int choice = input.nextInt();
+            if (choice == 1) {
+                changeUsername(adminInstance);
+            } else if (choice == 2) {
+                changePassword(adminInstance);
+            } else if (choice == 3) {
+                System.out.println("Exiting...... Have a good Day");
+                break;
+            } else {
+                System.out.println("Invalid choice");
+            }
+        }
+    }
+    
+    public static void changeUsername(Admin adminInstance) {
+        System.out.println("Enter old username:");
+        String oldUsername = input.next();
+        if (!oldUsername.equals(adminInstance.getUserName())) {
+            System.out.println("Invalid username");
+            return;
+        }
         System.out.println("Enter new username:");
         String newUsername = input.next();
+        adminInstance.setUserName(newUsername);
+        System.out.println("Username changed successfully");
+        System.out.println("New username: " + adminInstance.getUserName());
+        System.out.println("--------------------");
+    }
+    
+    public static void changePassword(Admin adminInstance) {
+        System.out.println("Enter old password:");
+        String oldPassword = input.next();
+        if (!oldPassword.equals(adminInstance.getPassword())) {
+            System.out.println("Invalid password");
+            return;
+        }
         System.out.println("Enter new password:");
         String newPassword = input.next();
-        adminInstance.setUserName(newUsername);
         adminInstance.setPassword(newPassword);
-        System.out.println("Username and password changed successfully");
+        System.out.println("Password changed successfully");
+        System.out.println("New password: " + adminInstance.getPassword());
+        System.out.println("--------------------");
     }
 
     public static void registerPCForStudent() {
@@ -518,26 +550,64 @@ public class min {
     }
 
     public static void displayPCForStudent() {
-        for (Student student : students) {
-            student.displayDetails();
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            student.displayDetails(); 
+        }
+    }
+    
+    public static void registerPCForStaff() {
+        while (true) {
+            System.out.println("Register for PC");
+            System.out.println("--------------------");
+            System.out.println("What do you want to do?");
+            System.out.println("1. Add");
+            System.out.println("2. Delete");
+            System.out.println("3. Search");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+            System.out.println("--------------------");
+
+            System.out.println("Insert your choice:");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    addPCForStaff();
+                    break;
+                case 2:
+                    deletePCForStaff();
+                    break;
+                case 3:
+                    searchPCForStaff();
+                    break;
+                case 4:
+                    displayPCForStaff();
+                    break;
+                case 5:
+                    System.out.println("Exiting...... Have a good Day");
+                    return;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
         }
     }
 
-    public static void registerPCForStaff() {
-        System.out.println("Enter staff's name:");
+    public static void addPCForStaff() {
+        System.out.println("Enter staff name:");
         String full_name = input.next();
-        System.out.println("Enter staff's ID:");
+        System.out.println("Enter staff ID:");
         String staff_id = input.next();
-        System.out.println("Enter staff's gender:");
+        System.out.println("Enter staff gender:");
         String gender = input.next();
-        System.out.println("Enter staff's phone number:");
+        System.out.println("Enter staff phone number:");
         String phone_number = input.next();
-        System.out.println("Enter staff's department:");
+        System.out.println("Enter staff department:");
         String department = input.next();
+        System.out.println("Enter staff year:");
+        int year = input.nextInt();
         System.out.println("Enter staff's job:");
         String job = input.next();
-        System.out.println("Enter staff's year:");
-        int year = input.nextInt();
         System.out.println("Enter staff's PC name:");
         String pc_name = input.next();
         System.out.println("Enter staff's PC serial:");
@@ -547,17 +617,85 @@ public class min {
 
         Staff staff = new Staff(full_name, staff_id, gender, phone_number, department, job, year, pc_name, pc_serial, pc_model);
         staffs.add(staff);
-        System.out.println("Staff registered successfully");
+        System.out.println("Student registered successfully");
+    }
+
+    public static void deletePCForStaff() {
+        System.out.println("Enter Staff's ID to delete:");
+        String staff_id = input.next();
+        for (int i = 0; i < staffs.size(); i++) {
+            if (staffs.get(i).staff_id.equals(staff_id)) {
+                students.remove(i);
+                System.out.println("Staff removed successfully");
+                return;
+            }
+        }
+        System.out.println("Student not found");
+    }
+
+    public static void searchPCForStaff() {
+        System.out.println("Enter Staff's ID to search:");
+        String staff_id = input.next();
+        for (int i = 0; i < staffs.size(); i++) {
+            if (staffs.get(i).staff_id.equals(staff_id)) {
+                staffs.get(i).displayDetails(); 
+                return;
+            }
+        }
+        System.out.println("Staff not found");
+    }
+
+    public static void displayPCForStaff() {
+        for (int i = 0; i < staffs.size(); i++) {
+            Staff staff = staffs.get(i); 
+            staff.displayDetails(); 
+        }
     }
 
     public static void registerPCForNonstaff() {
-        System.out.println("Enter nonstaff's name:");
+        while (true) {
+            System.out.println("Register for PC");
+            System.out.println("--------------------");
+            System.out.println("What do you want to do?");
+            System.out.println("1. Add");
+            System.out.println("2. Delete");
+            System.out.println("3. Search");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+            System.out.println("--------------------");
+
+            System.out.println("Insert your choice:");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    addPCFornonstaff();
+                    break;
+                case 2:
+                    deletePCForNonstaff();
+                    break;
+                case 3:
+                    searchPCForNonstaff();
+                    break;
+                case 4:
+                    displayPCForNonstaff();
+                    break;
+                case 5:
+                    System.out.println("Exiting...... Have a good Day");
+                    return;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+        }
+    }
+    public static void addPCFornonstaff() {
+        System.out.println("Enter nonstaff name:");
         String full_name = input.next();
-        System.out.println("Enter nonstaff's ID:");
+        System.out.println("Enter nonstaff ID:");
         String nonstaff_id = input.next();
-        System.out.println("Enter nonstaff's gender:");
+        System.out.println("Enter nonstaff gender:");
         String gender = input.next();
-        System.out.println("Enter nonstaff's phone number:");
+        System.out.println("Enter nonstaff phone number:");
         String phone_number = input.next();
         System.out.println("Enter nonstaff's PC name:");
         String pc_name = input.next();
@@ -568,6 +706,38 @@ public class min {
 
         Nonstaff nonstaff = new Nonstaff(full_name, nonstaff_id, gender, phone_number, pc_name, pc_serial, pc_model);
         nonstaffs.add(nonstaff);
-        System.out.println("Nonstaff registered successfully");
+        System.out.println("Student registered successfully");
+    }
+
+    public static void deletePCForNonstaff() {
+        System.out.println("Enter student ID to delete:");
+        String nonstaff_id = input.next();
+        for (int i = 0; i < nonstaffs.size(); i++) {
+            if (nonstaffs.get(i).nonstaff_id.equals(nonstaff_id)) {
+                students.remove(i);
+                System.out.println("Nonstaff removed successfully");
+                return;
+            }
+        }
+        System.out.println("Nonstaff not found");
+    }
+
+    public static void searchPCForNonstaff() {
+        System.out.println("Enter Nonstaff ID to search:");
+        String nonstaff_id = input.next();
+        for (int i = 0; 1 < nonstaffs.size();i++) {
+            if (nonstaffs.get(i).nonstaff_id.equals(nonstaff_id)) {
+                nonstaffs.get(i).displayDetails();
+                return;
+            }
+        }
+        System.out.println("Nonstaff not found");
+    }
+
+    public static void displayPCForNonstaff() {
+        for (int i = 0; i < nonstaffs.size(); i++) {
+            Nonstaff nonstaff = nonstaffs.get(i);
+            nonstaff.displayDetails(); 
+        }
     }
 }
