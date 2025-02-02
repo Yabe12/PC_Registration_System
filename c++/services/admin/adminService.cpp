@@ -161,6 +161,14 @@ void display_all_admins(){
         return;
     }
     cout << "Admins in temporary storage:" << endl;
+     cout << "Would you like to display all admins from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_admin();
+    } else {
+        cout << " Admins not displayed from the database." << endl;
+    }
     while (current != nullptr) {
         cout << "Username: " << current->username << endl;
         cout << "Password: " << string(strlen(current->password), '*') << endl;

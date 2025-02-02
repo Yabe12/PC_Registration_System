@@ -223,6 +223,15 @@ void display_nonstaff() {
     if(current==NULL)
 {
     cout << "No nonstaff found in the temporary." << endl;
+     cout << "would like to connect to the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_all_nonstaff_from_db();
+    } else {
+        cout << "Nonstaff not displayed from the database." << endl;
+    }
+    
     return;
 }
 cout <<"nonstaff in the temporary storage" << endl;
@@ -242,4 +251,5 @@ while(current != NULL){
         display_all_nonstaff_from_db();
     } else {
         cout << "Nonstaff not displayed from the database." << endl;
-    }}
+    }
+    }

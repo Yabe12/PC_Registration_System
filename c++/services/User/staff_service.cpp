@@ -279,6 +279,14 @@ void display_staff() {
     staff* current = staff_head;
     if (current == nullptr) {
         cout << "No staff found in the temporary list." << endl;
+           cout << "Would you like to display all staff from the database? (yes/no): ";
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_all_staff_from_db();
+    } else {
+        cout << "Staff display discarded. Not displayed from database." << endl;
+    }
         return; 
     }
 

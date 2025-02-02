@@ -109,6 +109,14 @@ void display_students() {
     if(current==NULL)
 {
     cout << "No students found in the temporary." << endl;
+    cout << "would like to display all student from the database.?(yes/no)" << endl;
+    string confirmation;
+    cin >> confirmation;
+    if (confirmation == "yes" || confirmation == "y") {
+        display_all_students_from_db();
+    }else{
+        cout << "Students not displayed from the database." << endl;
+    }
     return;
 }
 cout <<"students in the temporary storage" << endl;
